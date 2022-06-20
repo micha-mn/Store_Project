@@ -11,6 +11,6 @@ public class StoreController {
 
 	@RequestMapping(value="/home")
 	public ModelAndView mainPage(ModelMap model) {
-		return new ModelAndView("html/dashboard");
+		return new ModelAndView("html/tables");
 	}
 }

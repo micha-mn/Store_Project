@@ -13,8 +13,20 @@ public class StoreController {
 	public ModelAndView mainPage(ModelMap model) {
 		return new ModelAndView("html/index");
 	}
-	@RequestMapping(value="/tables")
-	public ModelAndView tablesPage(ModelMap model) {
-		return new ModelAndView("html/tables");
+	@RequestMapping(value="/supplier")
+	public ModelAndView supplierTablesPage(ModelMap model) {
+		return new ModelAndView("html/supplier_tables");
+	}
+	@RequestMapping(value="/client")
+	public ModelAndView clientTablesPage(ModelMap model) {
+		return new ModelAndView("html/client_tables");
+	}
+	@RequestMapping(value="/items")
+	public ModelAndView itemsTablesPage(ModelMap model) {
+		return new ModelAndView("html/items_tables");
+	}
+	@RequestMapping(value="/sales")
+	public ModelAndView salesTablesPage(ModelMap model) {
+		return new ModelAndView("html/sales_tables");
 	}
 }

@@ -9,6 +9,10 @@ import org.springframework.web.servlet.ModelAndView;
 @RequestMapping(value="store")
 public class StoreController {
 
+	@RequestMapping(value="/login")
+	public ModelAndView loginPage(ModelMap model) {
+		return new ModelAndView("html/login");
+	}
 	@RequestMapping(value="/home")
 	public ModelAndView mainPage(ModelMap model) {
 		return new ModelAndView("html/index");

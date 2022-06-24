@@ -8,8 +8,9 @@ import com.store.StoreApplication;
 @SpringBootTest(classes=StoreApplication.class)
 class StoreApplicationTests {
 
-	@Test
-	void contextLoads() {
-	}
-
+	
+	  @Test void contextLoads() { 
+		  
+	  }
+	 
 }

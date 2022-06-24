@@ -5302,12 +5302,13 @@ ol li .jqx-listmenu-item-label:before {
 .jqx-info {
     color: #ffffff !important;
     text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25) !important;
-    background-color: #5bc0de !important;
-    *background-color: #5bc0de !important;
-    border-left-color: #46b8da !important;
-    border-right-color: #46b8da !important;
-    border-top-color: #46b8da !important;
-    border-bottom-color: #46b8da !important;
+    background-color: #9a1eb7 !important;
+    *background-color: #9a1eb7 !important;
+    border-left-color: #9a1eb7 !important;
+    border-right-color: #9a1eb7 !important;
+    border-top-color: #9a1eb7 !important;
+    border-bottom-color: #9a1eb7 !important;
+    border-radius: 0.5rem;
 }
 
 .jqx-info:hover,

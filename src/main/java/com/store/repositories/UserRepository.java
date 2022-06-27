@@ -7,4 +7,5 @@ import com.store.domain.User;
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
 	Optional<User> findByUserName(String username);
+	User findUserByUserName(String username);
 }

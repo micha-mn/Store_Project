@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor 
 @AllArgsConstructor
-public class MessageResponseDTO {
-	private String message;
+public class UserInfoResponseDTO {
+	    private Long id;
+	    private String username;
 }

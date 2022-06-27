@@ -10,9 +10,13 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+import com.store.security.jwt.AuthEntryPointJwt;
+import com.store.security.jwt.AuthTokenFilter;
 import com.store.services.CustomUserDetailsService;
 
 @Configuration
@@ -23,6 +27,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private CustomUserDetailsService userDetailsService;
 
+    @Autowired
+    private AuthEntryPointJwt unauthorizedHandler;
+    
+    @Bean
+    public AuthTokenFilter authenticationJwtTokenFilter() {
+      return new AuthTokenFilter();
+    }
+    
     @Bean
     PasswordEncoder passwordEncoder(){
         return new BCryptPasswordEncoder();
@@ -30,15 +42,29 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http
-                .csrf().disable()
-                .authorizeRequests()
-                .antMatchers(HttpMethod.GET, "/api/**").permitAll()
-                .antMatchers("/api/auth/**").permitAll()
-                .anyRequest()
-                .authenticated()
-                .and()
-                .httpBasic();
+    	
+    	 http.cors().and().csrf().disable()
+    	 .formLogin().disable()
+    	 .exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
+    	 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
+    	 .authorizeRequests().antMatchers("/api/auth/**").permitAll()
+    	 .antMatchers("/store/login").permitAll()
+    	 .antMatchers("/store/**").hasAuthority("ADMIN")
+    	 .antMatchers(
+                 "/js/**",
+                 "/css/**",
+                 "/img/**").permitAll()
+	     .anyRequest().authenticated();
+    	 
+    	 http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
+    	 /*
+    	http.csrf().disable()
+          .authorizeRequests().antMatchers("/api/auth/**").permitAll().
+          anyRequest().authenticated().and().
+          exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and().sessionManagement()
+          .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+    	 http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);*/
+
     }
 
     @Override

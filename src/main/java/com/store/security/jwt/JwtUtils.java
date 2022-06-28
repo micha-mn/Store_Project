@@ -22,16 +22,7 @@ public class JwtUtils {
 	private int jwtExpirationMs;
     @Value("${bezkoder.app.jwtCookieName}")
 	
-	 private String jwtCookie;
-	  public String getJwtFromCookies(HttpServletRequest request ) {
-	    Cookie cookie = WebUtils.getCookie(request, jwtCookie);
-	    if (cookie != null) {
-	      return cookie.getValue();
-	    } else {
-	      return null;
-	    }
-	  }
-	  
+	
 	public String generateJwtToken(String username) {
 		return Jwts.builder()
 				.setSubject((username))
@@ -40,15 +31,6 @@ public class JwtUtils {
 				.signWith(SignatureAlgorithm.HS512, jwtSecret)
 				.compact();
 	}
-	 public ResponseCookie generateJwtCookie(String username) {
-		    String jwt = generateJwtToken(username);
-		    ResponseCookie cookie = ResponseCookie.from(jwtCookie, jwt).path("/api").maxAge(1 * 60 * 60).httpOnly(true).build();
-		    return cookie;
-		  }
-	public ResponseCookie getCleanJwtCookie() {
-		    ResponseCookie cookie = ResponseCookie.from(jwtCookie, null).path("/api").build();
-		    return cookie;
-		  }
 	public String getUserNameFromJwtToken(String token) {
 		return Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(token).getBody().getSubject();
 	}

@@ -43,7 +43,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
     	
-    	 http.cors().and().csrf().disable()
+    	/* http.cors().and().csrf().disable()
     	 .formLogin().disable()
     	 .exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
     	 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
@@ -55,15 +55,26 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                  "/css/**",
                  "/img/**").permitAll()
 	     .anyRequest().authenticated();
-    	 
-    	 http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
-    	 /*
-    	http.csrf().disable()
-          .authorizeRequests().antMatchers("/api/auth/**").permitAll().
-          anyRequest().authenticated().and().
-          exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and().sessionManagement()
-          .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-    	 http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);*/
+	     
+	      http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
+    	
+    	 */
+    	http.cors().and().csrf().disable()
+   	 .formLogin().disable()
+   	 .exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
+   	 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
+   	 .authorizeRequests().antMatchers("/api/auth/**").permitAll()
+   	 .antMatchers("/store/login").permitAll() .antMatchers("/store/supplier").permitAll()
+   	 .antMatchers("/store/**").hasAuthority("ADMIN")
+   	 .antMatchers(
+                "/js/**",
+                "/css/**",
+                "/img/**").permitAll()
+	     .anyRequest().authenticated();
+	     
+	      http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
+   	
+    	
 
     }
 

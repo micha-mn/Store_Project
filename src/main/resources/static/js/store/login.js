@@ -20,12 +20,9 @@ $(document).ready(function() {
         dataParam={"userName":$('#username').val(),
 			  "password":$('#password').val()
 			 };
-		debugger;
 		
-		const response = async() => {
-    try {
-        var res;
-        await  $.ajax({
+		debugger;
+	   $.ajax({
       	    	        type: "POST",
       	    	        contentType: "application/json",
       	    	        url: "/api/auth/signin",
@@ -35,6 +32,9 @@ $(document).ready(function() {
       	    	        cache: false,
       	    	        timeout: 600000,
       	    	        success: function (data) {
+						setJwtToken(data.jwt)
+						window.location.href='/store/home'
+						  
       	   },
       	    	        error: function (e) {
       	    	        	
@@ -42,30 +42,8 @@ $(document).ready(function() {
       	
       	    	        }
       	    	    });
-        return res;
-    } catch (err) {
-        console.log(err);
-    }
-}
-	var results = await getResource()
-return results.PromiseValue // undefined		
-		  	 /* $.ajax({
-      	    	        type: "POST",
-      	    	        contentType: "application/json",
-      	    	        url: "/api/auth/signin",
-      	    	        data: JSON.stringify(dataParam),
-      	    	        dataType: 'json',
-      	    	        async:true,
-      	    	        cache: false,
-      	    	        timeout: 600000,
-      	    	        success: function (data) {
-      	   },
-      	    	        error: function (e) {
-      	    	        	
-      						  console.log("ERROR : ", e);
-      	
-      	    	        }
-      	    	    });*/
 		 
     })
 });
+
+

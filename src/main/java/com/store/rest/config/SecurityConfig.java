@@ -1,6 +1,7 @@
 package com.store.rest.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -39,7 +40,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     PasswordEncoder passwordEncoder(){
         return new BCryptPasswordEncoder();
     }
-
+   
     @Override
     protected void configure(HttpSecurity http) throws Exception {
     	
@@ -77,11 +78,31 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     	
 
     }
+    @Value("${ldap.urls}")
+    private String ldapUrls;
 
+    @Value("${ldap.base.dn}")
+    private String ldapBaseDn;
+
+    @Value("${ldap.username}")
+    private String ldapSecurityPrincipal;
+
+    @Value("${ldap.password}")
+    private String ldapPrincipalPassword;
+
+    @Value("${ldap.user.dn.pattern}")
+    private String ldapUserDnPattern;
+    
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(userDetailsService)
-                .passwordEncoder(passwordEncoder());
+		auth
+        .ldapAuthentication()
+        .contextSource()
+        .url(ldapUrls + ldapBaseDn)
+        .managerDn(ldapSecurityPrincipal)
+        .managerPassword(ldapPrincipalPassword)
+        .and()
+        .userDnPatterns(ldapUserDnPattern);
     }
 
     @Override

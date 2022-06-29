@@ -56,24 +56,29 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                  "/img/**").permitAll()
 	     .anyRequest().authenticated();
 	     
-	      http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
-    	
+	      http
+         .csrf().disable()
+         .authorizeRequests()
+         .antMatchers(HttpMethod.GET, "/api/**").permitAll()
+         .antMatchers("/api/auth/**").permitAll()
+         .anyRequest()
+         .authenticated()
+         .and()
+         .httpBasic();
     	 */
-    	http.cors().and().csrf().disable()
-   	 .formLogin().disable()
-   	 .exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
-   	 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
-   	 .authorizeRequests().antMatchers("/api/auth/**").permitAll()
-   	 .antMatchers("/store/login").permitAll() .antMatchers("/store/supplier").permitAll()
-   	 .antMatchers("/store/**").hasAuthority("ADMIN")
-   	 .antMatchers(
-                "/js/**",
-                "/css/**",
-                "/img/**").permitAll()
+    	 http.cors().and().csrf().disable()
+    	 .formLogin().disable()
+    	 .exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
+    	 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
+    	 .authorizeRequests().antMatchers("/api/auth/**").permitAll()
+    	 .antMatchers("/store/login").permitAll()
+    	 .antMatchers("/store/**").hasAuthority("ADMIN")
+    	 .antMatchers(
+                 "/js/**",
+                 "/css/**",
+                 "/img/**").permitAll()
 	     .anyRequest().authenticated();
-	     
-	      http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
-   	
+    	 http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
     	
 
     }

@@ -32,9 +32,21 @@ $(document).ready(function() {
       	    	        cache: false,
       	    	        timeout: 600000,
       	    	        success: function (data) {
-						setJwtToken(data.jwt)
-						window.location.href='/store/home'
-						  
+						
+					
+					   var settings = {
+						  "url": "/store/home",
+						  "method": "POST",
+						  "timeout": 0,
+						  "headers": {
+						    "Authorization": "Bearer "+data.jwt
+						  },
+						};
+						
+						$.ajax(settings).done(function (response) {
+							wind
+						  console.log(response);
+						});
       	   },
       	    	        error: function (e) {
       	    	        	
@@ -46,4 +58,15 @@ $(document).ready(function() {
     })
 });
 
+
+/* async function handleLogin(dataParam) {
+  // Call login method in API
+  // The server handler is responsible for setting user fingerprint cookie during this as well
+  const { jwtToken } = await login(dataParam)
+  setJwtToken(jwtToken)
+ // setRefreshToken(refreshToken)
+
+  // If you like, you may redirect the user now
+  Router.push("/some-url")
+}*/
 

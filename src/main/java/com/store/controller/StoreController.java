@@ -1,11 +1,8 @@
 package com.store.controller;
 
-import java.io.IOException;
-
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -17,17 +14,10 @@ public class StoreController {
 	public ModelAndView loginPage(ModelMap model) {
 		return new ModelAndView("html/login");
 	}
-
-	
-	  @RequestMapping(value="/home") public ModelAndView mainPage(ModelMap model) {
-	  return new ModelAndView("html/index"); }
-	 
-	
-	/*
-	 * @RequestMapping(value = "/home") protected ModelAndView
-	 * mainPage(@RequestHeader(value = "Authorization", required=false) String
-	 * credentials) throws IOException { return new ModelAndView("html/index"); }
-	 */
+	@RequestMapping(value="/home", params = {"jwt"} )
+	public ModelAndView mainPage(ModelMap model) {
+		return new ModelAndView("html/index");
+	}
 	@RequestMapping(value="/supplier")
 	public ModelAndView supplierTablesPage(ModelMap model) {
 		return new ModelAndView("html/supplier_tables");

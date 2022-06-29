@@ -60,7 +60,8 @@ public class AuthController {
 	  	 User user = userService.getUserInfoByUsername(authentication.getName());
 	  	 
 	     String jwtText =  jwtUtils.generateJwtToken(user.getUserName());
-         return ResponseEntity.ok()
+	   
+         return ResponseEntity.ok().header(HttpHeaders.SET_COOKIE, jwtText)
         		 .body(new UserInfoResponseDTO(user.getId(), 
         		 									user.getUserName(), jwtText));
      }

@@ -3,6 +3,7 @@ package com.store.domain;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -15,15 +16,13 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor 
 @AllArgsConstructor
 @Entity
-@Table(name = "Supplier")
-public class Supplier {
+@Table(name = "naming_sequence")
+public class NamingSequence {
 	@Id
     @GeneratedValue
-    private Long id;
-	private String suppCode;
-    private String firstName;
-    private String lastName;
-	private String address;
-    private String phone;
-    private String instagram;
+    @SequenceGenerator(name = "supp_sequence", sequenceName = "supp_sequence")
+    private String suppSequence;
+	@GeneratedValue
+    @SequenceGenerator(name = "item_sequence", sequenceName = "item_sequence")
+    private String itemSequence;
 }

@@ -45,3 +45,26 @@ ALTER TABLE IF EXISTS public.user_roles
 INSERT INTO public.user_roles(
 	user_id, role_id)
 	VALUES (1, 1);
+	
+
+CREATE TABLE IF NOT EXISTS supplier (
+	id serial PRIMARY KEY,
+	Supp_code VARCHAR ( 50 ) UNIQUE NOT NULL,
+    first_name VARCHAR ( 255 ) NOT NULL,
+    last_name VARCHAR ( 255 ) NOT NULL,
+    address VARCHAR ( 255 ) NOT NULL,
+    phone VARCHAR ( 50 ) NOT NULL,
+    instagram VARCHAR ( 255 )
+);
+
+CREATE SEQUENCE supp_sequence START 1;
+CREATE SEQUENCE item_sequence START 1;
+
+CREATE TABLE IF NOT EXISTS naming_sequence (
+    supp_sequence VARCHAR ( 255 ) NOT NULL,
+    item_sequence VARCHAR ( 255 ) NOT NULL
+);
+
+INSERT INTO public.naming_sequence(
+	supp_sequence, item_sequence)
+	VALUES (nextval('supp_sequence'), nextval('item_sequence'));

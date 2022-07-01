@@ -1,17 +1,15 @@
 package com.store.utils;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 
-import com.store.domain.Supplier;
-import com.store.repositories.NamingSequenceRepository;
-
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class CommonUtils {
-	
-	
-	
-	public static String generateSupplierCode(Supplier supplier){
-		String SuppCode = supplier.getFirstName().substring(0,2).toUpperCase()+supplier.getLastName().substring(0,3).toUpperCase();
-		return null;
+ 
+	public static String generateSupplierCode(String firstName, String lastName,String sequence){
+		
+		String suppCode = firstName.substring(0,2).toUpperCase()+lastName.substring(0,3).toUpperCase()+"_"+sequence;
+		return suppCode;
        
     }
 }

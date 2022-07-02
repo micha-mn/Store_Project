@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.store.domain.Supplier;
 import com.store.dto.SupplierDTO;
+import com.store.enums.SupplierStatus;
 import com.store.repositories.NamingSequenceRepository;
 import com.store.repositories.SupplierRepository;
 import com.store.services.NamingSequenceService;
@@ -24,8 +25,9 @@ public class SupplierServiceImpl implements SupplierService {
 	@Autowired
 	NamingSequenceService namingSequenceservice;
 	
-	public void SaveSupplier(SupplierDTO supplierDTO)
-	{  Optional<Supplier> issupplier = supplierRepository.findByFirstNameAndLastName(supplierDTO.getFirstName(),supplierDTO.getLastName());
+	public String SaveSupplier(SupplierDTO supplierDTO)
+	{   String supplierStatus="";
+		Optional<Supplier> issupplier = supplierRepository.findByFirstNameAndLastName(supplierDTO.getFirstName(),supplierDTO.getLastName());
 		if (!issupplier.isPresent())
 			{
 			 String sequence = namingSequenceservice.getSupplierSequence();
@@ -41,22 +43,36 @@ public class SupplierServiceImpl implements SupplierService {
 		
 		    supplierRepository.save(supplier);
 		    namingSequenceRepository.updateSupplierSequence();	
+		    supplierStatus = SupplierStatus.SAVED.value;
 			}
+		else
+			supplierStatus = SupplierStatus.EXIST.value;
 		
+		return supplierStatus;
 	}
 	public List<Supplier> getAllSupplier()
 	{
 		return supplierRepository.findAll();	
 	}
 	
-	public void deleteSupplierById(long id)
+	public String deleteSupplierById(long id)
 	{
 		supplierRepository.deleteById(id);
+		return SupplierStatus.DELETED.value;
 	}
 	
-	public void updateSupplierById(Supplier supplier)
+	public String updateSupplierById(Supplier supplier)
 	{
-		supplierRepository.updateSupplierById(supplier.getFirstName(), supplier.getLastName(), supplier.getAddress(), supplier.getPhone(), supplier.getInstagram(),supplier.getId());
+		 Supplier updatesupplier = Supplier.builder()
+				    .id(supplier.getId())
+					.suppCode(supplier.getSuppCode())
+					.firstName(supplier.getFirstName())
+					.lastName(supplier.getLastName())
+					.phone(supplier.getPhone())
+					.address(supplier.getAddress())
+					.instagram(supplier.getInstagram()).build();
+		 	supplierRepository.save(updatesupplier);
+		 	return SupplierStatus.UPDATED.value;
 	} 
 	
 }

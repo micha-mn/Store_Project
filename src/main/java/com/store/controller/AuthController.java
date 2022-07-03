@@ -68,23 +68,4 @@ public class AuthController {
         		 									user.getUserName(), jwtText));
      }
    
-	
-    @PostMapping("/signinnew")
-	public ResponseEntity<?> authenticateUserJwtNew(@Valid @RequestBody LoginRequestDTO loginRequest) {
-		Authentication authentication = authenticationManager.authenticate(
-				new UsernamePasswordAuthenticationToken(loginRequest.getUserName(), loginRequest.getPassword()));
-		 HttpStatus status = HttpStatus.UNAUTHORIZED;
-		 LoginResponseDTO response = LoginResponseDTO.builder().valid(false).accessToken("").user(null).build();
-		if (authentication.isAuthenticated());
-	  	 {
-	  	 SecurityContextHolder.getContext().setAuthentication(authentication);
-	  	 User user = userService.getUserInfoByUsername(authentication.getName());
-	  	 String jwt =  jwtUtils.generateJwtToken(user.getUserName());
-	  	  response = LoginResponseDTO.builder().valid(true).accessToken(jwt).user(user).build();
-	   	  status = HttpStatus.OK;
-	  	 }
-	  	 
-		return new ResponseEntity<>(response, status);
-     }
-   
 }

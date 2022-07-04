@@ -7,16 +7,19 @@ $(document).ready(function() {
 	
         if ($('#username').val().length === 0) {
               $("#notificationText").empty();
+              $("#messageNotification").jqxNotification({template: "info" });
              $("#notificationText").append("Enter your username");
           $("#messageNotification").jqxNotification("open");
 
         }
          else if ($('#password').val().length === 0) {
          $("#notificationText").empty();
+         $("#messageNotification").jqxNotification({template: "info" });
              $("#notificationText").append("Enter your password");
           $("#messageNotification").jqxNotification("open");
 
-        }
+        }else 
+        {
         dataParam={"userName":$('#username').val(),
 			  "password":$('#password').val()
 			 };
@@ -49,12 +52,17 @@ $(document).ready(function() {
 						});
       	   },
       	    	        error: function (e) {
-      	    	        	
+      	    	         if (e.status=401)
+      	    	         { $("#notificationText").empty();
+      	    	         	$("#messageNotification").jqxNotification({template: "danger" });
+             $("#notificationText").append("invalid username or password");
+            $("#messageNotification").jqxNotification("open");}
+      	    	         	
       						  console.log("ERROR : ", e);
       	
       	    	        }
       	    	    });
-		 
+		 }
     })
 });
 

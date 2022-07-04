@@ -104,7 +104,11 @@ body {
   -webkit-text-size-adjust: 100%;
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
-
+.jqx-notification-danger {
+    background: #ff0000;
+    border: 1px solid #ff0000;
+    color: #ffffff
+}
 hr {
   margin: 1rem 0;
   color: inherit;

@@ -14,6 +14,7 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 import com.store.security.jwt.AuthEntryPointJwt;
 import com.store.security.jwt.AuthTokenFilter;
@@ -76,7 +77,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                  "/js/**",
                  "/css/**",
                  "/img/**").permitAll()
-	     .anyRequest().authenticated();
+    	 .and().logout()
+         .logoutRequestMatcher(new AntPathRequestMatcher("/logout")).logoutSuccessUrl("/retail/login");
+	    // .anyRequest().authenticated();
     	 http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
     	
 

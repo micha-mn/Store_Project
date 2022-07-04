@@ -35,7 +35,7 @@ public class SupplierServiceImpl implements SupplierService {
 	   boolean exists = checkifSupplierexists(supplierDTO);
 	   if (!exists) 
 			{
-			 String supplierCode = CommonUtils.generateSupplierCode(supplierDTO.getFirstName(),supplierDTO.getLastName());
+			 String supplierCode = commonUtils.generateSupplierCode(supplierDTO.getFirstName(),supplierDTO.getLastName());
 				
 			 Supplier supplier = Supplier.builder()
 									.suppCode(supplierCode)

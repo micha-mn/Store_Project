@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 import com.store.domain.Supplier;
 import com.store.dto.SupplierDTO;
 import com.store.enums.SupplierStatus;
-import com.store.repositories.NamingSequenceRepository;
 import com.store.repositories.SupplierRepository;
 import com.store.services.NamingSequenceService;
 import com.store.services.SupplierService;
@@ -21,17 +20,22 @@ public class SupplierServiceImpl implements SupplierService {
 	@Autowired
 	SupplierRepository supplierRepository;
 	@Autowired
-	NamingSequenceRepository namingSequenceRepository;
-	@Autowired
 	NamingSequenceService namingSequenceservice;
-	
+	private final CommonUtils commonUtils = new CommonUtils();
+	public boolean checkifSupplierexists(SupplierDTO supplierDTO) {
+		Optional<Supplier> issupplier = supplierRepository.findByFirstNameAndLastName(supplierDTO.getFirstName(),
+				supplierDTO.getLastName());
+		if (issupplier.isPresent())
+			return true;
+		else
+			return false;
+	}
 	public String SaveSupplier(SupplierDTO supplierDTO)
 	{   String supplierStatus="";
-		Optional<Supplier> issupplier = supplierRepository.findByFirstNameAndLastName(supplierDTO.getFirstName(),supplierDTO.getLastName());
-		if (!issupplier.isPresent())
+	   boolean exists = checkifSupplierexists(supplierDTO);
+	   if (!exists) 
 			{
-			 String sequence = namingSequenceservice.getSupplierSequence();
-			 String supplierCode = CommonUtils.generateSupplierCode(supplierDTO.getFirstName(),supplierDTO.getLastName(),sequence);
+			 String supplierCode = CommonUtils.generateSupplierCode(supplierDTO.getFirstName(),supplierDTO.getLastName());
 				
 			 Supplier supplier = Supplier.builder()
 									.suppCode(supplierCode)
@@ -42,7 +46,7 @@ public class SupplierServiceImpl implements SupplierService {
 									.instagram(supplierDTO.getInstagram()).build();
 		
 		    supplierRepository.save(supplier);
-		    namingSequenceRepository.updateSupplierSequence();	
+		    namingSequenceservice.updateSupplierSequence();	
 		    supplierStatus = SupplierStatus.SAVED.value;
 			}
 		else

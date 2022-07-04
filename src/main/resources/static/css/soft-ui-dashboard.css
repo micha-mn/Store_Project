@@ -22528,7 +22528,7 @@ hr.horizontal.gray-light {
 .navbar-vertical.navbar-expand-xs .navbar-collapse {
   display: block;
   overflow: auto;
-  height:100%;
+  min-height:50%;
 }
 
 .navbar-vertical.navbar-expand-xs>[class*="container"] {

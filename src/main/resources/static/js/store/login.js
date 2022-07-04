@@ -35,7 +35,7 @@ $(document).ready(function() {
 						
 					
 					   var settings = {
-						  "url": "/store/home",
+						  "url": "/retail/supplier",
 						  "method": "POST",
 						  "timeout": 0,
 						  "headers": {
@@ -44,7 +44,7 @@ $(document).ready(function() {
 						};
 						
 						$.ajax(settings).done(function (response) {
-							wind
+							window.location.href='/retail/supplier'
 						  console.log(response);
 						});
       	   },

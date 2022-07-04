@@ -66,13 +66,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
          .and()
          .httpBasic();
     	 */
-    	 http.cors().and().csrf().disable()
-    	 .formLogin().disable()
+    	 http.csrf().disable()
     	 .exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
-    	 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
-    	 .authorizeRequests().antMatchers("/api/auth/**").permitAll()
-    	 .antMatchers("/store/login").permitAll()
-    	 .antMatchers("/store/**").hasAuthority("ADMIN")
+    	 .authorizeRequests()
+    	 .antMatchers("/api/auth/**").permitAll()
+    	 .antMatchers("/retail/login").permitAll()
+    	 .antMatchers("/retail/**").hasAuthority("ADMIN")
     	 .antMatchers(
                  "/js/**",
                  "/css/**",

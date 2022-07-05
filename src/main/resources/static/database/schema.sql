@@ -57,6 +57,7 @@ CREATE TABLE IF NOT EXISTS public.supplier
     phone character varying(255) COLLATE pg_catalog."default",
     supp_code character varying(255) COLLATE pg_catalog."default",
     CONSTRAINT supplier_pkey PRIMARY KEY (id)
+
 );
 
 CREATE SEQUENCE supp_sequence START 1;
@@ -70,3 +71,6 @@ CREATE TABLE IF NOT EXISTS naming_sequence (
 INSERT INTO public.naming_sequence(
 	supp_sequence, item_sequence)
 	VALUES (nextval('supp_sequence'), nextval('item_sequence'));
+
+)
+

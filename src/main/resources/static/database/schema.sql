@@ -62,15 +62,3 @@ CREATE TABLE IF NOT EXISTS public.supplier
     supp_code character varying(255) COLLATE pg_catalog."default",
     CONSTRAINT supplier_pkey PRIMARY KEY (id)
 )
-
-CREATE SEQUENCE supp_sequence START 1;
-CREATE SEQUENCE item_sequence START 1;
-
-CREATE TABLE IF NOT EXISTS naming_sequence (
-    supp_sequence VARCHAR ( 255 ) NOT NULL,
-    item_sequence VARCHAR ( 255 ) NOT NULL
-);
-
-INSERT INTO public.naming_sequence(
-	supp_sequence, item_sequence)
-	VALUES (nextval('supp_sequence'), nextval('item_sequence'));

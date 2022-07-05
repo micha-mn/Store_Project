@@ -37,10 +37,6 @@ CREATE TABLE IF NOT EXISTS user_roles
         ON DELETE NO ACTION
 )
 
-TABLESPACE pg_default;
-
-ALTER TABLE IF EXISTS public.user_roles
-    OWNER to postgres;
     
 INSERT INTO public.user_roles(
 	user_id, role_id)
@@ -61,7 +57,7 @@ CREATE TABLE IF NOT EXISTS public.supplier
     phone character varying(255) COLLATE pg_catalog."default",
     supp_code character varying(255) COLLATE pg_catalog."default",
     CONSTRAINT supplier_pkey PRIMARY KEY (id)
-)
+);
 
 CREATE SEQUENCE supp_sequence START 1;
 CREATE SEQUENCE item_sequence START 1;

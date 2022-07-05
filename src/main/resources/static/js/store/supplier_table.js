@@ -126,8 +126,7 @@ $(window).on('load', function(){
              $("#notificationText").append("Enter a phone number");
           $("#messageNotification").jqxNotification("open");
           }
-
-
+       else{
                  debugger;
                   var settings = {
                 "url": "http://localhost:8080/supplier/save",
@@ -157,6 +156,7 @@ $(window).on('load', function(){
                  //  $(':input','#supplier_form').val('')
                 });
               // $(':input','#supplier_form').val('')
+              }
              });
               $("#jqxUpdateSupplier").on('click', function ()  {
                  debugger;

@@ -109,6 +109,9 @@ body {
     border: 1px solid #ff0000;
     color: #ffffff
 }
+.dropdown-menu {
+  font-size: .8rem!important;
+}
 hr {
   margin: 1rem 0;
   color: inherit;
@@ -2496,9 +2499,6 @@ progress {
   vertical-align: bottom;
 }
 
-.table-group-divider {
-  border-top: calc(2 * $table-border-width) solid currentColor;
-}
 
 .caption-top {
   caption-side: top;
@@ -5597,10 +5597,6 @@ fieldset:disabled .btn {
   pointer-events: none;
   background-color: var(--bs-pagination-disabled-bg);
   border-color: var(--bs-pagination-disabled-border-color);
-}
-
-.page-item:not(:first-child) .page-link {
-  margin-left: calc($pagination-border-width * -1);
 }
 
 .page-item:first-child .page-link {

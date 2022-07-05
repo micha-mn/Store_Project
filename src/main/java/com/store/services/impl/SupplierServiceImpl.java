@@ -21,9 +21,10 @@ public class SupplierServiceImpl implements SupplierService {
 	SupplierRepository supplierRepository;
 	@Autowired
 	NamingSequenceService namingSequenceservice;
-	private final CommonUtils commonUtils = new CommonUtils();
+	@Autowired
+	CommonUtils commonUtils;
 	public boolean checkifSupplierexists(SupplierDTO supplierDTO) {
-		Optional<Supplier> issupplier = supplierRepository.findByFirstNameAndLastName(supplierDTO.getFirstName(),
+		Optional<Supplier> issupplier = supplierRepository.findByFirstNameAndLastNameIgnoreCase(supplierDTO.getFirstName(),
 				supplierDTO.getLastName());
 		if (issupplier.isPresent())
 			return true;

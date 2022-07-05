@@ -36,7 +36,8 @@ $(document).ready(function() {
       	    	        timeout: 600000,
       	    	        success: function (data) {
 						
-					
+					    setJwt(data.jwt);
+	                    setFirstLastName(data.firstName, data.lastName);
 					   var settings = {
 						  "url": "/retail/supplier",
 						  "method": "POST",

@@ -1,8 +1,12 @@
 package com.store.rest.config;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.domain.AuditorAware;
+import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -11,6 +15,9 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
@@ -23,6 +30,7 @@ import com.store.services.CustomUserDetailsService;
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
+@EnableJpaAuditing(auditorAwareRef = "aware")
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
@@ -56,16 +64,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                  "/css/**",
                  "/img/**").permitAll()
 	     .anyRequest().authenticated();
-	     
-	      http
-         .csrf().disable()
-         .authorizeRequests()
-         .antMatchers(HttpMethod.GET, "/api/**").permitAll()
-         .antMatchers("/api/auth/**").permitAll()
-         .anyRequest()
-         .authenticated()
-         .and()
-         .httpBasic();
+	    
     	 */
     	 http.csrf().disable()
     	 .exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
@@ -77,6 +76,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                  "/js/**",
                  "/css/**",
                  "/img/**").permitAll()
+    	 .and()
+    	 .formLogin()
+         .loginPage("/retail/login")               
+         .permitAll()
     	 .and().logout()
          .logoutRequestMatcher(new AntPathRequestMatcher("/logout")).logoutSuccessUrl("/retail/login");
 	    // .anyRequest().authenticated();
@@ -96,5 +99,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public AuthenticationManager authenticationManagerBean() throws Exception {
         return super.authenticationManagerBean();
     }
-
+    @Bean
+	public AuditorAware<String>aware() {
+    	
+    	return () -> Optional.ofNullable(SecurityContextHolder.getContext())
+    		      .map(SecurityContext::getAuthentication)
+    		      .filter(Authentication::isAuthenticated)
+    		      .map(Authentication::getName);
+    		  
+	}
 }

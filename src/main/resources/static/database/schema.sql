@@ -47,15 +47,21 @@ INSERT INTO public.user_roles(
 	VALUES (1, 1);
 	
 
-CREATE TABLE IF NOT EXISTS supplier (
-	id serial PRIMARY KEY,
-	Supp_code VARCHAR ( 50 ) UNIQUE NOT NULL,
-    first_name VARCHAR ( 255 ) NOT NULL,
-    last_name VARCHAR ( 255 ) NOT NULL,
-    address VARCHAR ( 255 ) NOT NULL,
-    phone VARCHAR ( 50 ) NOT NULL,
-    instagram VARCHAR ( 255 )
-);
+CREATE TABLE IF NOT EXISTS public.supplier
+(
+    id bigint NOT NULL,
+    created_by character varying(255) COLLATE pg_catalog."default",
+    created_date timestamp without time zone,
+    last_modified_by character varying(255) COLLATE pg_catalog."default",
+    last_modified_date timestamp without time zone,
+    address character varying(255) COLLATE pg_catalog."default",
+    first_name character varying(255) COLLATE pg_catalog."default",
+    instagram character varying(255) COLLATE pg_catalog."default",
+    last_name character varying(255) COLLATE pg_catalog."default",
+    phone character varying(255) COLLATE pg_catalog."default",
+    supp_code character varying(255) COLLATE pg_catalog."default",
+    CONSTRAINT supplier_pkey PRIMARY KEY (id)
+)
 
 CREATE SEQUENCE supp_sequence START 1;
 CREATE SEQUENCE item_sequence START 1;

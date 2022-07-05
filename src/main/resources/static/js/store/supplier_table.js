@@ -5,7 +5,7 @@ $(window).on('load', function(){
  $(document).ready(function ()
         {
 	 createWindow();
-	 
+	 $("#firstLastName").append(getFirstLastName())
 	 $("#jqxAddButton").jqxButton({ width: 120, height: 40 });
 	 $("#jqxAddButton").on('click', function ()
             {
@@ -104,7 +104,7 @@ $(window).on('load', function(){
                 "method": "POST",
                 "timeout": 0,
                 "headers": {
-                    "Authorization": "Bearer "+localStorage.token,
+                    "Authorization": "Bearer "+getJwt(),
                     "Content-Type": "application/json"
                 },
                 "data": JSON.stringify({
@@ -135,7 +135,7 @@ $(window).on('load', function(){
                 "method": "POST",
                 "timeout": 0,
                 "headers": {
-                    "Authorization": "Bearer "+localStorage.token,
+                    "Authorization": "Bearer "+getJwt(),
                     "Content-Type": "application/json"
                 },
                 "data": JSON.stringify({

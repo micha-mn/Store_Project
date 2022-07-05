@@ -9,5 +9,5 @@ import com.store.domain.Supplier;
 
 public interface SupplierRepository extends JpaRepository<Supplier, Long> {
   public List<Supplier> findAll();
-  Optional<Supplier> findByFirstNameAndLastName(String firstName, String lastName);
+  Optional<Supplier> findByFirstNameAndLastNameIgnoreCase(String firstName, String lastName);
 }

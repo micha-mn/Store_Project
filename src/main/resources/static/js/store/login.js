@@ -8,7 +8,7 @@ $(document).ready(function() {
         if ($('#username').val().length === 0) {
               $("#notificationText").empty();
               $("#messageNotification").jqxNotification({template: "info" });
-              $("#notificationText").append("Enter your username");
+             $("#notificationText").append("Enter your username");
           $("#messageNotification").jqxNotification("open");
 
         }

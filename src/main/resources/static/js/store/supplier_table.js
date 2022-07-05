@@ -233,7 +233,8 @@
  				var dataAdapter = new $.jqx.dataAdapter(source);
  				$('#grid').jqxGrid({
  					source: dataAdapter
- 				});
+                 });
+                 $(':input', '#supplier_form').val('');
  			}).fail(function(response) {
 	         	$("#notificationText").empty();
  				$("#messageNotification").jqxNotification({
@@ -307,7 +308,7 @@
  			$('#grid').jqxGrid({
  				source: dataAdapter
  			});
- 			//$(':input', '#supplier_form').val('')
+ 			//$(':input', '#supplier_form_update').val('')
  		});
  		}
  		

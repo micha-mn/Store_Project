@@ -4,6 +4,10 @@ $(window).on('load', function(){
   });
  $(document).ready(function ()
         {
+	$("#messageNotification").jqxNotification({
+                width: '100%', appendContainer: "#container", opacity: 0.9,
+                autoOpen: false, animationOpenDelay: 800, autoClose: true, autoCloseDelay: 2000, template: "info"
+            });
 	 createWindow();
 	 $("#firstLastName").append(getFirstLastName())
 	 $("#jqxAddButton").jqxButton({ width: 120, height: 40 });
@@ -98,6 +102,32 @@ $(window).on('load', function(){
             });
 
              $("#jqxSaveSupplier").on('click', function ()  {
+	 if ($('#firstName').val().length === 0) {
+              $("#notificationText").empty();
+              $("#messageNotification").jqxNotification({template: "info" });
+             $("#notificationText").append("Enter a supplier name");
+          $("#messageNotification").jqxNotification("open");
+  }
+ else if ($('#lastName').val().length === 0) {
+              $("#notificationText").empty();
+              $("#messageNotification").jqxNotification({template: "info" });
+             $("#notificationText").append("Enter a supplier last name");
+          $("#messageNotification").jqxNotification("open");
+          }
+          else if ($('#address').val().length === 0) {
+              $("#notificationText").empty();
+              $("#messageNotification").jqxNotification({template: "info" });
+             $("#notificationText").append("Enter an address");
+          $("#messageNotification").jqxNotification("open");
+          }
+                  else if ($('#phone').val().length === 0) {
+              $("#notificationText").empty();
+              $("#messageNotification").jqxNotification({template: "info" });
+             $("#notificationText").append("Enter a phone number");
+          $("#messageNotification").jqxNotification("open");
+          }
+
+
                  debugger;
                   var settings = {
                 "url": "http://localhost:8080/supplier/save",
@@ -118,15 +148,15 @@ $(window).on('load', function(){
 
                 $.ajax(settings).done(function (response) {
                 console.log(response);
-                if (response.status=401)
+            
                 //window.location.href='/retail/login';
                // else
                 //  source.url='/supplier/getall';
 	    	       var dataAdapter = new $.jqx.dataAdapter(source);
 	    	       $('#grid').jqxGrid({source:dataAdapter});
-                   $(':input','#supplier_form').val('')
+                 //  $(':input','#supplier_form').val('')
                 });
-                $(':input','#supplier_form').val('')
+              // $(':input','#supplier_form').val('')
              });
               $("#jqxUpdateSupplier").on('click', function ()  {
                  debugger;

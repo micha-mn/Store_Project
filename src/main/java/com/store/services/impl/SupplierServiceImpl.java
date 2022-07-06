@@ -57,7 +57,7 @@ public class SupplierServiceImpl implements SupplierService {
 	}
 	public List<Supplier> getAllSupplier()
 	{
-		return supplierRepository.findAll();	
+		return supplierRepository.findAllByOrderByIdDesc();	
 	}
 	
 	public String deleteSupplierById(long id)

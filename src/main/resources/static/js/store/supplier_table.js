@@ -75,7 +75,9 @@
  		width: '100%',
  		source: dataAdapter,
  		pageable: true,
- 		autoheight: true,
+        autoheight: true,
+        showfilterrow: true,
+        filterable: true,
  		theme: 'material-purple',
  		columns: [{
  				text: '',
@@ -114,10 +116,11 @@
  				cellsformat: 'c2'
  			},
  			{
- 				text: 'Edit',
+ 				text: '',
  				datafield: 'Edit',
  				width: '5%',
- 				columntype: 'button',
+                columntype: 'button',
+                filterable: false,
  				cellsrenderer: function() {
  					return "Edit";
  				},
@@ -143,66 +146,73 @@
  				}
  			},
  			{
- 				text: 'Delete',
+ 				text: '',
  				datafield: 'Delete',
  				width: '5%',
- 				columntype: 'button',
+                columntype: 'button',
+                filterable: false,
  				cellsrenderer: function() {
  					return "Delete";
  				},
  				buttonclick: function(row) {
-
- 					var selectedrowindex = row;
- 					var rowscount = $("#grid").jqxGrid('getdatainformation').rowscount;
- 					var SupplierId = $('#grid').jqxGrid('getcellvalue', row, "id");
- 					$.ajax({
- 						type: "DELETE",
- 						url: "/supplier/delete/" + SupplierId,
- 						success: function(result) {
- 							if (selectedrowindex >= 0 && selectedrowindex < rowscount) {
- 								var id = $("#grid").jqxGrid('getrowid', selectedrowindex);
- 								var commit = $("#grid").jqxGrid('deleterow', id);
-
- 							}
- 						},
- 						error: function(e) {
- 							console.log(e);
- 						}
- 					});
-
+	             deleteRow = row;
+                 var dataRecord = $("#grid").jqxGrid('getrowdata', deleteRow);
+                 $("#deletedSupplier").empty();
+                 $('#deletedSupplier').append('Supplier : '+dataRecord.firstName+' '+dataRecord.lastName)
+                 $('#ConfirmationModal').modal('show'); 
  				}
  			}
  		]
  	});
 
+    $("#deleteSupplier").on('click', function() {
+        var selectedrowindex = $('#grid').jqxGrid('getselectedrowindexes');
+        var rowscount = $("#grid").jqxGrid('getdatainformation').rowscount;
+        var SupplierId = $('#grid').jqxGrid('getrowdata', selectedrowindex).id
+        $.ajax({
+            type: "DELETE",
+            url: "/supplier/delete/" + SupplierId,
+            success: function(result) {
+                $('#ConfirmationModal').modal('hide');
+                if (selectedrowindex >= 0 && selectedrowindex < rowscount) {
+                    var id = $("#grid").jqxGrid('getrowid', selectedrowindex);
+                    var commit = $("#grid").jqxGrid('deleterow', id);
+                }
+            },
+            error: function(e) {
+                console.log(e);
+            }
+        });
+    });
+
  	$("#jqxSaveSupplier").on('click', function() {
- 		if ($('#firstName').val().length === 0 || $('#firstName').val().length <=2 ) {
+ 		if ($('#firstName').val().length === 0 ) {
  			$("#notificationText").empty();
  			$("#messageNotification").jqxNotification({
  				template: "info"
  			});
- 			$("#notificationText").append("Enter a valid supplier name");
+ 			$("#notificationText").append("Name 1 is required");
  			$("#messageNotification").jqxNotification("open");
- 		} else if ($('#lastName').val().length === 0 ||  $('#lastName').val().length <=3) {
+ 		} else if ($('#lastName').val().length === 0) {
  			$("#notificationText").empty();
  			$("#messageNotification").jqxNotification({
  				template: "info"
  			});
- 			$("#notificationText").append("Enter a supplier last name");
+ 			$("#notificationText").append("Name 2 is required");
  			$("#messageNotification").jqxNotification("open");
  		} else if ($('#address').val().length === 0) {
  			$("#notificationText").empty();
  			$("#messageNotification").jqxNotification({
  				template: "info"
  			});
- 			$("#notificationText").append("Enter an address");
+ 			$("#notificationText").append("Address is required");
  			$("#messageNotification").jqxNotification("open");
  		} else if ($('#phone').val().length === 0) {
  			$("#notificationText").empty();
  			$("#messageNotification").jqxNotification({
  				template: "info"
  			});
- 			$("#notificationText").append("Enter a phone number");
+ 			$("#notificationText").append("Phone number is required");
  			$("#messageNotification").jqxNotification("open");
  		} else {
  			debugger;
@@ -245,35 +255,37 @@
 });
 
  		}
- 	});
+     });
+     
+   
  	$("#jqxUpdateSupplier").on('click', function() {
- 		if ($('#firstName_u').val().length === 0 || $('#firstName_u').val().length <=2 ) {
+ 		if ($('#firstName_u').val().length === 0) {
  			$("#notificationText_u").empty();
  			$("#messageNotification_u").jqxNotification({
  				template: "info"
  			});
- 			$("#notificationText_u").append("Enter a valid supplier name");
+ 			$("#notificationText_u").append("Name 1 is required");
  			$("#messageNotification_u").jqxNotification("open");
- 		} else if ($('#lastName_u').val().length === 0 ||  $('#lastName_u').val().length <=3) {
+ 		} else if ($('#lastName_u').val().length === 0) {
  			$("#notificationText_u").empty();
  			$("#messageNotification_u").jqxNotification({
  				template: "info"
  			});
- 			$("#notificationText_u").append("Enter a supplier last name");
+ 			$("#notificationText_u").append("Name 2 is required");
  			$("#messageNotification_u").jqxNotification("open");
  		} else if ($('#address_u').val().length === 0) {
  			$("#notificationText_u").empty();
  			$("#messageNotification_u").jqxNotification({
  				template: "info"
  			});
- 			$("#notificationText_u").append("Enter an address");
+ 			$("#notificationText_u").append("Address is required");
  			$("#messageNotification_u").jqxNotification("open");
  		} else if ($('#phone_u').val().length === 0) {
  			$("#notificationText_u").empty();
  			$("#messageNotification_u").jqxNotification({
  				template: "info"
  			});
- 			$("#notificationText_u").append("Enter a phone number");
+ 			$("#notificationText_u").append("Phone number is required");
  			$("#messageNotification_u").jqxNotification("open");
  		} else {
  		debugger;
@@ -303,16 +315,33 @@
  				});
  				$("#notificationText_u").append(response);
  				$("#messageNotification_u").jqxNotification("open");
- 			source.url = '/supplier/getall';
- 			var dataAdapter = new $.jqx.dataAdapter(source);
- 			$('#grid').jqxGrid({
- 				source: dataAdapter
- 			});
+             
+        var selectedrowindex = $('#grid').jqxGrid('getselectedrowindexes');
+        var rowid = $('#grid').jqxGrid('getrowid', selectedrowindex);
+         $('#grid').jqxGrid('updaterow', rowid, {
+                                                    "id": $("#id_supp").val(),
+                                                    "suppCode": $("#suppCode").val(),
+                                                    "firstName": $("#firstName_u").val(),
+                                                    "lastName": $("#lastName_u").val(),
+                                                    "address": $("#address_u").val(),
+                                                    "phone": $("#phone_u").val(),
+                                                    "instagram": $("#instagram_u").val()
+                                                }
+                                                );
+         
  			//$(':input', '#supplier_form_update').val('')
  		});
  		}
  		
- 	});
+     });
+     
+      $("#CloseSaveSupplier").on('click', function() {
+         $('#window').jqxWindow('close');
+      });
+
+       $("#CloseUpdateSupplier").on('click', function() {
+         $('#updatewindow').jqxWindow('close');
+       });
  });
 
  function createWindow() {

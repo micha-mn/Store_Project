@@ -14,8 +14,9 @@ public class CommonUtils {
 		this.namingSequenceservice = namingSequenceservice;
 	}
 	public String generateSupplierCode(String firstName, String lastName){
-		
-		String suppCode = firstName.substring(0,2).toUpperCase()+lastName.substring(0,3).toUpperCase()+"_"+generateSequence(NamingSequenceEnum.SEQUENCE_SUPPLIER.getSequenceName());
+		String name1 = firstName.length()>1?firstName.substring(0,2).toUpperCase():firstName;
+		String name2 = lastName.length()>2?lastName.substring(0,3).toUpperCase():lastName;
+		String suppCode = name1+name2+"_"+generateSequence(NamingSequenceEnum.SEQUENCE_SUPPLIER.getSequenceName());
 		return suppCode;
        
     }

@@ -20400,10 +20400,7 @@ fieldset:disabled .btn {
 .icon-move-left:focus i {
   transform: translateX(-5px);
 }
-.bg-outline-primary{
-  border: 1px solid #cb0c9f !important;
-  color: #cb0c9f !important;
-}
+
 .btn-primary:hover,
 .btn.bg-gradient-primary:hover {
   background-color: #cb0c9f;

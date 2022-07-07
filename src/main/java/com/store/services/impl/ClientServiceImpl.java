@@ -1,11 +1,13 @@
 package com.store.services.impl;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.store.domain.Client;
+import com.store.domain.Supplier;
 import com.store.dto.ClientDTO;
 import com.store.enums.ClientStatus;
 import com.store.repositories.ClientRepository;
@@ -43,6 +45,10 @@ public class ClientServiceImpl implements ClientService{
 				clientStatus = ClientStatus.EXIST.value;
 			
 			return clientStatus;
+	}
+	public List<Client> getAllClient()
+	{
+		return clientRepository.findAllByOrderByIdDesc();	
 	}
 
 }

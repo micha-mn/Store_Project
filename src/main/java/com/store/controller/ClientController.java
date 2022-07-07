@@ -42,7 +42,10 @@ public class ClientController {
 		
 	  return new ResponseEntity<>(clientStatus,httpStatus);
     }
-	
+	@GetMapping(value = "getall")
+	public ResponseEntity<?> getClients(){
+	  return new ResponseEntity<>(clientService.getAllClient(), HttpStatus.OK);
+	}
 	private void validateBindingResults(BindingResult bindingResult, FailureEnum constant) {
 		    if (bindingResult.hasErrors()) {
 		      throw new BadRequestException(

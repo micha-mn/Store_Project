@@ -32,7 +32,7 @@ public class SupplierServiceImpl implements SupplierService {
 			return false;
 	}
 	public String SaveSupplier(SupplierDTO supplierDTO)
-	{   String supplierStatus="";
+	{  String supplierStatus="";
 	   boolean exists = checkifSupplierexists(supplierDTO);
 	   if (!exists) 
 			{
@@ -66,18 +66,19 @@ public class SupplierServiceImpl implements SupplierService {
 		return SupplierStatus.DELETED.value;
 	}
 	
-	public String updateSupplierById(Supplier supplier)
+	public String updateSupplierById(SupplierDTO supplierDTO)
 	{
 		 Supplier updatesupplier = Supplier.builder()
-				    .id(supplier.getId())
-					.suppCode(supplier.getSuppCode())
-					.firstName(supplier.getFirstName())
-					.lastName(supplier.getLastName())
-					.phone(supplier.getPhone())
-					.address(supplier.getAddress())
-					.instagram(supplier.getInstagram()).build();
+				    .id(supplierDTO.getId())
+					.suppCode(supplierDTO.getSuppCode())
+					.firstName(supplierDTO.getFirstName())
+					.lastName(supplierDTO.getLastName())
+					.phone(supplierDTO.getPhone())
+					.address(supplierDTO.getAddress())
+					.instagram(supplierDTO.getInstagram()).build();
 		 	supplierRepository.save(updatesupplier);
 		 	return SupplierStatus.UPDATED.value;
-	} 
+	}
+	
 	
 }

@@ -17,14 +17,13 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor 
 @AllArgsConstructor
 @Entity
-@Table(name = "Supplier")
-public class Supplier extends Auditable<String> {
+@Table(name = "Client")
+public class Client extends Auditable<String> {
 	@Id
     @GeneratedValue
     private Long id;
-	private String suppCode;
-    private String firstName;
-    private String lastName;
+    private String name1;
+    private String name2;
 	private String address;
     private String phone;
     private String instagram;

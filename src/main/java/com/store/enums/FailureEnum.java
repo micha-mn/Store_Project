@@ -7,7 +7,9 @@ import lombok.Getter;
 @AllArgsConstructor
 public enum FailureEnum {
 	SAVE_SUPPLIER_FAILED(1),
-	UPDATE_SUPPLIER_FAILED(2);
+	UPDATE_SUPPLIER_FAILED(2),
+	SAVE_CLIENT_FAILED(3),
+	UPDATE_CLIENT_FAILED(4);
     private final int code;
 
 }

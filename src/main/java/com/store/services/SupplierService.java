@@ -4,6 +4,8 @@ import java.util.List;
 import com.store.domain.Supplier;
 import com.store.dto.SupplierDTO;
 
+import jakarta.validation.Valid;
+
 public interface SupplierService {
 
 	String SaveSupplier(SupplierDTO SupplierDTO);
@@ -12,5 +14,5 @@ public interface SupplierService {
 
 	String deleteSupplierById(long id);
 	
-	String updateSupplierById(Supplier supplier);
+	String updateSupplierById(SupplierDTO supplierDTO);
 }

@@ -22,6 +22,8 @@ import com.store.enums.SupplierStatus;
 import com.store.exception.BadRequestException;
 import com.store.services.SupplierService;
 
+import jakarta.validation.Valid;
+
 @RestController
 @RequestMapping(value="supplier")
 public class SupplierController {
@@ -31,7 +33,7 @@ public class SupplierController {
     SupplierService supplierService;
 	
 	@PostMapping(value = "save")
-    public ResponseEntity<?>  SaveSupplier(@RequestBody SupplierDTO supplierDTO, BindingResult bindingResult ){
+    public ResponseEntity<?>  SaveSupplier(@RequestBody @Valid SupplierDTO supplierDTO, BindingResult bindingResult ){
 		validateBindingResults(bindingResult, FailureEnum.SAVE_SUPPLIER_FAILED);		 
 		HttpStatus httpStatus;
 		String supplierStatus = supplierService.SaveSupplier(supplierDTO);
@@ -44,8 +46,9 @@ public class SupplierController {
 	  return new ResponseEntity<>(supplierStatus,httpStatus);
     }
 	@PostMapping(value = "update")
-    public ResponseEntity<?> UpdateSupplier(@RequestBody Supplier supplier){
-	 return new ResponseEntity<>(supplierService.updateSupplierById(supplier),HttpStatus.OK);
+    public ResponseEntity<?> UpdateSupplier(@RequestBody @Valid SupplierDTO supplierDTO, BindingResult bindingResult ){
+		validateBindingResults(bindingResult, FailureEnum.UPDATE_SUPPLIER_FAILED);
+		return new ResponseEntity<>(supplierService.updateSupplierById(supplierDTO),HttpStatus.OK);
     }
 	@GetMapping(value = "getall")
 	public ResponseEntity<?> getSuppliers(){

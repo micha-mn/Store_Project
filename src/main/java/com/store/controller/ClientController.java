@@ -16,10 +16,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.store.dto.ClientDTO;
+import com.store.dto.SupplierDTO;
 import com.store.enums.ClientStatus;
 import com.store.enums.FailureEnum;
 import com.store.exception.BadRequestException;
 import com.store.services.ClientService;
+
+import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping(value="client")
@@ -30,10 +33,10 @@ public class ClientController {
     ClientService clientService;
 	
 	@PostMapping(value = "save")
-    public ResponseEntity<?>  SaveClient(@RequestBody ClientDTO clientDTO, BindingResult bindingResult ){
+    public ResponseEntity<?>  SaveClient(@RequestBody @Valid ClientDTO clientDTO, BindingResult bindingResult ){
 		validateBindingResults(bindingResult, FailureEnum.SAVE_CLIENT_FAILED);		 
 		HttpStatus httpStatus;
-		String clientStatus = clientService.SaveClient(clientDTO);
+		String clientStatus = clientService.saveClient(clientDTO);
 	
 		if (clientStatus == ClientStatus.SAVED.value)
 			httpStatus = HttpStatus.OK;
@@ -46,6 +49,15 @@ public class ClientController {
 	public ResponseEntity<?> getClients(){
 	  return new ResponseEntity<>(clientService.getAllClient(), HttpStatus.OK);
 	}
+	@PostMapping(value = "update")
+    public ResponseEntity<?> UpdateClient(@RequestBody @Valid ClientDTO clientDTO, BindingResult bindingResult ){
+		validateBindingResults(bindingResult, FailureEnum.UPDATE_CLIENT_FAILED);
+		return new ResponseEntity<>(clientService.updateClientById(clientDTO),HttpStatus.OK);
+    }
+	@DeleteMapping(value = "delete/{id}")
+	public  ResponseEntity<?> deleteClientbyid(@PathVariable("id") long id) {
+		return new ResponseEntity<>(clientService.deleteClientById(id), HttpStatus.OK);
+	}
 	private void validateBindingResults(BindingResult bindingResult, FailureEnum constant) {
 		    if (bindingResult.hasErrors()) {
 		      throw new BadRequestException(
@@ -56,4 +68,5 @@ public class ClientController {
 		          serviceName);
 		    }
 		  }
+	
 }

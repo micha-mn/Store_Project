@@ -9,7 +9,9 @@ import org.springframework.stereotype.Service;
 import com.store.domain.Client;
 import com.store.domain.Supplier;
 import com.store.dto.ClientDTO;
+import com.store.dto.SupplierDTO;
 import com.store.enums.ClientStatus;
+import com.store.enums.SupplierStatus;
 import com.store.repositories.ClientRepository;
 import com.store.services.ClientService;
 @Service
@@ -26,7 +28,7 @@ public class ClientServiceImpl implements ClientService{
 		else
 			return false;
 	}
-	public String SaveClient(ClientDTO clientDTO) {
+	public String saveClient(ClientDTO clientDTO) {
 		   String clientStatus="";
 		   boolean exists = checkifClientexists(clientDTO);
 		   if (!exists) 
@@ -50,5 +52,22 @@ public class ClientServiceImpl implements ClientService{
 	{
 		return clientRepository.findAllByOrderByIdDesc();	
 	}
-
+	public String updateClientById(ClientDTO clientDTO)
+	{
+		    Client updateClient = Client.builder()
+					    .id(clientDTO.getId())
+						.name1(clientDTO.getName1())
+						.name2(clientDTO.getName2())
+						.phone(clientDTO.getPhone())
+						.address(clientDTO.getAddress())
+						.instagram(clientDTO.getInstagram()).build();
+		    clientRepository.save(updateClient);
+		 	return SupplierStatus.UPDATED.value;
+	}
+	public String deleteClientById(long id)
+	{
+		clientRepository.deleteById(id);
+		return SupplierStatus.DELETED.value;
+	}
+	
 }

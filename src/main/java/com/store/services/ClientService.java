@@ -7,7 +7,11 @@ import com.store.dto.ClientDTO;
 
 public interface ClientService {
 
-	String SaveClient(ClientDTO clientDTO);
+	String saveClient(ClientDTO clientDTO);
 
 	List<Client> getAllClient();
+	
+	String updateClientById(ClientDTO clientDTO);
+
+	String deleteClientById(long id);
 }

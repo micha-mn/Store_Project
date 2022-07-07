@@ -3,6 +3,23 @@
  	$('#jqxWidget').show();
  });
  $(document).ready(function() {
+     $("#phone").intlTelInput(document.querySelector("#phone"), {
+            separateDialCode: true,
+            autoPlaceholder: true,
+            preferredCountries:["in"],
+            hiddenInput: "full",
+            utilsScript: "/js/core/intl-tel-input-utils.js"
+            });
+
+      $("#phone_u").intlTelInput(document.querySelector("#phone"), {
+            separateDialCode: true,
+            autoPlaceholder: true,
+            preferredCountries:["in"],
+            hiddenInput: "full",
+            utilsScript: "/js/core/intl-tel-input-utils.js"
+            });
+
+
  	$("#messageNotification").jqxNotification({
  		width: '100%',
  		appendContainer: "#container",
@@ -137,7 +154,7 @@
  					$("#firstName_u").val(dataRecord.firstName);
  					$("#lastName_u").val(dataRecord.lastName);
  					$("#address_u").val(dataRecord.address);
- 					$("#phone_u").val(dataRecord.phone);
+                    $("#phone_u").intlTelInput("setNumber", dataRecord.phone);
  					$("#instagram_u").val(dataRecord.instagram);
 
  					// show the popup window.
@@ -228,7 +245,7 @@
  					"firstName": $("#firstName").val(),
  					"lastName": $("#lastName").val(),
  					"address": $("#address").val(),
- 					"phone": $("#phone").val(),
+ 					"phone": $("#phone").intlTelInput("getNumber"),
  					"instagram": $("#instagram").val()
  				}),
  			};

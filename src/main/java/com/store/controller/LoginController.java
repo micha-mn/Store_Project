@@ -18,4 +18,8 @@ public class LoginController {
 	public ModelAndView supplierTablesPage(ModelMap model) {
 		return new ModelAndView("html/supplier_tables");
 	}
+	@RequestMapping(value="/client")
+	public ModelAndView clientTablesPage(ModelMap model) {
+		return new ModelAndView("html/client_tables");
+	}
 }

@@ -9,9 +9,8 @@ import com.store.StoreApplication;
 class StoreApplicationTests {
 
 	
-	/*
-	 * @Test void contextLoads() {
-	 * 
-	 * }
-	 */
+	  @Test void contextLoads() { 
+		  
+	  }
+	 
 }

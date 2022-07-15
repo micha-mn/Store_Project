@@ -52,22 +52,18 @@
  	});
  	// initialize jqxGrid
  	var source = {
- 		url: '/supplier/getall',
+ 		url: '/client/getall',
  		datatype: "json",
  		datafields: [{
  				name: 'id',
  				type: 'string'
  			},
  			{
- 				name: 'suppCode',
+ 				name: 'name1',
  				type: 'string'
  			},
  			{
- 				name: 'firstName',
- 				type: 'string'
- 			},
- 			{
- 				name: 'lastName',
+ 				name: 'name2',
  				type: 'string'
  			},
  			{
@@ -102,34 +98,29 @@
  				hidden: true
  			},
  			{
- 				text: 'Supplier code',
- 				datafield: 'suppCode',
- 				width: '15%'
+ 				text: 'Name 1',
+ 				datafield: 'name1',
+ 				width: '18%'
  			},
  			{
- 				text: 'First Name',
- 				datafield: 'firstName',
- 				width: '15%'
- 			},
- 			{
- 				text: 'Last Name',
- 				datafield: 'lastName',
- 				width: '15%'
+ 				text: 'Name 2',
+ 				datafield: 'name2',
+ 				width: '18%'
  			},
  			{
  				text: 'Adress',
  				datafield: 'address',
- 				width: '15%'
+ 				width: '18%'
  			},
  			{
  				text: 'Phone',
  				datafield: 'phone',
- 				width: '15%'
+ 				width: '18%'
  			},
  			{
  				text: 'Instagram',
  				datafield: 'instagram',
- 				width: '15%',
+ 				width: '18%',
  				cellsformat: 'c2'
  			},
  			{
@@ -149,10 +140,9 @@
  					// get the clicked row's data and initialize the input fields.
  					var dataRecord = $("#grid").jqxGrid('getrowdata', editrow);
 
- 					$("#id_supp").val(dataRecord.id);
- 					$("#suppCode").val(dataRecord.suppCode);
- 					$("#firstName_u").val(dataRecord.firstName);
- 					$("#lastName_u").val(dataRecord.lastName);
+ 					$("#id_client").val(dataRecord.id);
+ 					$("#name1_u").val(dataRecord.name1);
+ 					$("#name2_u").val(dataRecord.name2);
  					$("#address_u").val(dataRecord.address);
                     $("#phone_u").intlTelInput("setNumber", dataRecord.phone);
  					$("#instagram_u").val(dataRecord.instagram);
@@ -174,21 +164,21 @@
  				buttonclick: function(row) {
 	             deleteRow = row;
                  var dataRecord = $("#grid").jqxGrid('getrowdata', deleteRow);
-                 $("#deletedSupplier").empty();
-                 $('#deletedSupplier').append('Supplier : '+dataRecord.firstName+' '+dataRecord.lastName)
+                 $("#deletedClient").empty();
+                 $('#deletedClient').append('client : '+dataRecord.name1+' '+dataRecord.name2)
                  $('#ConfirmationModal').modal('show'); 
  				}
  			}
  		]
  	});
 
-    $("#deleteSupplier").on('click', function() {
+    $("#deleteClient").on('click', function() {
         var selectedrowindex = $('#grid').jqxGrid('getselectedrowindexes');
         var rowscount = $("#grid").jqxGrid('getdatainformation').rowscount;
-        var SupplierId = $('#grid').jqxGrid('getrowdata', selectedrowindex).id
+        var clientId = $('#grid').jqxGrid('getrowdata', selectedrowindex).id
         $.ajax({
             type: "DELETE",
-            url: "/supplier/delete/" + SupplierId,
+            url: "/client/delete/" + clientId,
             success: function(result) {
                 $('#ConfirmationModal').modal('hide');
                 if (selectedrowindex >= 0 && selectedrowindex < rowscount) {
@@ -202,29 +192,22 @@
         });
     });
 
- 	$("#jqxSaveSupplier").on('click', function() {
- 		if ($('#firstName').val().length === 0 ) {
+ 	$("#jqxSaveClient").on('click', function() {
+ 		if ($('#name1').val().length === 0 ) {
  			$("#notificationText").empty();
  			$("#messageNotification").jqxNotification({
  				template: "info"
  			});
  			$("#notificationText").append("Name 1 is required");
  			$("#messageNotification").jqxNotification("open");
- 		} else if ($('#lastName').val().length === 0) {
+ 		} else if ($('#name2').val().length === 0) {
  			$("#notificationText").empty();
  			$("#messageNotification").jqxNotification({
  				template: "info"
  			});
  			$("#notificationText").append("Name 2 is required");
  			$("#messageNotification").jqxNotification("open");
- 		} else if ($('#address').val().length === 0) {
- 			$("#notificationText").empty();
- 			$("#messageNotification").jqxNotification({
- 				template: "info"
- 			});
- 			$("#notificationText").append("Address is required");
- 			$("#messageNotification").jqxNotification("open");
- 		} else if ($('#phone').val().length === 0) {
+ 		}  else if ($('#phone').val().length === 0) {
  			$("#notificationText").empty();
  			$("#messageNotification").jqxNotification({
  				template: "info"
@@ -238,11 +221,10 @@
  			});
  			$("#notificationText").append("Invalid phone number.");
  			$("#messageNotification").jqxNotification("open");
- 			 }else {
-	
+        }else {
  			
  			var settings = {
- 				"url": "/supplier/save",
+ 				"url": "/client/save",
  				"method": "POST",
  				"timeout": 0,
  				"headers": {
@@ -250,8 +232,8 @@
  					"Content-Type": "application/json"
  				},
  				"data": JSON.stringify({
- 					"firstName": $("#firstName").val(),
- 					"lastName": $("#lastName").val(),
+ 					"name1": $("#name1").val(),
+ 					"name2": $("#name2").val(),
  					"address": $("#address").val(),
  					"phone": $("#phone").intlTelInput("getNumber"),
  					"instagram": $("#instagram").val()
@@ -269,7 +251,7 @@
  				$('#grid').jqxGrid({
  					source: dataAdapter
                  });
-                 $(':input', '#supplier_form').val('');
+                 $(':input', '#client_form').val('');
  			}).fail(function(response) {
 	         	$("#notificationText").empty();
  				$("#messageNotification").jqxNotification({
@@ -283,29 +265,22 @@
      });
      
    
- 	$("#jqxUpdateSupplier").on('click', function() {
- 		if ($('#firstName_u').val().length === 0) {
+ 	$("#jqxUpdateclient").on('click', function() {
+ 		if ($('#name1_u').val().length === 0) {
  			$("#notificationText_u").empty();
  			$("#messageNotification_u").jqxNotification({
  				template: "info"
  			});
  			$("#notificationText_u").append("Name 1 is required");
  			$("#messageNotification_u").jqxNotification("open");
- 		} else if ($('#lastName_u').val().length === 0) {
+ 		} else if ($('#name2_u').val().length === 0) {
  			$("#notificationText_u").empty();
  			$("#messageNotification_u").jqxNotification({
  				template: "info"
  			});
  			$("#notificationText_u").append("Name 2 is required");
  			$("#messageNotification_u").jqxNotification("open");
- 		} else if ($('#address_u').val().length === 0) {
- 			$("#notificationText_u").empty();
- 			$("#messageNotification_u").jqxNotification({
- 				template: "info"
- 			});
- 			$("#notificationText_u").append("Address is required");
- 			$("#messageNotification_u").jqxNotification("open");
- 		} else if ($('#phone_u').val().length === 0) {
+ 		}  else if ($('#phone_u').val().length === 0) {
  			$("#notificationText_u").empty();
  			$("#messageNotification_u").jqxNotification({
  				template: "info"
@@ -313,7 +288,7 @@
  			$("#notificationText_u").append("Phone number is required");
  			$("#messageNotification_u").jqxNotification("open");
  		} else if (!$("#phone_u").intlTelInput("isValidNumber")){
-	        $("#notificationText_u").empty();
+	        $("#notificationText").empty();
  			$("#messageNotification_u").jqxNotification({
  				template: "info"
  			});
@@ -322,7 +297,7 @@
         }else {
  		
  		var settings = {
- 			"url": "/supplier/update",
+ 			"url": "/client/update",
  			"method": "POST",
  			"timeout": 0,
  			"headers": {
@@ -330,10 +305,9 @@
  				"Content-Type": "application/json"
  			},
  			"data": JSON.stringify({
- 				"id": $("#id_supp").val(),
- 				"suppCode": $("#suppCode").val(),
- 				"firstName": $("#firstName_u").val(),
- 				"lastName": $("#lastName_u").val(),
+ 				"id": $("#id_client").val(),
+ 				"name1": $("#name1_u").val(),
+ 				"name2": $("#name2_u").val(),
  				"address": $("#address_u").val(),
  				"phone": $("#phone_u").intlTelInput("getNumber"),
  				"instagram": $("#instagram_u").val()
@@ -351,27 +325,26 @@
         var selectedrowindex = $('#grid').jqxGrid('getselectedrowindexes');
         var rowid = $('#grid').jqxGrid('getrowid', selectedrowindex);
          $('#grid').jqxGrid('updaterow', rowid, {
-                                                    "id": $("#id_supp").val(),
-                                                    "suppCode": $("#suppCode").val(),
-                                                    "firstName": $("#firstName_u").val(),
-                                                    "lastName": $("#lastName_u").val(),
+                                                    "id": $("#id_client").val(),
+                                                    "name1": $("#name1_u").val(),
+                                                    "name2": $("#name2_u").val(),
                                                     "address": $("#address_u").val(),
                                                     "phone": $("#phone_u").intlTelInput("getNumber"),
                                                     "instagram": $("#instagram_u").val()
                                                 }
                                                 );
          
- 			//$(':input', '#supplier_form_update').val('')
+ 			//$(':input', '#client_form_update').val('')
  		});
  		}
  		
      });
      
-      $("#CloseSaveSupplier").on('click', function() {
+      $("#CloseSaveClient").on('click', function() {
          $('#window').jqxWindow('close');
       });
 
-       $("#CloseUpdateSupplier").on('click', function() {
+       $("#CloseUpdateClient").on('click', function() {
          $('#updatewindow').jqxWindow('close');
        });
  });

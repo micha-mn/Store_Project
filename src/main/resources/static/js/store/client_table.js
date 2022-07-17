@@ -100,28 +100,43 @@
  			{
  				text: 'Name 1',
  				datafield: 'name1',
- 				width: '18%'
+ 				width: '18%',
+ 				  createfilterwidget: function (column, columnElement, widget) {
+			        widget.jqxInput({ width: '100%', height: 27, placeHolder: "Enter Name 1" });
+			      }
  			},
  			{
  				text: 'Name 2',
  				datafield: 'name2',
- 				width: '18%'
+ 				width: '18%',
+ 				  createfilterwidget: function (column, columnElement, widget) {
+			        widget.jqxInput({ width: '100%', height: 27, placeHolder: "Enter Name 2" });
+			      }
  			},
  			{
  				text: 'Adress',
  				datafield: 'address',
- 				width: '18%'
+ 				width: '18%',
+ 				  createfilterwidget: function (column, columnElement, widget) {
+			        widget.jqxInput({ width: '100%', height: 27, placeHolder: "Enter Adress" });
+			      }
  			},
  			{
  				text: 'Phone',
  				datafield: 'phone',
- 				width: '18%'
+ 				width: '18%',
+ 				  createfilterwidget: function (column, columnElement, widget) {
+			        widget.jqxInput({ width: '100%', height: 27, placeHolder: "Enter Phone" });
+			      }
  			},
  			{
  				text: 'Instagram',
  				datafield: 'instagram',
  				width: '18%',
- 				cellsformat: 'c2'
+ 				cellsformat: 'c2',
+ 				  createfilterwidget: function (column, columnElement, widget) {
+			        widget.jqxInput({ width: '100%', height: 27, placeHolder: "Enter Instagram" });
+			      }
  			},
  			{
  				text: '',
@@ -347,6 +362,9 @@
        $("#CloseUpdateClient").on('click', function() {
          $('#updatewindow').jqxWindow('close');
        });
+         $('#clearfilteringbutton').click(function () {
+                $("#grid").jqxGrid('clearfilters');
+            });
  });
 
  function createWindow() {

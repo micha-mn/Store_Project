@@ -50,6 +50,9 @@
  		action = 'add';
  		$('#window').jqxWindow('open');
  	});
+ 	     $('#clearfilteringbutton').click(function () {
+                $("#grid").jqxGrid('clearfilters');
+            });
  	// initialize jqxGrid
  	var source = {
  		url: '/supplier/getall',
@@ -107,12 +110,12 @@
  				width: '15%'
  			},
  			{
- 				text: 'First Name',
+ 				text: 'Name 1',
  				datafield: 'firstName',
  				width: '15%'
  			},
  			{
- 				text: 'Last Name',
+ 				text: 'Name 2',
  				datafield: 'lastName',
  				width: '15%'
  			},

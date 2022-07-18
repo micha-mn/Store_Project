@@ -1,6 +1,7 @@
  let action = '';
  $(window).on('load', function() {
- 	$('#jqxWidget').show();
+  $("#buttonContainer").removeClass("d-none");
+  $("#windowContainer").removeClass("d-none");
  });
  $(document).ready(function() {
      $("#phone").intlTelInput(document.querySelector("#phone"), {
@@ -55,8 +56,8 @@
             });
  	// initialize jqxGrid
  	var source = {
- 		url: '/supplier/getall',
- 		datatype: "json",
+		url: '/supplier/getall',
+		datatype: "json",
  		datafields: [{
  				name: 'id',
  				type: 'string'
@@ -84,7 +85,15 @@
  			{
  				name: 'instagram',
  				type: 'string'
- 			}
+			 },
+			 {
+ 				name: 'creationDate',
+ 				type: 'date'
+			 },
+			 {
+ 				name: 'lastModifiedDate',
+ 				type: 'date'
+ 			},
  		],
  		updaterow: function(rowid, rowdata, commit) {
  			commit(true);
@@ -107,33 +116,46 @@
  			{
  				text: 'Supplier code',
  				datafield: 'suppCode',
- 				width: '15%'
+ 				width: '8%'
  			},
  			{
  				text: 'Name 1',
  				datafield: 'firstName',
- 				width: '15%'
+ 				width: '10%'
  			},
  			{
  				text: 'Name 2',
  				datafield: 'lastName',
- 				width: '15%'
+ 				width: '10%'
  			},
  			{
  				text: 'Adress',
  				datafield: 'address',
- 				width: '15%'
+ 				width: '16%'
  			},
  			{
  				text: 'Phone',
  				datafield: 'phone',
- 				width: '15%'
+ 				width: '12%'
  			},
  			{
  				text: 'Instagram',
  				datafield: 'instagram',
- 				width: '15%',
- 				cellsformat: 'c2'
+ 				width: '10%'
+			 },
+			 {
+ 				text: 'Create Date',
+			    datafield: 'creationDate',
+				width: '12%',
+				filtertype: 'date', 
+				cellsformat: 'dd-MMM-yy HH:mm' 
+			 },
+			 {
+ 				text: 'Edit Date',
+				datafield: 'lastModifiedDate',
+			    filtertype: 'date', 
+				width: '12%',
+				cellsformat: 'dd-MMM-yy HH:mm' 
  			},
  			{
  				text: '',

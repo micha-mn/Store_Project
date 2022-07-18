@@ -116,32 +116,50 @@
  			{
  				text: 'Supplier code',
  				datafield: 'suppCode',
- 				width: '8%'
+ 				width: '8%',
+ 				createfilterwidget: function (column, columnElement, widget) {
+			        widget.jqxInput({ width: '100%', height: 27, placeHolder: "Enter Code" });
+				  }
  			},
  			{
  				text: 'Name 1',
  				datafield: 'firstName',
- 				width: '10%'
+ 				width: '10%',
+ 				  createfilterwidget: function (column, columnElement, widget) {
+			        widget.jqxInput({ width: '100%', height: 27, placeHolder: "Enter Name 1" });
+				  }
  			},
  			{
  				text: 'Name 2',
  				datafield: 'lastName',
- 				width: '10%'
+ 				width: '10%',
+ 				 createfilterwidget: function (column, columnElement, widget) {
+			        widget.jqxInput({ width: '100%', height: 27, placeHolder: "Enter Name 2" });
+				  }
  			},
  			{
  				text: 'Adress',
  				datafield: 'address',
- 				width: '16%'
+ 				width: '16%',
+                createfilterwidget: function (column, columnElement, widget) {
+			    widget.jqxInput({ width: '100%', height: 27, placeHolder: "Enter Address" });
+ 			}
  			},
  			{
  				text: 'Phone',
  				datafield: 'phone',
- 				width: '12%'
+ 				width: '12%',
+ 			    createfilterwidget: function (column, columnElement, widget) {
+			    widget.jqxInput({ width: '100%', height: 27, placeHolder: "Enter Phone" });
+ 			}
  			},
  			{
  				text: 'Instagram',
  				datafield: 'instagram',
- 				width: '10%'
+ 				width: '10%',
+ 				createfilterwidget: function (column, columnElement, widget) {
+			        widget.jqxInput({ width: '100%', height: 27, placeHolder: "Enter Instagram" });
+			}
 			 },
 			 {
  				text: 'Create Date',
@@ -375,6 +393,8 @@
              
         var selectedrowindex = $('#grid').jqxGrid('getselectedrowindexes');
         var rowid = $('#grid').jqxGrid('getrowid', selectedrowindex);
+        var rowdata=$('#grid').jqxGrid('getrowdata', selectedrowindex);
+        debugger
          $('#grid').jqxGrid('updaterow', rowid, {
                                                     "id": $("#id_supp").val(),
                                                     "suppCode": $("#suppCode").val(),
@@ -382,7 +402,9 @@
                                                     "lastName": $("#lastName_u").val(),
                                                     "address": $("#address_u").val(),
                                                     "phone": $("#phone_u").intlTelInput("getNumber"),
-                                                    "instagram": $("#instagram_u").val()
+                                                    "instagram": $("#instagram_u").val(),
+                                                    "lastModifiedDate": new Date(),
+                                                    "creationDate": rowdata.creationDate
                                                 }
                                                 );
          
@@ -407,7 +429,7 @@
 
  	$('#window').jqxWindow({
  		position: {
- 			x: offset.left + 500,
+ 			x: offset.left + 200,
  			y: offset.top + 50
  		},
  		showCollapseButton: true,
@@ -419,7 +441,7 @@
  	});
  	$('#updatewindow').jqxWindow({
  		position: {
- 			x: offset.left + 500,
+ 			x: offset.left + 200,
  			y: offset.top + 50
  		},
  		showCollapseButton: true,

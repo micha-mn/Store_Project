@@ -332,13 +332,16 @@
              
         var selectedrowindex = $('#grid').jqxGrid('getselectedrowindexes');
         var rowid = $('#grid').jqxGrid('getrowid', selectedrowindex);
+        var rowdata=$('#grid').jqxGrid('getrowdata', selectedrowindex);
          $('#grid').jqxGrid('updaterow', rowid, {
                                                     "id": $("#id_client").val(),
                                                     "name1": $("#name1_u").val(),
                                                     "name2": $("#name2_u").val(),
                                                     "address": $("#address_u").val(),
                                                     "phone": $("#phone_u").intlTelInput("getNumber"),
-                                                    "instagram": $("#instagram_u").val()
+                                                    "instagram": $("#instagram_u").val(),
+                                                     "lastModifiedDate": new Date(),
+                                                    "creationDate": rowdata.creationDate
                                                 }
                                                 );
          
@@ -366,7 +369,7 @@
 
  	$('#window').jqxWindow({
  		position: {
- 			x: offset.left + 500,
+ 			x: offset.left + 200,
  			y: offset.top + 50
  		},
  		showCollapseButton: true,
@@ -378,7 +381,7 @@
  	});
  	$('#updatewindow').jqxWindow({
  		position: {
- 			x: offset.left + 500,
+ 			x: offset.left + 200,
  			y: offset.top + 50
  		},
  		showCollapseButton: true,

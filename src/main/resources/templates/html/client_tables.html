@@ -76,19 +76,21 @@
 					<h6 class="font-weight-bolder mb-0">Client</h6> </nav>
 				<div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4" id="navbar">
 					<div class="ms-md-auto pe-md-3 d-flex align-items-center"></div>
-					<div class="nav-item dropdown" style="width: 15%"> <a href="#" data-toggle="dropdown" class="nav-item nav-link user-action "><span
+					<div class="nav-item dropdown d-none" style="width: 15%" id="loginUserName"> 
+						<a href="#" data-toggle="dropdown" class="nav-item nav-link user-action "><span
 							class="ml-2 d-none d-lg-inline" id="firstLastName"></span> &nbsp;<i
 							class="fa-solid fa-caret-down"></i></a>
 						<div class="dropdown-menu"> <a href="/logout" class="dropdown-item" onclick="clearSessionStorage()"><i
 								class="fa-solid fa-arrow-right-from-bracket"></i>&nbsp;&nbsp;&nbsp;Logout
-							</a> </div>
+							</a>
+						 </div>
 					</div>
 				</div>
 			</div>
 		</nav>
 		<!-- End Navbar -->
 		<div class="container-fluid py-4" id="jqxWidget">
-			<div class="row d-flex col-12 d-none" id ="buttonContainer">
+			<div class="row col-12 d-none" id ="buttonContainer">
 				<div class="col-1 p-0">
 					<input type="button" value="Add Client" id="jqxAddButton" class="btn bg-gradient-primary mt-4 mb-0" /> </div>
 				<div class="col-10"></div>

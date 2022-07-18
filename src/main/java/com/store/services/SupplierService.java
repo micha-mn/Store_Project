@@ -23,7 +23,7 @@ public class SupplierService {
 	@Autowired
 	CommonUtils commonUtils;
 	public boolean checkifSupplierexists(SupplierDTO supplierDTO) {
-		Optional<Supplier> issupplier = supplierRepository.findByFirstNameAndLastNameIgnoreCase(supplierDTO.getFirstName(),
+		Optional<Supplier> issupplier = supplierRepository.findByFirstNameIgnoreCaseAndLastNameIgnoreCase(supplierDTO.getFirstName(),
 				supplierDTO.getLastName());
 		if (issupplier.isPresent())
 			return true;

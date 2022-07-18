@@ -1,7 +1,8 @@
  let action = '';
  $(window).on('load', function() {
-  $("#buttonContainer").removeClass("d-none");
+  $("#buttonContainer").addClass("d-flex");
   $("#windowContainer").removeClass("d-none");
+  $("#loginUserName").removeClass("d-none"); 
  });
  $(document).ready(function() {
      $("#phone").intlTelInput(document.querySelector("#phone"), {

@@ -8,6 +8,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import com.store.domain.Supplier;
 
 public interface SupplierRepository extends JpaRepository<Supplier, Long> {
-   Optional<Supplier> findByFirstNameAndLastNameIgnoreCase(String firstName, String lastName);
    public List<Supplier> findAllByOrderByIdDesc();
+   Optional<Supplier> findByFirstNameIgnoreCaseAndLastNameIgnoreCase(String firstName, String lastName);
 }

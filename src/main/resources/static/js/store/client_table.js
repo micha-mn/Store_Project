@@ -1,6 +1,9 @@
  let action = '';
  $(window).on('load', function() {
- 	$('#jqxWidget').show();
+	 $("#buttonContainer").addClass("d-flex");
+	 $("#windowContainer").removeClass("d-none");
+	 $("#loginUserName").removeClass("d-none"); 
+	 
  });
  $(document).ready(function() {
      $("#phone").intlTelInput(document.querySelector("#phone"), {
@@ -50,12 +53,14 @@
  		action = 'add';
  		$('#window').jqxWindow('open');
  	});
- 	// initialize jqxGrid
- 	var source = {
- 		url: '/client/getall',
- 		datatype: "json",
- 		datafields: [{
- 				name: 'id',
+	 // initialize jqxGrid
+
+     var url = "/client/getall";
+            var source =
+            { 
+                datafields:
+                [
+            {name: 'id',
  				type: 'string'
  			},
  			{
@@ -77,53 +82,58 @@
  			{
  				name: 'instagram',
  				type: 'string'
+ 			},
+			 {
+ 				name: 'creationDate',
+ 				type: 'date'
+			 },
+			 {
+ 				name: 'lastModifiedDate',
+ 				type: 'date'
  			}
- 		],
- 		updaterow: function(rowid, rowdata, commit) {
- 			commit(true);
- 		}
- 	};
- 	var dataAdapter = new $.jqx.dataAdapter(source);
- 	$("#grid").jqxGrid({
- 		width: '100%',
- 		source: dataAdapter,
- 		pageable: true,
-        autoheight: true,
-        showfilterrow: true,
-        filterable: true,
- 		theme: 'material-purple',
- 		columns: [{
- 				text: '',
- 				datafield: 'id',
- 				hidden: true
- 			},
- 			{
- 				text: 'Name 1',
- 				datafield: 'name1',
- 				width: '18%'
- 			},
- 			{
- 				text: 'Name 2',
- 				datafield: 'name2',
- 				width: '18%'
- 			},
- 			{
- 				text: 'Adress',
- 				datafield: 'address',
- 				width: '18%'
- 			},
- 			{
- 				text: 'Phone',
- 				datafield: 'phone',
- 				width: '18%'
- 			},
- 			{
- 				text: 'Instagram',
- 				datafield: 'instagram',
- 				width: '18%',
- 				cellsformat: 'c2'
- 			},
- 			{
+                ],
+				datatype: "json",
+			    url: url
+            };
+
+            var dataAdapter = new $.jqx.dataAdapter(source);
+
+            $("#grid").jqxGrid(
+            {
+                width: '100%',
+				source: dataAdapter,
+				pageable: true,
+				autoheight: true,
+				showfilterrow: true,
+				filterable: true,
+				theme: 'material-purple',
+                columns: [
+				  { text: 'id', datafield: 'id',  hidden: true},
+				  { text: 'Name1', datafield: 'name1',  width: '10%' ,  
+				  createfilterwidget: function (column, columnElement, widget) {
+			        widget.jqxInput({ width: '100%', height: 27, placeHolder: "Enter Name 1" });
+				  }
+				  },
+				  { text: 'Name2', datafield: 'name2',  width: '10%' ,
+				    createfilterwidget: function (column, columnElement, widget) {
+			        widget.jqxInput({ width: '100%', height: 27, placeHolder: "Enter Name 2" });
+				  }
+				  },
+				  { text: 'Address', datafield: 'address',  width: '24%',
+				     createfilterwidget: function (column, columnElement, widget) {
+			        widget.jqxInput({ width: '100%', height: 27, placeHolder: "Enter Address" });
+			      }},
+				  { text: 'Phone', datafield: 'phone',  width: '12%',
+				     createfilterwidget: function (column, columnElement, widget) {
+			        widget.jqxInput({ width: '100%', height: 27, placeHolder: "Enter Phone" });
+			      } },
+				  { text: 'Instagram', datafield: 'instagram',  width: '10%',
+				     createfilterwidget: function (column, columnElement, widget) {
+			        widget.jqxInput({ width: '100%', height: 27, placeHolder: "Enter Instagram" });
+			      } },
+				  { text: 'Create Date', datafield: 'creationDate', filtertype: 'date', width: '12%', cellsformat: 'dd-MMM-yy HH:mm' },
+				  { text: 'Edit Date', datafield: 'lastModifiedDate', filtertype: 'date', width: '12%',cellsformat: 'dd-MMM-yy HH:mm' },
+				  	{
  				text: '',
  				datafield: 'Edit',
  				width: '5%',
@@ -151,8 +161,8 @@
  					action = 'update';
  					$('#updatewindow').jqxWindow('open');
  				}
- 			},
- 			{
+			 },
+			 {
  				text: '',
  				datafield: 'Delete',
  				width: '5%',
@@ -168,10 +178,9 @@
                  $('#deletedClient').append('client : '+dataRecord.name1+' '+dataRecord.name2)
                  $('#ConfirmationModal').modal('show'); 
  				}
- 			}
- 		]
- 	});
-
+ 			 }
+             ]
+            });
     $("#deleteClient").on('click', function() {
         var selectedrowindex = $('#grid').jqxGrid('getselectedrowindexes');
         var rowscount = $("#grid").jqxGrid('getdatainformation').rowscount;
@@ -324,13 +333,16 @@
              
         var selectedrowindex = $('#grid').jqxGrid('getselectedrowindexes');
         var rowid = $('#grid').jqxGrid('getrowid', selectedrowindex);
+        var rowdata=$('#grid').jqxGrid('getrowdata', selectedrowindex);
          $('#grid').jqxGrid('updaterow', rowid, {
                                                     "id": $("#id_client").val(),
                                                     "name1": $("#name1_u").val(),
                                                     "name2": $("#name2_u").val(),
                                                     "address": $("#address_u").val(),
                                                     "phone": $("#phone_u").intlTelInput("getNumber"),
-                                                    "instagram": $("#instagram_u").val()
+                                                    "instagram": $("#instagram_u").val(),
+                                                     "lastModifiedDate": new Date(),
+                                                    "creationDate": rowdata.creationDate
                                                 }
                                                 );
          
@@ -347,6 +359,9 @@
        $("#CloseUpdateClient").on('click', function() {
          $('#updatewindow').jqxWindow('close');
        });
+         $('#clearfilteringbutton').click(function () {
+                $("#grid").jqxGrid('clearfilters');
+            });
  });
 
  function createWindow() {
@@ -355,7 +370,7 @@
 
  	$('#window').jqxWindow({
  		position: {
- 			x: offset.left + 500,
+ 			x: offset.left + 200,
  			y: offset.top + 50
  		},
  		showCollapseButton: true,
@@ -367,7 +382,7 @@
  	});
  	$('#updatewindow').jqxWindow({
  		position: {
- 			x: offset.left + 500,
+ 			x: offset.left + 200,
  			y: offset.top + 50
  		},
  		showCollapseButton: true,

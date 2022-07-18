@@ -9,7 +9,7 @@ import com.store.domain.Client;
 
 public interface ClientRepository extends JpaRepository<Client, Long> {
 
-	Optional<Client> findByName1AndName2(String name1, String name2);
+	Optional<Client> findByName1IgnoreCaseAndName2IgnoreCase(String name1, String name2);
 
 	List<Client> findAllByOrderByIdDesc();
 

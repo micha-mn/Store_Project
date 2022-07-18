@@ -20,7 +20,7 @@ public class ClientService{
 	ClientRepository clientRepository;
 	
 	public boolean checkifClientexists(ClientDTO clientDTO) {
-	Optional<Client> isClient = clientRepository.findByName1AndName2(clientDTO.getName1(),
+	Optional<Client> isClient = clientRepository.findByName1IgnoreCaseAndName2IgnoreCase(clientDTO.getName1(),
 			clientDTO.getName2());
 		if (isClient.isPresent())
 			return true;

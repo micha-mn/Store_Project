@@ -35,7 +35,7 @@ CREATE TABLE IF NOT EXISTS user_roles
         REFERENCES public.users (id) MATCH SIMPLE
         ON UPDATE NO ACTION
         ON DELETE NO ACTION
-)
+);
 
     
 INSERT INTO public.user_roles(
@@ -72,5 +72,29 @@ INSERT INTO public.naming_sequence(
 	supp_sequence, item_sequence)
 	VALUES (nextval('supp_sequence'), nextval('item_sequence'));
 
-)
 
+CREATE TABLE IF NOT EXISTS public.brand
+(
+    id bigint NOT NULL,
+    name_ar character varying(255) COLLATE pg_catalog."default",
+    name_en character varying(255) COLLATE pg_catalog."default",
+    CONSTRAINT brand_pkey PRIMARY KEY (id)
+);
+CREATE TABLE IF NOT EXISTS public.items
+(
+    id bigint NOT NULL,
+    created_by character varying(255) COLLATE pg_catalog."default",
+    created_date timestamp(6) without time zone,
+    last_modified_by character varying(255) COLLATE pg_catalog."default",
+    last_modified_date timestamp(6) without time zone,
+    brand_id bigint,
+    consignment_date timestamp(6) without time zone,
+    consignment_price character varying(255) COLLATE pg_catalog."default",
+    description character varying(255) COLLATE pg_catalog."default",
+    inclusions character varying(255) COLLATE pg_catalog."default",
+    item_code character varying(255) COLLATE pg_catalog."default",
+    selling_price character varying(255) COLLATE pg_catalog."default",
+    supp_code character varying(255) COLLATE pg_catalog."default",
+    CONSTRAINT items_pkey PRIMARY KEY (id)
+)
+;

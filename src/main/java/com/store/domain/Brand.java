@@ -1,5 +1,6 @@
 package com.store.domain;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
@@ -20,6 +21,8 @@ public class Brand {
 	@Id
     @GeneratedValue
     private Long id;
+	@Column(length=40)
     private String nameAr;
+	@Column(length=40)
     private String nameEn;
 }

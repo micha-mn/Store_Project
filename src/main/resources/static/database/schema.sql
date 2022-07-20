@@ -76,10 +76,11 @@ INSERT INTO public.naming_sequence(
 CREATE TABLE IF NOT EXISTS public.brand
 (
     id bigint NOT NULL,
-    name_ar character varying(255) COLLATE pg_catalog."default",
-    name_en character varying(255) COLLATE pg_catalog."default",
+    name_ar character varying(40) COLLATE pg_catalog."default",
+    name_en character varying(40) COLLATE pg_catalog."default",
     CONSTRAINT brand_pkey PRIMARY KEY (id)
 );
+
 CREATE TABLE IF NOT EXISTS public.items
 (
     id bigint NOT NULL,
@@ -89,12 +90,11 @@ CREATE TABLE IF NOT EXISTS public.items
     last_modified_date timestamp(6) without time zone,
     brand_id bigint,
     consignment_date timestamp(6) without time zone,
-    consignment_price character varying(255) COLLATE pg_catalog."default",
-    description character varying(255) COLLATE pg_catalog."default",
+    consignment_price character varying(60) COLLATE pg_catalog."default",
+    description character varying(60) COLLATE pg_catalog."default",
     inclusions character varying(255) COLLATE pg_catalog."default",
     item_code character varying(255) COLLATE pg_catalog."default",
-    selling_price character varying(255) COLLATE pg_catalog."default",
+    selling_price character varying(60) COLLATE pg_catalog."default",
     supp_code character varying(255) COLLATE pg_catalog."default",
     CONSTRAINT items_pkey PRIMARY KEY (id)
-)
-;
+);

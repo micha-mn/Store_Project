@@ -2,6 +2,7 @@ package com.store.domain;
 
 import com.store.audit.Auditable;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
@@ -24,9 +25,12 @@ public class Item extends Auditable<String> {
 	private String itemCode;
 	private String suppCode;
     private Long brandId;
+    @Column(length=60)
     private String description;
 	private String inclusions;
+	@Column(length=60)
     private String consignmentPrice;
     private Date consignmentDate;
+    @Column(length=60)
     private String sellingPrice ;
 }

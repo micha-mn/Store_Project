@@ -5,7 +5,7 @@
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="com.jaspersoft.studio.property.dataset.dialog.DatasetDialog.sash.w1" value="462"/>
 	<property name="com.jaspersoft.studio.property.dataset.dialog.DatasetDialog.sash.w2" value="524"/>
-	<parameter name="itemId" class="java.lang.Long"/>
+	<parameter name="itemId" class="java.lang.String"/>
 	<queryString>
 		<![CDATA[select i.id,
  i.created_by,
@@ -22,7 +22,7 @@
  i.supp_code
 	
 from items i, brand b
-where i.id = $P{itemId}
+where i.id = CAST ($P{itemId} AS INTEGER)
 and i.brand_id = b.id]]>
 	</queryString>
 	<field name="id" class="java.lang.Long">

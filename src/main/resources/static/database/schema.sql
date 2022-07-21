@@ -98,3 +98,22 @@ CREATE TABLE IF NOT EXISTS public.items
     supp_code character varying(255) COLLATE pg_catalog."default",
     CONSTRAINT items_pkey PRIMARY KEY (id)
 );
+
+CREATE TABLE IF NOT EXISTS public.report_management
+(
+    id bigint NOT NULL,
+    param1 character varying(40) COLLATE pg_catalog."default",
+    param2 character varying(40) COLLATE pg_catalog."default",
+    param3 character varying(40) COLLATE pg_catalog."default",
+    param4 character varying(40) COLLATE pg_catalog."default",
+    param5 character varying(40) COLLATE pg_catalog."default",
+    parameter_counter bigint,
+    report_code character varying(40) NOT NULL UNIQUE COLLATE pg_catalog."default",
+    report_jasper_path character varying(60) COLLATE pg_catalog."default",
+    report_jrxml_path character varying(60) COLLATE pg_catalog."default",
+    CONSTRAINT report_management_pkey PRIMARY KEY (id)
+);
+
+INSERT INTO public.report_management(
+	id ,param1, parameter_counter, report_code, report_jasper_path, report_jrxml_path)
+	VALUES ('1','itemId', '1', 'ITEMBARCODE', '\\src\\main\\resources\\static\\report\\ItemBarcode.jasper', '\\src\\main\\resources\\static\\report\\ItemBarcode.jrxml');

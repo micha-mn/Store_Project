@@ -17,7 +17,7 @@ var sourceBrand =
 	 };
  var dataAdapterBrand = new $.jqx.dataAdapter(sourceBrand);
  $('#dropdownlistBrand').jqxDropDownList({ selectedIndex: -1,  source: dataAdapterBrand, displayMember: "nameEn" , valueMember: "id",theme: 'material-purple', height: 38, width: '100%'});
-			
+$('#dropdownlistBrand_u').jqxDropDownList({ selectedIndex: -1,  source: dataAdapterBrand, displayMember: "nameEn" , valueMember: "id",theme: 'material-purple', height: 38, width: '100%'});			
 	 var url = "/supplier/getall";
 	 var sourceSupp =
 	 {
@@ -40,7 +40,18 @@ var sourceBrand =
                     return table;
                 }
             });
+            $('#dropdownlistSupp_u').jqxDropDownList({ selectedIndex: -1,  source: dataAdapterSupp, displayMember: "suppCode" , valueMember: "suppCode",theme: 'material-purple', itemHeight: 50, height: 38, width: '100%',
+                renderer: function (index, label, value) {
+				debugger;
+	                var data = $("#dropdownlistSupp_u").jqxDropDownList('getItems'); 
+                    var datarecord = data[index];
+                
+                    var table = '<table style="min-width: 150px;"><tr><td>' +datarecord.originalItem.suppCode + '</td></tr><tr><td>' + datarecord.originalItem.firstName +' '+ datarecord.originalItem.lastName + '</td></tr></table>';
+                    return table;
+                }
+            });
      $("#consignmentDate").jqxDateTimeInput({ width: '100%', height: '38px',theme: 'material-purple', value:null, formatString : 'dd-MMM-yy HH:mm'  });
+       $("#consignmentDate_u").jqxDateTimeInput({ width: '100%', height: '38px',theme: 'material-purple', value:null, formatString : 'dd-MMM-yy HH:mm'  });
  	$("#messageNotification").jqxNotification({
  		width: '100%',
  		appendContainer: "#container",
@@ -232,7 +243,6 @@ var sourceBrand =
  					$("#instagram_u").val(dataRecord.instagram);
 
  					// show the popup window.
- 					action = 'update';
  					$('#updatewindow').jqxWindow('open');
  				}
  			},
@@ -284,7 +294,7 @@ var sourceBrand =
  			});
  			$("#notificationText").append("SupplierCode is required");
  			$("#messageNotification").jqxNotification("open");
- 		} else if ($('#jqxInputBrand').val().length === 0) {
+ 		} else if ($('#dropdownlistBrand').val().length === 0) {
  			$("#notificationText").empty();
  			$("#messageNotification").jqxNotification({
  				template: "info"
@@ -344,7 +354,7 @@ var sourceBrand =
  				"data": JSON.stringify({
 				"action":"save",
  					"suppCode": $("#dropdownlistSupp").val(),
- 					"brandId": $("#jqxInputBrand").val(),
+ 					"brandId": $("#dropdownlistBrand").val(),
  					"description": $("#description").val(),
  					"inclusions": $("#Inclusions").val(),
  					"consignmentPrice": $("#Consignmentprice").val(),
@@ -379,70 +389,63 @@ var sourceBrand =
      });
      
    
- 	$("#jqxUpdateItem").on('click', function() {
- 		if ($('#dropdownlistSupp_u').val().length === 0) {
- 			$("#notificationText_u").empty();
- 			$("#messageNotification_u").jqxNotification({
+ 		$("#jqxUpdateItem").on('click', function() {
+ 		if ($('#dropdownlistSupp_u').val().length === 0 ) {
+ 			$("#notificationText").empty();
+ 			$("#messageNotification").jqxNotification({
  				template: "info"
  			});
- 			$("#notificationText_u").append("Supplier Code is required");
- 			$("#messageNotification_u").jqxNotification("open");
- 		} else if ($('#jqxInputBrand_u').val().length === 0) {
- 			$("#notificationText_u").empty();
- 			$("#messageNotification_u").jqxNotification({
+ 			$("#notificationText").append("SupplierCode is required");
+ 			$("#messageNotification").jqxNotification("open");
+ 		} else if ($('#dropdownlistBrand_u').val().length === 0) {
+ 			$("#notificationText").empty();
+ 			$("#messageNotification").jqxNotification({
  				template: "info"
  			});
- 			$("#notificationText_u").append("Brand is required");
- 			$("#messageNotification_u").jqxNotification("open");
+ 			$("#notificationText").append("Brand is required");
+ 			$("#messageNotification").jqxNotification("open");
  		} else if ($('#description_u').val().length === 0) {
- 			$("#notificationText_u").empty();
- 			$("#messageNotification_u").jqxNotification({
+ 			$("#notificationText").empty();
+ 			$("#messageNotification").jqxNotification({
  				template: "info"
  			});
- 			$("#notificationText_u").append("description is required");
- 			$("#messageNotification_u").jqxNotification("open");
+ 			$("#notificationText").append("Description is required");
+ 			$("#messageNotification").jqxNotification("open");
  		} else if ($('#Inclusions_u').val().length === 0) {
- 			$("#notificationText_u").empty();
- 			$("#messageNotification_u").jqxNotification({
+ 			$("#notificationText").empty();
+ 			$("#messageNotification").jqxNotification({
  				template: "info"
  			});
- 			$("#notificationText_u").append("Inclusions is required");
- 			$("#messageNotification_u").jqxNotification("open");
- 		}  else if ($('#Consignmentprice_u').val().length === 0) {
- 			$("#notificationText_u").empty();
- 			$("#messageNotification_u").jqxNotification({
+ 			$("#notificationText").append("Inclusions is required");
+ 			$("#messageNotification").jqxNotification("open");
+ 		}else if ($('#Consignmentprice_u').val().length === 0) {
+ 			$("#notificationText").empty();
+ 			$("#messageNotification").jqxNotification({
  				template: "info"
  			});
- 			$("#notificationText_u").append("Consignmentprice is required");
- 			$("#messageNotification_u").jqxNotification("open");
- 		}   else if ($('#consignmentDate_u').val().length === 0) {
- 			$("#notificationText_u").empty();
- 			$("#messageNotification_u").jqxNotification({
+ 			$("#notificationText").append("consignmentPrice is required");
+ 			$("#messageNotification").jqxNotification("open");
+ 		}
+ 	      else if ($('#consignmentDate_u').val().length === 0) {
+ 			$("#notificationText").empty();
+ 			$("#messageNotification").jqxNotification({
  				template: "info"
  			});
- 			$("#notificationText_u").append("consignmentDate is required");
- 			$("#messageNotification_u").jqxNotification("open");
- 		}  
- 		  else if ($('#Sellingprice_u').val().length === 0) {
- 			$("#notificationText_u").empty();
- 			$("#messageNotification_u").jqxNotification({
+ 			$("#notificationText").append("consignmentDate is required");
+ 			$("#messageNotification").jqxNotification("open");
+ 		}
+ 		 else if ($('#Sellingprice_u').val().length === 0) {
+ 			$("#notificationText").empty();
+ 			$("#messageNotification").jqxNotification({
  				template: "info"
  			});
- 			$("#notificationText_u").append("Sellingprice is required");
- 			$("#messageNotification_u").jqxNotification("open");
- 		}   else if ($('#ItemCode_u').val().length === 0) {
- 			$("#notificationText_u").empty();
- 			$("#messageNotification_u").jqxNotification({
- 				template: "info"
- 			});
- 			$("#notificationText_u").append("ItemCode is required");
- 			$("#messageNotification_u").jqxNotification("open");
- 		}   
+ 			$("#notificationText").append("Selling Price is required");
+ 			$("#messageNotification").jqxNotification("open");
+ 		}
  		
  		else {
- 		
  		var settings = {
- 			"url": "/supplier/update",
+ 			"url": "/item/save",
  			"method": "POST",
  			"timeout": 0,
  			"headers": {
@@ -450,12 +453,13 @@ var sourceBrand =
  				"Content-Type": "application/json"
  			},
  			"data": JSON.stringify({
- 				"suppCode": $("#dropdownlistSupp_u").val(),
- 					"brandId": $("#jqxInputBrand_u").val(),
+		            "action":"update",
+ 				    "suppCode": $("#dropdownlistSupp_u").val(),
+ 					"brandId": $("#dropdownlistBrand_u").val(),
  					"description": $("#description_u").val(),
  					"inclusions": $("#Inclusions_u").val(),
  					"consignmentPrice": $("#Consignmentprice_u").val(),
- 					"consignmentDate": $("#consignmentDate_u").val(),
+ 					"consignmentDate": $("#consignmentDate_u").jqxDateTimeInput("getDate"),
  					"sellingPrice": $("#Sellingprice_u").val(),
  					"ItemCode": $("#ItemCode_u").val()
  			}),

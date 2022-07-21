@@ -16,6 +16,7 @@ public class ErrorConstants {
 	  public static final String ITEM_CONSIGNMENTPRICE_NOT_NULL = "I5";
 	  public static final String ITEM_CONSIGNMENTDATE_NOT_NULL = "I6";
 	  public static final String ITEM_SELLINGPRICE_NOT_NULL = "I7";
+	  public static final String REPORT_CODE_NOT_NULL = "R1";
 	  private ErrorConstants() {
 		}
 }

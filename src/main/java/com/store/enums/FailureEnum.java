@@ -12,7 +12,8 @@ public enum FailureEnum {
 	UPDATE_CLIENT_FAILED(4),
 	SAVE_BRAND_FAILED(5),
 	SAVE_ITEM_FAILED(6),
-	UPDATE_ITEM_FAILED(7);
+	UPDATE_ITEM_FAILED(7),
+	INVALID_REPORT_INFO(8);
 	
     private final int code;
 

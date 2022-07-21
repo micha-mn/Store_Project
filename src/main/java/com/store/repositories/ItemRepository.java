@@ -9,4 +9,6 @@ import com.store.domain.Item;
 
 public interface ItemRepository  extends JpaRepository<Item, Long> {
 	  public List<Item> findAllByOrderByIdDesc();
+
+	  public Item findById(long id);
 }

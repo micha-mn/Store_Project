@@ -125,40 +125,38 @@
 				<form class="p-5" id="supplier_form">
 					<div class="form-row">
 						<div class="form-group col-md-6">
-							<label for="inputFirst name">Supplier Code </label>
+							<label for="inputSupplier Code">Supplier Code </label>
 							<div id="dropdownlistSupp">
                            </div> 
                            </div>
 						<div class="form-group col-md-6">
-							<label for="inputLast name">Brand </label>
+							<label for="inputBrand">Brand </label>
 							 <input id="jqxInputBrand" /> </div>
 					</div>
 					<div class="form-row">
 						<div class="form-group col-md-6">
-							<label for="inputphone">Description</label>
+							<label for="inputDescription">Description</label>
 							<input type="text" class="form-control" id="description" placeholder="Description" required> </div>
 						<div class="form-group col-md-6">
-							<label for="inputAddress">Inclusions</label>
+							<label for="inputInclusions">Inclusions</label>
 							<input type="text" class="form-control" id="Inclusions" placeholder="Inclusions" required> </div>
 					</div>
 					<div class="form-row">
 						<div class="form-group col-md-6">
-							<label for="inputInstagram">Consignment price</label>
+							<label for="inputConsignment price">Consignment price</label>
 							<input type="number" class="form-control" id="Consignmentprice" placeholder="Consignment Price"> </div>
 							<div class="form-group col-md-6">
-							<label for="inputInstagram">Consignment date</label>
+							<label for="inputConsignment date">Consignment date</label>
 								<div id='consignmentDate'></div>
 							 </div>
 							<div class="form-group col-md-6">
-							<label for="inputInstagram">Selling price </label>
-							<input type="number" class="form-control" id="Sellingprice " placeholder="Selling Price "> </div>
-							<div class="form-group col-md-6">
-							<label for="inputInstagram">Item Code</label>
-							<input type="text" class="form-control" id="ItemCode" placeholder="Item Code"> </div>
+							<label for="inputSelling price">Selling price </label>
+							<input type="number" class="form-control" id="Sellingprice" placeholder="Selling Price "> </div>
+							
 						<div class="form-row">
 							<div class="form-group col-md-6">
 								<button type="button" id="jqxSaveItem" class="btn bg-gradient-primary mt-4 mb-0">SAVE</button>
-								<button type="button" id="CloseSaveSupplier" class="btn bg-outline-primary mt-4 mb-0 ml-2">Close</button>
+								<button type="button" id="CloseSaveItem" class="btn bg-outline-primary mt-4 mb-0 ml-2">Close</button>
 							</div>
 							<div class="form-group col-md-6">
 								<div id="container" style="width: 380px; height: 50px; margin-top: 1rem;">
@@ -173,33 +171,38 @@
 				</form>
 			</div>
 			<div id="updatewindow">
-				<div id="windowHeader"> <span> Supplier </span> </div>
-				<form class="p-5" id="supplier_form_update">
+				<div id="windowHeader"> <span> Item </span> </div>
+				<form class="p-5" id="item_form_update">
 					<div class="form-row">
 						<div class="form-group col-md-6">
-							<label for="inputFirst name">Supplier Code</label>
-							
+							<label for="inputSupplier Code">Supplier Code</label>
+							<input type="hidden" class="form-control" id="id_item" disabled>
 					</div>
 					<div class="form-row">
 						<div class="form-group col-md-6">
-							<label for="inputFirst name">Name 1</label>
-							<input type="text" class="form-control" id="firstName_u" placeholder="Name 1" required> </div>
+							<label for="inputBrand">Brand</label>
+							<input type="text" class="form-control" id="Brand_u" placeholder="Brand" required> </div>
 						<div class="form-group col-md-6">
-							<label for="inputLast name">Name 2</label>
-							<input type="text" class="form-control" id="lastName_u" placeholder="Name 2" required> </div>
+							<label for="inputDescription">Description</label>
+							<input type="text" class="form-control" id="Description_u" placeholder="Description" required> </div>
 					</div>
 					<div class="form-row">
 						<div class="form-group col-md-6">
-							<label for="inputphone">Phone</label>
-							<input type="tel" class="form-control" id="phone_u" required> </div>
+							<label for="inputInclusions">Inclusions</label>
+							<input type="tel" class="form-control" id="Inclusions_u" placeholder="Inclusions" required> </div>
 						<div class="form-group col-md-6">
-							<label for="inputAddress">Address</label>
-							<input type="text" class="form-control" id="address_u" placeholder="Address" required> </div>
+							<label for="inputConsignment price">Consignment price</label>
+							<input type="text" class="form-control" id="Consignmentprice_u" placeholder="Consignment Price" required> </div>
 					</div>
 					<div class="form-row">
 						<div class="form-group col-md-6">
-							<label for="inputInstagram">Instagram</label>
-							<input type="text" class="form-control" id="instagram_u" placeholder="Instagram"> </div>
+							<label for="inputConsignment date">Consignment date</label>
+							<input type="text" class="form-control" id="Consignmentdate_u" placeholder="Consignment date"> </div>
+					</div>
+					<div class="form-row">
+						<div class="form-group col-md-6">
+							<label for="inputSelling price">Selling price</label>
+							<input type="text" class="form-control" id="Sellingprice_u" placeholder="Consignment date"> </div>
 					</div>
 					<div class="form-row">
 						<div class="form-group col-md-4 justify-content-between">

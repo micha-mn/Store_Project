@@ -49,7 +49,7 @@
                     return table;
                 }
             });
-     $("#consignmentDate").jqxDateTimeInput({ width: '100%', height: '38px',theme: 'material-purple', value:null });
+     $("#consignmentDate").jqxDateTimeInput({ width: '100%', height: '38px',theme: 'material-purple', value:null, formatString : 'dd-MMM-yy HH:mm'  });
  	$("#messageNotification").jqxNotification({
  		width: '100%',
  		appendContainer: "#container",
@@ -85,7 +85,7 @@
             });
  	// initialize jqxGrid
  	var source = {
-		url: '',
+		url: '/item/getall',
 		datatype: "json",
  		datafields: [{
  				name: 'id',
@@ -96,23 +96,27 @@
  				type: 'string'
  			},
  			{
- 				name: 'firstName',
+ 				name: 'brandId',
  				type: 'string'
  			},
  			{
- 				name: 'lastName',
+ 				name: 'description',
  				type: 'string'
  			},
  			{
- 				name: 'address',
+ 				name: 'inclusions',
  				type: 'string'
  			},
  			{
- 				name: 'phone',
+ 				name: 'consignmentPrice',
  				type: 'string'
  			},
  			{
- 				name: 'instagram',
+ 				name: 'consignmentDate',
+ 				type: 'string'
+			 },
+			 {
+ 				name: 'sellingPrice',
  				type: 'string'
 			 },
 			 {
@@ -151,43 +155,51 @@
 				  }
  			},
  			{
- 				text: 'Name 1',
- 				datafield: 'firstName',
+ 				text: 'brand',
+ 				datafield: 'brandId',
  				width: '10%',
  				  createfilterwidget: function (column, columnElement, widget) {
-			        widget.jqxInput({ width: '100%', height: 27, placeHolder: "Enter Name 1" });
+			        widget.jqxInput({ width: '100%', height: 27, placeHolder: "Enter Brand" });
 				  }
  			},
  			{
- 				text: 'Name 2',
- 				datafield: 'lastName',
+ 				text: 'description',
+ 				datafield: 'description',
  				width: '10%',
  				 createfilterwidget: function (column, columnElement, widget) {
-			        widget.jqxInput({ width: '100%', height: 27, placeHolder: "Enter Name 2" });
+			        widget.jqxInput({ width: '100%', height: 27, placeHolder: "Enter Description" });
 				  }
  			},
  			{
- 				text: 'Adress',
- 				datafield: 'address',
+ 				text: 'inclusions',
+ 				datafield: 'inclusions',
  				width: '16%',
                 createfilterwidget: function (column, columnElement, widget) {
-			    widget.jqxInput({ width: '100%', height: 27, placeHolder: "Enter Address" });
+			    widget.jqxInput({ width: '100%', height: 27, placeHolder: "Enter inclusions" });
  			}
  			},
  			{
- 				text: 'Phone',
- 				datafield: 'phone',
+ 				text: 'consignmentPrice',
+ 				datafield: 'consignmentPrice',
  				width: '12%',
  			    createfilterwidget: function (column, columnElement, widget) {
-			    widget.jqxInput({ width: '100%', height: 27, placeHolder: "Enter Phone" });
+			    widget.jqxInput({ width: '100%', height: 27, placeHolder: "Enter consignmentPrice" });
  			}
  			},
  			{
- 				text: 'Instagram',
- 				datafield: 'instagram',
+ 				text: 'consignmentDate',
+ 				datafield: 'consignmentDate',
  				width: '10%',
  				createfilterwidget: function (column, columnElement, widget) {
-			        widget.jqxInput({ width: '100%', height: 27, placeHolder: "Enter Instagram" });
+			        widget.jqxInput({ width: '100%', height: 27, placeHolder: "Enter consignmentDate" });
+			}
+			 },
+			 {
+ 				text: 'sellingPrice',
+ 				datafield: 'sellingPrice',
+ 				width: '10%',
+ 				createfilterwidget: function (column, columnElement, widget) {
+			        widget.jqxInput({ width: '100%', height: 27, placeHolder: "Enter sellingPrice" });
 			}
 			 },
 			 {
@@ -221,12 +233,11 @@
  					// get the clicked row's data and initialize the input fields.
  					var dataRecord = $("#grid").jqxGrid('getrowdata', editrow);
 
- 					$("#id_supp").val(dataRecord.id);
+ 					$("#id_item").val(dataRecord.id);
  					$("#suppCode").val(dataRecord.suppCode);
  					$("#firstName_u").val(dataRecord.firstName);
  					$("#lastName_u").val(dataRecord.lastName);
  					$("#address_u").val(dataRecord.address);
-                    $("#phone_u").intlTelInput("setNumber", dataRecord.phone);
  					$("#instagram_u").val(dataRecord.instagram);
 
  					// show the popup window.
@@ -254,13 +265,13 @@
  		]
  	});
 
-    $("#deleteSupplier").on('click', function() {
+    $("#deleteItem").on('click', function() {
         var selectedrowindex = $('#grid').jqxGrid('getselectedrowindexes');
         var rowscount = $("#grid").jqxGrid('getdatainformation').rowscount;
-        var SupplierId = $('#grid').jqxGrid('getrowdata', selectedrowindex).id
+        var ItemId = $('#grid').jqxGrid('getrowdata', selectedrowindex).id
         $.ajax({
             type: "DELETE",
-            url: "/supplier/delete/" + SupplierId,
+            url: "/item/delete/" + ItemId,
             success: function(result) {
                 $('#ConfirmationModal').modal('hide');
                 if (selectedrowindex >= 0 && selectedrowindex < rowscount) {
@@ -280,7 +291,7 @@
  			$("#messageNotification").jqxNotification({
  				template: "info"
  			});
- 			$("#notificationText").append("Supplier Code is required");
+ 			$("#notificationText").append("SupplierCode is required");
  			$("#messageNotification").jqxNotification("open");
  		} else if ($('#jqxInputBrand').val().length === 0) {
  			$("#notificationText").empty();
@@ -327,19 +338,12 @@
  			$("#notificationText").append("Selling Price is required");
  			$("#messageNotification").jqxNotification("open");
  		}
- 		 else if ($('#ItemCode').val().length === 0) {
- 			$("#notificationText").empty();
- 			$("#messageNotification").jqxNotification({
- 				template: "info"
- 			});
- 			$("#notificationText").append("Item Code is required");
- 			$("#messageNotification").jqxNotification("open");
- 		}
+ 		
  		else {
 	
  			
  			var settings = {
- 				"url": "/supplier/save",
+ 				"url": "/item/save",
  				"method": "POST",
  				"timeout": 0,
  				"headers": {
@@ -347,11 +351,15 @@
  					"Content-Type": "application/json"
  				},
  				"data": JSON.stringify({
- 					"firstName": $("#firstName").val(),
- 					"lastName": $("#lastName").val(),
- 					"address": $("#address").val(),
- 					"phone": $("#phone").intlTelInput("getNumber"),
- 					"instagram": $("#instagram").val()
+				"action":"save",
+ 					"suppCode": $("#dropdownlistSupp").val(),
+ 					"brandId": $("#jqxInputBrand").val(),
+ 					"description": $("#description").val(),
+ 					"inclusions": $("#Inclusions").val(),
+ 					"consignmentPrice": $("#Consignmentprice").val(),
+ 					"consignmentDate": $("#consignmentDate").jqxDateTimeInput("getDate"),
+ 					"sellingPrice": $("#Sellingprice").val()
+ 					
  				}),
  			};
 
@@ -380,43 +388,67 @@
      });
      
    
- 	$("#jqxUpdateSupplier").on('click', function() {
- 		if ($('#firstName_u').val().length === 0) {
+ 	$("#jqxUpdateItem").on('click', function() {
+ 		if ($('#dropdownlistSupp_u').val().length === 0) {
  			$("#notificationText_u").empty();
  			$("#messageNotification_u").jqxNotification({
  				template: "info"
  			});
- 			$("#notificationText_u").append("Name 1 is required");
+ 			$("#notificationText_u").append("Supplier Code is required");
  			$("#messageNotification_u").jqxNotification("open");
- 		} else if ($('#lastName_u').val().length === 0) {
+ 		} else if ($('#jqxInputBrand_u').val().length === 0) {
  			$("#notificationText_u").empty();
  			$("#messageNotification_u").jqxNotification({
  				template: "info"
  			});
- 			$("#notificationText_u").append("Name 2 is required");
+ 			$("#notificationText_u").append("Brand is required");
  			$("#messageNotification_u").jqxNotification("open");
- 		} else if ($('#address_u').val().length === 0) {
+ 		} else if ($('#description_u').val().length === 0) {
  			$("#notificationText_u").empty();
  			$("#messageNotification_u").jqxNotification({
  				template: "info"
  			});
- 			$("#notificationText_u").append("Address is required");
+ 			$("#notificationText_u").append("description is required");
  			$("#messageNotification_u").jqxNotification("open");
- 		} else if ($('#phone_u').val().length === 0) {
+ 		} else if ($('#Inclusions_u').val().length === 0) {
  			$("#notificationText_u").empty();
  			$("#messageNotification_u").jqxNotification({
  				template: "info"
  			});
- 			$("#notificationText_u").append("Phone number is required");
+ 			$("#notificationText_u").append("Inclusions is required");
  			$("#messageNotification_u").jqxNotification("open");
- 		} else if (!$("#phone_u").intlTelInput("isValidNumber")){
-	        $("#notificationText_u").empty();
+ 		}  else if ($('#Consignmentprice_u').val().length === 0) {
+ 			$("#notificationText_u").empty();
  			$("#messageNotification_u").jqxNotification({
  				template: "info"
  			});
- 			$("#notificationText_u").append("Invalid phone number.");
+ 			$("#notificationText_u").append("Consignmentprice is required");
  			$("#messageNotification_u").jqxNotification("open");
-        }else {
+ 		}   else if ($('#consignmentDate_u').val().length === 0) {
+ 			$("#notificationText_u").empty();
+ 			$("#messageNotification_u").jqxNotification({
+ 				template: "info"
+ 			});
+ 			$("#notificationText_u").append("consignmentDate is required");
+ 			$("#messageNotification_u").jqxNotification("open");
+ 		}  
+ 		  else if ($('#Sellingprice_u').val().length === 0) {
+ 			$("#notificationText_u").empty();
+ 			$("#messageNotification_u").jqxNotification({
+ 				template: "info"
+ 			});
+ 			$("#notificationText_u").append("Sellingprice is required");
+ 			$("#messageNotification_u").jqxNotification("open");
+ 		}   else if ($('#ItemCode_u').val().length === 0) {
+ 			$("#notificationText_u").empty();
+ 			$("#messageNotification_u").jqxNotification({
+ 				template: "info"
+ 			});
+ 			$("#notificationText_u").append("ItemCode is required");
+ 			$("#messageNotification_u").jqxNotification("open");
+ 		}   
+ 		
+ 		else {
  		
  		var settings = {
  			"url": "/supplier/update",
@@ -427,13 +459,14 @@
  				"Content-Type": "application/json"
  			},
  			"data": JSON.stringify({
- 				"id": $("#id_supp").val(),
- 				"suppCode": $("#suppCode").val(),
- 				"firstName": $("#firstName_u").val(),
- 				"lastName": $("#lastName_u").val(),
- 				"address": $("#address_u").val(),
- 				"phone": $("#phone_u").intlTelInput("getNumber"),
- 				"instagram": $("#instagram_u").val()
+ 				"suppCode": $("#dropdownlistSupp_u").val(),
+ 					"brandId": $("#jqxInputBrand_u").val(),
+ 					"description": $("#description_u").val(),
+ 					"inclusions": $("#Inclusions_u").val(),
+ 					"consignmentPrice": $("#Consignmentprice_u").val(),
+ 					"consignmentDate": $("#consignmentDate_u").val(),
+ 					"sellingPrice": $("#Sellingprice_u").val(),
+ 					"ItemCode": $("#ItemCode_u").val()
  			}),
  		};
 
@@ -468,11 +501,11 @@
  		
      });
      
-      $("#CloseSaveSupplier").on('click', function() {
+      $("#CloseSaveItem").on('click', function() {
          $('#window').jqxWindow('close');
       });
 
-       $("#CloseUpdateSupplier").on('click', function() {
+       $("#CloseUpdateItem").on('click', function() {
          $('#updatewindow').jqxWindow('close');
        });
  });

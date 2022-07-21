@@ -5,28 +5,19 @@
   $("#loginUserName").removeClass("d-none"); 
  });
  $(document).ready(function() {
-	     var urlbrand ="/brand/getall";
-                // prepare the data
-                var sourceBrand =
-                {
-                    datatype: "json",
-                    datafields: [
-                        { name: 'id' },
-                        { name: 'nameEn' }
-                    ],
-                    url: urlbrand 
-                };
-                var dataAdapterBrand = new $.jqx.dataAdapter(sourceBrand );
-                // Create a jqxInput
-                $("#jqxInputBrand").jqxInput({ source: dataAdapterBrand, placeHolder: "Brand Name:", displayMember: "nameEn", valueMember: "id", width: 250, height: 30});
-                $("#jqxInputBrand").on('select', function (event) {
-                    if (event.args) {
-                        var item = event.args.item;
-                        if (item) {
-                          alert(item.value)
-                        }
-                    }
-                });
+ var urlBrand = "/brand/getall";
+var sourceBrand =
+	 {
+		 datatype: "json",
+		 datafields: [
+			 { name: 'id' },
+			 { name: 'nameEn' }
+		 ], url: urlBrand,
+		 async: true
+	 };
+ var dataAdapterBrand = new $.jqx.dataAdapter(sourceBrand);
+ $('#dropdownlistBrand').jqxDropDownList({ selectedIndex: -1,  source: dataAdapterBrand, displayMember: "nameEn" , valueMember: "id",theme: 'material-purple', height: 38, width: '100%'});
+			
 	 var url = "/supplier/getall";
 	 var sourceSupp =
 	 {
@@ -39,13 +30,13 @@
 		 async: true
 	 };
  var dataAdapterSupp = new $.jqx.dataAdapter(sourceSupp);
-             $('#dropdownlistSupp').jqxDropDownList({ selectedIndex: 0,  source: dataAdapterSupp, displayMember: "firstName", valueMember: "suppCode", itemHeight: 70, height: 25, width: 270,
+             $('#dropdownlistSupp').jqxDropDownList({ selectedIndex: -1,  source: dataAdapterSupp, displayMember: "suppCode" , valueMember: "suppCode",theme: 'material-purple', itemHeight: 50, height: 38, width: '100%',
                 renderer: function (index, label, value) {
-	debugger
+				debugger;
+	                var data = $("#dropdownlistSupp").jqxDropDownList('getItems'); 
                     var datarecord = data[index];
-                    var imgurl = '../../../images/' + label.toLowerCase() + '.png';
-                    var img = '<img height="50" width="45" src="' + imgurl + '"/>';
-                    var table = '<table style="min-width: 150px;"><tr><td style="width: 55px;" rowspan="2">' + img + '</td><td>' + datarecord.firstname + " " + datarecord.lastname + '</td></tr><tr><td>' + datarecord.title + '</td></tr></table>';
+                
+                    var table = '<table style="min-width: 150px;"><tr><td>' +datarecord.originalItem.suppCode + '</td></tr><tr><td>' + datarecord.originalItem.firstName +' '+ datarecord.originalItem.lastName + '</td></tr></table>';
                     return table;
                 }
             });

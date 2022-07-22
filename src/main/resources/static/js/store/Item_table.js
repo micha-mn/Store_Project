@@ -1,12 +1,15 @@
  let action = '';
+ var config='';
  $(window).on('load', function() {
   $("#buttonContainer").addClass("d-flex");
   $("#windowContainer").removeClass("d-none");
   $("#loginUserName").removeClass("d-none"); 
  });
  $(document).ready(function() {
+
+		
  var urlBrand = "/brand/getall";
-var sourceBrand =
+ var sourceBrand =
 	 {
 		 datatype: "json",
 		 datafields: [
@@ -32,7 +35,7 @@ $('#dropdownlistBrand_u').jqxDropDownList({ selectedIndex: -1,  source: dataAdap
  var dataAdapterSupp = new $.jqx.dataAdapter(sourceSupp);
              $('#dropdownlistSupp').jqxDropDownList({ selectedIndex: -1,  source: dataAdapterSupp, displayMember: "suppCode" , valueMember: "suppCode",theme: 'material-purple', itemHeight: 50, height: 38, width: '100%',
                 renderer: function (index, label, value) {
-				debugger;
+				
 	                var data = $("#dropdownlistSupp").jqxDropDownList('getItems'); 
                     var datarecord = data[index];
                 
@@ -42,7 +45,7 @@ $('#dropdownlistBrand_u').jqxDropDownList({ selectedIndex: -1,  source: dataAdap
             });
             $('#dropdownlistSupp_u').jqxDropDownList({ selectedIndex: -1,  source: dataAdapterSupp, displayMember: "suppCode" , valueMember: "suppCode",theme: 'material-purple', itemHeight: 50, height: 38, width: '100%',
                 renderer: function (index, label, value) {
-				debugger;
+				
 	                var data = $("#dropdownlistSupp_u").jqxDropDownList('getItems'); 
                     var datarecord = data[index];
                 
@@ -79,12 +82,11 @@ $('#dropdownlistBrand_u').jqxDropDownList({ selectedIndex: -1,  source: dataAdap
  		height: 40
  	});
  	$("#jqxAddButton").on('click', function() {
- 		action = 'add';
  		$('#window').jqxWindow('open');
  	});
- 	     $('#clearfilteringbutton').click(function () {
-                $("#grid").jqxGrid('clearfilters');
-            });
+ 	 $('#clearfilteringbutton').click(function () {
+           $("#grid").jqxGrid('clearfilters');
+       });
  	// initialize jqxGrid
  	var source = {
 		url: '/item/getall',
@@ -94,11 +96,19 @@ $('#dropdownlistBrand_u').jqxDropDownList({ selectedIndex: -1,  source: dataAdap
  				type: 'string'
  			},
  			{
+ 				name: 'itemCode',
+ 				type: 'string'
+ 			},
+			{
  				name: 'suppCode',
  				type: 'string'
  			},
  			{
  				name: 'brandId',
+ 				type: 'string'
+ 			},
+		    {
+ 				name: 'brandName',
  				type: 'string'
  			},
  			{
@@ -115,7 +125,7 @@ $('#dropdownlistBrand_u').jqxDropDownList({ selectedIndex: -1,  source: dataAdap
  			},
  			{
  				name: 'consignmentDate',
- 				type: 'string'
+ 				type: 'date'
 			 },
 			 {
  				name: 'sellingPrice',
@@ -135,7 +145,20 @@ $('#dropdownlistBrand_u').jqxDropDownList({ selectedIndex: -1,  source: dataAdap
  		}
  	};
  	var dataAdapter = new $.jqx.dataAdapter(source);
- 	$("#grid").jqxGrid({
+ var settings = {
+	  "url": "/config/table/"+"itemsView",
+	  "method": "GET",
+	  "Async": false,
+	  "headers": {
+	    "Authorization": "Bearer " + getJwt(),
+	    "Content-Type": "application/json"
+	  },
+	};
+
+  $.ajax(settings).done(function (response) {
+		config= response;
+	
+	$("#grid").jqxGrid({
  		width: '100%',
  		source: dataAdapter,
  		pageable: true,
@@ -146,10 +169,25 @@ $('#dropdownlistBrand_u').jqxDropDownList({ selectedIndex: -1,  source: dataAdap
  		columns: [{
  				text: '',
  				datafield: 'id',
- 				hidden: true
+ 				hidden: config.id
+ 			},
+		   {
+ 				text: '',
+ 				datafield: 'brandId',
+ 				hidden:  config.brandId
+ 			},
+			{
+ 				text: 'Item code',
+			    hidden: config.itemCode,
+ 				datafield: 'itemCode',
+ 				width: '8%',
+ 				createfilterwidget: function (column, columnElement, widget) {
+			        widget.jqxInput({ width: '100%', height: 27, placeHolder: "Enter Code" });
+				  }
  			},
  			{
  				text: 'Supplier code',
+				hidden: config.suppCode,
  				datafield: 'suppCode',
  				width: '8%',
  				createfilterwidget: function (column, columnElement, widget) {
@@ -158,7 +196,8 @@ $('#dropdownlistBrand_u').jqxDropDownList({ selectedIndex: -1,  source: dataAdap
  			},
  			{
  				text: 'brand',
- 				datafield: 'brandId',
+				hidden: config.brandName,
+ 				datafield: 'brandName',
  				width: '10%',
  				  createfilterwidget: function (column, columnElement, widget) {
 			        widget.jqxInput({ width: '100%', height: 27, placeHolder: "Enter Brand" });
@@ -166,14 +205,16 @@ $('#dropdownlistBrand_u').jqxDropDownList({ selectedIndex: -1,  source: dataAdap
  			},
  			{
  				text: 'description',
+				hidden: config.description,
  				datafield: 'description',
- 				width: '10%',
+ 				width: '21%',
  				 createfilterwidget: function (column, columnElement, widget) {
 			        widget.jqxInput({ width: '100%', height: 27, placeHolder: "Enter Description" });
 				  }
  			},
  			{
  				text: 'inclusions',
+				hidden: config.inclusions,
  				datafield: 'inclusions',
  				width: '16%',
                 createfilterwidget: function (column, columnElement, widget) {
@@ -181,7 +222,8 @@ $('#dropdownlistBrand_u').jqxDropDownList({ selectedIndex: -1,  source: dataAdap
  			}
  			},
  			{
- 				text: 'consignmentPrice',
+ 				text: 'consignment Price',
+				hidden: config.consignmentPrice,
  				datafield: 'consignmentPrice',
  				width: '12%',
  			    createfilterwidget: function (column, columnElement, widget) {
@@ -189,15 +231,16 @@ $('#dropdownlistBrand_u').jqxDropDownList({ selectedIndex: -1,  source: dataAdap
  			}
  			},
  			{
- 				text: 'consignmentDate',
+ 				text: 'consignment Date',
+				hidden: config.consignmentDate,
  				datafield: 'consignmentDate',
  				width: '10%',
- 				createfilterwidget: function (column, columnElement, widget) {
-			        widget.jqxInput({ width: '100%', height: 27, placeHolder: "Enter consignmentDate" });
-			}
+				filtertype: 'date',
+				cellsformat: 'dd-MMM-yy' 
 			 },
 			 {
- 				text: 'sellingPrice',
+ 				text: 'selling Price',
+				hidden: config.sellingPrice,
  				datafield: 'sellingPrice',
  				width: '10%',
  				createfilterwidget: function (column, columnElement, widget) {
@@ -206,6 +249,7 @@ $('#dropdownlistBrand_u').jqxDropDownList({ selectedIndex: -1,  source: dataAdap
 			 },
 			 {
  				text: 'Create Date',
+				hidden: config.creationDate,
 			    datafield: 'creationDate',
 				width: '12%',
 				filtertype: 'date', 
@@ -213,10 +257,51 @@ $('#dropdownlistBrand_u').jqxDropDownList({ selectedIndex: -1,  source: dataAdap
 			 },
 			 {
  				text: 'Edit Date',
+				hidden: config.lastModifiedDate,
 				datafield: 'lastModifiedDate',
 			    filtertype: 'date', 
 				width: '12%',
 				cellsformat: 'dd-MMM-yy HH:mm' 
+ 			},
+		{
+ 				text: '',
+ 				datafield: 'Barcode',
+ 				width: '5%',
+                columntype: 'button',
+                filterable: false,
+ 				cellsrenderer: function() {
+ 					return "Barcode";
+ 				},
+ 				buttonclick: function(row) {
+ 					// open the popup window when the user clicks a button.
+ 					editrow = row;
+ 					var offset = $("#grid").offset();
+ 					var dataRecord = $("#grid").jqxGrid('getrowdata', editrow);
+				
+				// window.open("/report/generatereport/ITEMBARCODE/"+dataRecord.id);
+				var settings = {
+					  "url": "/report/generatereport",
+					  "method": "POST",
+					  "headers": {
+					    "Authorization": "Bearer " + getJwt(),
+					    "Content-Type": "application/json"
+					  },
+			 		   // xhrFields: { responseType: 'arraybuffer'},
+					  "data": JSON.stringify({
+					    "reportCode": "ITEMBARCODE",
+					    "param1": dataRecord.id
+					  }),
+					};
+					
+					$.ajax(settings).done(function (response) {
+			     	
+
+					  var blob = new Blob([response], {type: 'application/pdf'});
+					  var blobURL = URL.createObjectURL(blob);
+					  window.open(blobURL);
+					});
+					
+ 				}
  			},
  			{
  				text: '',
@@ -236,11 +321,17 @@ $('#dropdownlistBrand_u').jqxDropDownList({ selectedIndex: -1,  source: dataAdap
  					var dataRecord = $("#grid").jqxGrid('getrowdata', editrow);
 
  					$("#id_item").val(dataRecord.id);
- 					$("#suppCode").val(dataRecord.suppCode);
- 					$("#firstName_u").val(dataRecord.firstName);
- 					$("#lastName_u").val(dataRecord.lastName);
- 					$("#address_u").val(dataRecord.address);
- 					$("#instagram_u").val(dataRecord.instagram);
+					$("#itemCode").val(dataRecord.itemCode);
+				
+ 					$("#dropdownlistSupp_u").jqxDropDownList('selectItem', dataRecord.suppCode ); 
+			
+					$("#dropdownlistBrand_u").jqxDropDownList('selectItem', dataRecord.brandId); 
+					
+ 					$("#description_u").val(dataRecord.description);
+ 					$("#Inclusions_u").val(dataRecord.inclusions);
+ 					$("#Consignmentprice_u").val(dataRecord.consignmentPrice);
+				    $("#consignmentDate_u").jqxDateTimeInput('setDate',dataRecord.consignmentDate);
+ 					$("#Sellingprice_u").val(dataRecord.sellingPrice);
 
  					// show the popup window.
  					$('#updatewindow').jqxWindow('open');
@@ -265,6 +356,8 @@ $('#dropdownlistBrand_u').jqxDropDownList({ selectedIndex: -1,  source: dataAdap
  			}
  		]
  	});
+		});
+ 	
 
     $("#deleteItem").on('click', function() {
         var selectedrowindex = $('#grid').jqxGrid('getselectedrowindexes');
@@ -454,14 +547,15 @@ $('#dropdownlistBrand_u').jqxDropDownList({ selectedIndex: -1,  source: dataAdap
  			},
  			"data": JSON.stringify({
 		            "action":"update",
+ 					"id":$("#id_item").val(),
+				    "itemCode": $("#itemCode").val(),
  				    "suppCode": $("#dropdownlistSupp_u").val(),
  					"brandId": $("#dropdownlistBrand_u").val(),
  					"description": $("#description_u").val(),
  					"inclusions": $("#Inclusions_u").val(),
  					"consignmentPrice": $("#Consignmentprice_u").val(),
  					"consignmentDate": $("#consignmentDate_u").jqxDateTimeInput("getDate"),
- 					"sellingPrice": $("#Sellingprice_u").val(),
- 					"ItemCode": $("#ItemCode_u").val()
+ 					"sellingPrice": $("#Sellingprice_u").val()
  			}),
  		};
 
@@ -478,13 +572,15 @@ $('#dropdownlistBrand_u').jqxDropDownList({ selectedIndex: -1,  source: dataAdap
         var rowdata=$('#grid').jqxGrid('getrowdata', selectedrowindex);
         debugger
          $('#grid').jqxGrid('updaterow', rowid, {
-                                                    "id": $("#id_supp").val(),
-                                                    "suppCode": $("#suppCode").val(),
-                                                    "firstName": $("#firstName_u").val(),
-                                                    "lastName": $("#lastName_u").val(),
-                                                    "address": $("#address_u").val(),
-                                                    "phone": $("#phone_u").intlTelInput("getNumber"),
-                                                    "instagram": $("#instagram_u").val(),
+                                                    "id":$("#id_item").val(),
+												    "itemCode": $("#itemCode").val(),
+								 				    "suppCode": $("#dropdownlistSupp_u").val(),
+								 					"brandId": $("#dropdownlistBrand_u").val(),
+								 					"description": $("#description_u").val(),
+								 					"inclusions": $("#Inclusions_u").val(),
+								 					"consignmentPrice": $("#Consignmentprice_u").val(),
+								 					"consignmentDate": $("#consignmentDate_u").jqxDateTimeInput("getDate"),
+								 					"sellingPrice": $("#Sellingprice_u").val(),
                                                     "lastModifiedDate": new Date(),
                                                     "creationDate": rowdata.creationDate
                                                 }
@@ -495,7 +591,24 @@ $('#dropdownlistBrand_u').jqxDropDownList({ selectedIndex: -1,  source: dataAdap
  		}
  		
      });
-     
+      $("#jqxSaveBrand").on('click', function() {
+		saveBrand($("#brandName").val()).then(
+			  function(value) { 
+				$("#dropdownlistBrand").jqxDropDownList('insertAt', { label: $("#brandName").val(), value: value }, 0);
+				$("#dropdownlistBrand").jqxDropDownList('selectItem', value ); 
+				$('#brandwindow').jqxWindow('close');
+				}
+			);
+      });
+	 $("#jqxSaveBrand_u").on('click', function() {
+					saveBrand($("#brandName").val()).then(
+			  function(value) { 
+				$("#dropdownlistBrand_u").jqxDropDownList('insertAt', { label: $("#brandName_u").val(), value: value }, 0);
+				$("#dropdownlistBrand_u").jqxDropDownList('selectItem', value ); 
+				$('#brandwindow_u').jqxWindow('close');
+				}
+			);
+	      });
       $("#CloseSaveItem").on('click', function() {
          $('#window').jqxWindow('close');
       });
@@ -503,6 +616,13 @@ $('#dropdownlistBrand_u').jqxDropDownList({ selectedIndex: -1,  source: dataAdap
        $("#CloseUpdateItem").on('click', function() {
          $('#updatewindow').jqxWindow('close');
        });
+
+	 $("#CloseSaveBrand").on('click', function() {
+         $('#brandwindow').jqxWindow('close');
+      });
+	 $("#CloseSaveBrand_u").on('click', function() {
+	         $('#brandwindow_u').jqxWindow('close');
+	  });
  });
 
  function createWindow() {
@@ -533,4 +653,61 @@ $('#dropdownlistBrand_u').jqxDropDownList({ selectedIndex: -1,  source: dataAdap
  		theme: 'material-purple'
 
  	});
+ $('#brandwindow').jqxWindow({
+ 		position: {
+ 			x: offset.left + 375,
+ 			y: offset.top + 100
+ 		},
+ 		showCollapseButton: true,
+ 		autoOpen: false,
+ 		height: 260,
+ 		width: 375,
+ 		theme: 'material-purple'
+
+ 	}); 
+$('#brandwindow_u').jqxWindow({
+ 		position: {
+ 			x: offset.left + 375,
+ 			y: offset.top + 100
+ 		},
+ 		showCollapseButton: true,
+ 		autoOpen: false,
+ 		height: 260,
+ 		width: 375,
+ 		theme: 'material-purple'
+
+ 	}); 
+ 	
  };
+ 
+ function openBrandWindow()
+ {
+   $('#brandwindow').jqxWindow('open');
+   $("#brandwindow").jqxWindow('bringToFront')
+ }
+function openBrandWindow_u()
+ {
+   $('#brandwindow_u').jqxWindow('open');
+   $("#brandwindow_u").jqxWindow('bringToFront')
+ }
+async function saveBrand(name)
+{
+	var brandId='';
+	var settings = {
+		  "url": "/brand/save",
+		  "method": "POST",
+		  "timeout": 0,
+		  "headers": {
+		    "Authorization": "Bearer " + getJwt(),
+		    "Content-Type": "application/json"
+		  },
+		  "data": JSON.stringify({
+		    "nameEn": name
+		  }),
+		};
+
+			$.ajax(settings).done(function (response) {
+				brandId= response;
+			});
+			return brandId;
+}

@@ -9,5 +9,5 @@ import com.store.domain.Brand;
 public interface BrandRepository extends JpaRepository<Brand, Long> {
 
 	  public List<Brand> findAllByOrderByIdDesc();
-
+      
 }

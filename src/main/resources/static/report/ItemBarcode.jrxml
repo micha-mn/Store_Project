@@ -23,7 +23,7 @@
 	
 from items i, brand b
 where i.id = CAST ($P{itemId} AS INTEGER)
-and i.brand_id = b.id]]>
+and CAST (i.brand_id AS INTEGER) = b.id]]>
 	</queryString>
 	<field name="id" class="java.lang.Long">
 		<property name="com.jaspersoft.studio.field.name" value="id"/>

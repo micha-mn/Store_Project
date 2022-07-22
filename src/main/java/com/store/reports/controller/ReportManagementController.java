@@ -5,6 +5,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,10 +26,15 @@ public class ReportManagementController extends ValidationUtils{
 	 @Autowired
 	 ReportManagementUtil reportManagementUtil;
 
-	 @GetMapping("/itembarcode")
-		public ResponseEntity<?> generateItemBarcode() {
-			
-			return new ResponseEntity<>("hi", HttpStatus.OK);
+	 @GetMapping("/generatereport/{reportCode}/{id}")
+		public ResponseEntity<?> generateItemBarcode(@PathVariable("reportCode") String reportCode,@PathVariable("id") String id ,HttpServletResponse response) {
+		 ReportManagementDTO reportManagementDTO = ReportManagementDTO.builder().reportCode(reportCode).param1(id).build();
+			try {
+				reportManagementUtil.exportToPdf(reportManagementDTO,response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			return null;
 		}
 	 @PostMapping("/generatereport")
 		public String generateItemBarcode(@RequestBody @Valid ReportManagementDTO reportManagementDTO, BindingResult bindingResult,HttpServletResponse response) {

@@ -21,7 +21,7 @@ public class ItemDTO {
 		@NotNull(message = ErrorConstants.ITEM_SUPPCODE_NOT_NULL)
 		private String suppCode;
 		@NotNull(message = ErrorConstants.ITEM_BRANDID_NOT_NULL)
-	    private Long brandId;
+	    private String brandId;
 		@NotNull(message = ErrorConstants.ITEM_DESCRIPCTION_NOT_NULL)
 	    private String description;
 		@NotNull(message = ErrorConstants.ITEM_INCLUSIONS_NOT_NULL)

@@ -24,5 +24,4 @@ public class BrandService {
 		return brandRepository.findAllByOrderByIdDesc();	
 	}
 	
-	
 }

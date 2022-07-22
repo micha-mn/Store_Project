@@ -71,7 +71,7 @@ public class ReportManagementUtil {
 
            jasperPrint = JasperFillManager.fillReport(CompiledjasperReport, parameters,
                   connection);
-
+           connection.close();
           return jasperPrint; 
          
       } catch (Exception e) {

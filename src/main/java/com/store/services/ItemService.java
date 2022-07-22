@@ -6,9 +6,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.store.domain.Item;
+import com.store.domain.ItemsView;
 import com.store.dto.ItemDTO;
 import com.store.enums.StatusEnum;
 import com.store.repositories.ItemRepository;
+import com.store.repositories.ItemViewRepository;
 import com.store.utils.CommonUtils;
 
 import jakarta.validation.Valid;
@@ -17,6 +19,8 @@ import jakarta.validation.Valid;
 public class ItemService {
 	@Autowired
 	ItemRepository itemRepository;
+	@Autowired
+	ItemViewRepository itemViewRepository;
 	@Autowired
 	CommonUtils commonUtils;
 	
@@ -58,9 +62,9 @@ public class ItemService {
 		return status;
 	}
 
-	public List<Item> getAllItem() {
+	public List<ItemsView> getAllItem() {
 		
-		return itemRepository.findAllByOrderByIdDesc();
+		return itemViewRepository.findAllByOrderByIdDesc();
 	}
 	public String deleteItemById(long id)
 	{

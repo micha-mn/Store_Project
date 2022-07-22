@@ -1,37 +1,38 @@
 package com.store.domain;
+import java.util.Date;
 
 import com.store.audit.Auditable;
 
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import java.util.Date;
+
+
 @Data
 @Builder
 @NoArgsConstructor 
 @AllArgsConstructor
 @Entity
-@Table(name = "Items")
-public class Item extends Auditable<String> {
+@Table(name = "items_view")
+public class ItemsView extends Auditable<String> {
 	@Id
-    @GeneratedValue
     private Long id;
 	private String itemCode;
-	private String suppCode;
-	@Column(length=10)
+    private String suppCode;
     private String brandId;
-    @Column(length=60)
+	private String brandName;
     private String description;
-	private String inclusions;
-	@Column(length=60)
+    private String inclusions;
     private String consignmentPrice;
     private Date consignmentDate;
-    @Column(length=60)
-    private String sellingPrice ;
+    private String sellingPrice;
+    private Date creationDate;
+    private String createdBy;
+    private Date lastModifiedDate;
+    private String lastModifiedBy;
 }
+

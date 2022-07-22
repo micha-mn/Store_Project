@@ -88,7 +88,7 @@ CREATE TABLE IF NOT EXISTS public.items
     created_date timestamp(6) without time zone,
     last_modified_by character varying(255) COLLATE pg_catalog."default",
     last_modified_date timestamp(6) without time zone,
-    brand_id bigint,
+    brand_id character varying(10) COLLATE pg_catalog."default",
     consignment_date timestamp(6) without time zone,
     consignment_price character varying(60) COLLATE pg_catalog."default",
     description character varying(60) COLLATE pg_catalog."default",
@@ -117,3 +117,27 @@ CREATE TABLE IF NOT EXISTS public.report_management
 INSERT INTO public.report_management(
 	id ,param1, parameter_counter, report_code, report_jasper_path, report_jrxml_path)
 	VALUES ('1','itemId', '1', 'ITEMBARCODE', '\\src\\main\\resources\\static\\report\\ItemBarcode.jasper', '\\src\\main\\resources\\static\\report\\ItemBarcode.jrxml');
+
+CREATE TABLE IF NOT EXISTS public.configuration_table
+(
+    id bigint NOT NULL,
+    column_name character varying(60) COLLATE pg_catalog."default",
+    is_hidden boolean NOT NULL,
+    table_name character varying(60) COLLATE pg_catalog."default",
+    CONSTRAINT configuration_table_pkey PRIMARY KEY (id)
+);
+
+INSERT INTO configuration_table(id,column_name,table_name,is_hidden) VALUES ('1','id','itemsView','FALSE');
+INSERT INTO configuration_table(id,column_name,table_name,is_hidden) VALUES ('2','createdBy','itemsView','FALSE');
+INSERT INTO configuration_table(id,column_name,table_name,is_hidden) VALUES ('3','createdDate','itemsView','FALSE');
+INSERT INTO configuration_table(id,column_name,table_name,is_hidden) VALUES ('4','lastModifiedBy','itemsView','FALSE');
+INSERT INTO configuration_table(id,column_name,table_name,is_hidden) VALUES ('5','lastModifiedDate','itemsView','FALSE');
+INSERT INTO configuration_table(id,column_name,table_name,is_hidden) VALUES ('6','brandName','itemsView','TRUE');
+INSERT INTO configuration_table(id,column_name,table_name,is_hidden) VALUES ('7','brandId','itemsView','FALSE');
+INSERT INTO configuration_table(id,column_name,table_name,is_hidden) VALUES ('8','consignmentDate','itemsView','TRUE');
+INSERT INTO configuration_table(id,column_name,table_name,is_hidden) VALUES ('9','consignmentPrice','itemsView','TRUE');
+INSERT INTO configuration_table(id,column_name,table_name,is_hidden) VALUES ('10','description','itemsView','TRUE');
+INSERT INTO configuration_table(id,column_name,table_name,is_hidden) VALUES ('11','inclusions','itemsView','TRUE');
+INSERT INTO configuration_table(id,column_name,table_name,is_hidden) VALUES ('12','itemCode','itemsView','TRUE');
+INSERT INTO configuration_table(id,column_name,table_name,is_hidden) VALUES ('13','sellingPrice','itemsView','TRUE');
+INSERT INTO configuration_table(id,column_name,table_name,is_hidden) VALUES ('14','suppCode','itemsView','TRUE');

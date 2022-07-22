@@ -120,6 +120,56 @@
 				</div>
 			</div>
 			<div id="windowContainer" class="d-none">
+				<div id="brandwindow">
+				<div id="windowHeader"> <span> Brand </span> </div>
+				<form class="p-5" id="brand_form_update">
+					
+					<div class="form-row">
+						<div class="form-group col-md-12">
+							<label for="inputBrand">Brand Name</label>
+							 	<input type="text" class="form-control" id="brandName" placeholder="Brand" autocomplete="off" required> 
+							</div>
+					</div>
+					<div class="form-row">
+						<div class="form-group col-md-12 justify-content-between">
+							<button type="button" id="jqxSaveBrand" class="btn bg-gradient-primary mt-4 mb-0">Save</button>
+							<button type="button" id="CloseSaveBrand" class="btn bg-outline-primary mt-4 mb-0 ml-2">Close</button>
+						</div>
+						<div class="form-group col-md-6">
+							<div id="container_b" style="width: 435px; height: 30px; margin-top: 1rem;">
+								<div id="messageNotification_b">
+									<div id="notificationText_b"></div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</form>
+			</div>
+				<div id="brandwindow_u">
+				<div id="windowHeader"> <span> Brand </span> </div>
+				<form class="p-5" id="brand_form_update">
+					
+					<div class="form-row">
+						<div class="form-group col-md-12">
+							<label for="inputBrand">Brand Name</label>
+							 	<input type="text" class="form-control" id="brandName_u" placeholder="Brand" autocomplete="off" required> 
+							</div>
+					</div>
+					<div class="form-row">
+						<div class="form-group col-md-12 justify-content-between">
+							<button type="button" id="jqxSaveBrand_u" class="btn bg-gradient-primary mt-4 mb-0">Save</button>
+							<button type="button" id="CloseSaveBrand_u" class="btn bg-outline-primary mt-4 mb-0 ml-2">Close</button>
+						</div>
+						<div class="form-group col-md-6">
+							<div id="container_b" style="width: 435px; height: 30px; margin-top: 1rem;">
+								<div id="messageNotification_b">
+									<div id="notificationText_b"></div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</form>
+			</div>
 			<div id="window">
 				<div id="windowHeader"> <span> Item </span> </div>
 				<form class="p-5" id="supplier_form">
@@ -133,7 +183,7 @@
 							<label for="brand">Brand </label>
 							<div class="d-flex">
 							<div class="col-10 p-0"><div id="dropdownlistBrand"> </div></div>
-								<button type="button" class="btn bg-outline-primary ml-3" onclick="addNewBrand()"><i class="fa-solid fa-plus"></i> </button>
+								<button type="button" class="btn bg-outline-primary ml-3" onclick="openBrandWindow()"><i class="fa-solid fa-plus"></i> </button>
 							</div>
 						</div>
 					</div>
@@ -181,13 +231,14 @@
 						<div class="form-group col-md-6">
 							<label for="inputSupplier Code">Supplier Code</label>
 							<input type="hidden" class="form-control" id="id_item" disabled>
+							<input type="hidden" class="form-control" id="itemCode" disabled>
 							<div id="dropdownlistSupp_u"> </div> 
 					      </div>
 						<div class="form-group col-md-6">
 							<label for="brand">Brand </label>
 							<div class="d-flex">
 							<div class="col-10 p-0"><div id="dropdownlistBrand_u"> </div></div>
-								<button type="button" class="btn bg-outline-primary ml-3" onclick="addNewBrand()"><i class="fa-solid fa-plus"></i> </button>
+								<button type="button" class="btn bg-outline-primary ml-3" onclick="openBrandWindow_u()"><i class="fa-solid fa-plus"></i> </button>
 							</div>
 						</div>
 					</div>
@@ -225,9 +276,11 @@
 								</div>
 							</div>
 						</div>
+					 </div>
 					</div>
 				</form>
 			</div>
+			
 			</div>
 		</div>
 		<!-- Modal HTML -->

@@ -1,5 +1,6 @@
  let action = '';
  var config='';
+
  $(window).on('load', function() {
   $("#buttonContainer").addClass("d-flex");
   $("#windowContainer").removeClass("d-none");

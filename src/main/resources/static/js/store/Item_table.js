@@ -537,6 +537,7 @@ $("#messageNotification_b").jqxNotification({
  				$("#notificationText").append(response);
  				$("#messageNotification").jqxNotification("open");
  				var dataAdapter = new $.jqx.dataAdapter(source);
+ 				 $('#dropdownlistSupp').jqxDropDownList({ selectedIndex: -1});
  				$('#grid').jqxGrid({
  					source: dataAdapter
                  });

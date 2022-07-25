@@ -115,8 +115,8 @@ CREATE TABLE IF NOT EXISTS public.report_management
 );
 
 INSERT INTO public.report_management(
-	id ,param1, parameter_counter, report_code, report_jasper_path, report_jrxml_path)
-	VALUES ('1','itemId', '1', 'ITEMBARCODE', '\\src\\main\\resources\\static\\report\\ItemBarcode.jasper', '\\src\\main\\resources\\static\\report\\ItemBarcode.jrxml');
+	id ,param1, parameter_counter, report_code,  report_jrxml_path)
+	VALUES ('1','itemId', '1', 'ITEMBARCODE',  '\\src\\main\\resources\\static\\report\\ItemBarcode.jrxml');
 
 CREATE TABLE IF NOT EXISTS public.configuration_table
 (

@@ -42,7 +42,7 @@
             });
      $("#consignmentDate").jqxDateTimeInput({ width: '100%', height: '38px',theme: 'material-purple', value:null, formatString : 'dd-MMM-yy'  });
      $("#consignmentDate_u").jqxDateTimeInput({ width: '100%', height: '38px',theme: 'material-purple', value:null, formatString : 'dd-MMM-yy'  });
- 	$("#messageNotification").jqxNotification({
+  	$("#messageNotification").jqxNotification({
  		width: '100%',
  		appendContainer: "#container",
  		opacity: 0.9,
@@ -74,7 +74,7 @@
  	});
 $("#messageNotification_b").jqxNotification({
  		width: '100%',
- 		appendContainer: "#container_s",
+ 		appendContainer: "#container_b",
  		opacity: 0.9,
  		autoOpen: false,
  		animationOpenDelay: 800,
@@ -329,7 +329,6 @@ $("#messageNotification_b").jqxNotification({
 					$("#itemCode").val(dataRecord.itemCode);
 				
  					$("#dropdownlistSupp_u").jqxDropDownList('selectItem', dataRecord.suppCode ); 
-			debugger;
 					$("#dropdownlistBrand_u").jqxDropDownList('selectItem', dataRecord.brandId); 
 					
  					$("#description_u").val(dataRecord.description);
@@ -632,7 +631,6 @@ $("#messageNotification_b").jqxNotification({
         var selectedrowindex = $('#grid').jqxGrid('getselectedrowindexes');
         var rowid = $('#grid').jqxGrid('getrowid', selectedrowindex);
         var rowdata=$('#grid').jqxGrid('getrowdata', selectedrowindex);
-        debugger
          $('#grid').jqxGrid('updaterow', rowid, {
                                                     "id":$("#id_item").val(),
 												    "itemCode": $("#itemCode").val(),
@@ -711,7 +709,7 @@ $("#messageNotification_b").jqxNotification({
  		},
  		showCollapseButton: true,
  		autoOpen: false,
- 		height: 260,
+ 		height: 360,
  		width: 375,
  		theme: 'material-purple'
 
@@ -776,8 +774,19 @@ async function saveBrand(name)
 		};
 
 			$.ajax(settings).done(function (response) {
-				debugger;
-				$('#brandGrid').jqxGrid('addrow', rowid, {});
+				if (response.brand== null)
+				{
+					   $("#notificationText_b").empty();
+			 			$("#messageNotification_b").jqxNotification({
+			 				template: "info"
+			 			});
+			 			$("#notificationText_b").append(response.message);
+			 			$("#messageNotification_b").jqxNotification("open");
+				}
+			else {
+				$('#brandGrid').jqxGrid('addrow', null, response.brand);
 				$("#brandwindow").jqxWindow('close');
+				}
+				
 			});
 }

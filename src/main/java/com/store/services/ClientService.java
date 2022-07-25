@@ -7,11 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.store.domain.Client;
-import com.store.domain.Supplier;
 import com.store.dto.ClientDTO;
-import com.store.dto.SupplierDTO;
-import com.store.enums.ClientStatus;
-import com.store.enums.SupplierStatus;
+import com.store.enums.StatusEnum;
 import com.store.repositories.ClientRepository;
 @Service
 public class ClientService{
@@ -40,10 +37,10 @@ public class ClientService{
 										.instagram(clientDTO.getInstagram()).build();
 			
 				clientRepository.save(client);
-				clientStatus = ClientStatus.SAVED.value;
+				clientStatus = StatusEnum.CLIENT_SAVED.value;
 				}
 			else
-				clientStatus = ClientStatus.EXIST.value;
+				clientStatus = StatusEnum.CLIENT_EXIST.value;
 			
 			return clientStatus;
 	}
@@ -61,12 +58,12 @@ public class ClientService{
 						.address(clientDTO.getAddress())
 						.instagram(clientDTO.getInstagram()).build();
 		    clientRepository.save(updateClient);
-		 	return SupplierStatus.UPDATED.value;
+		 	return StatusEnum.CLIENT_UPDATED.value;
 	}
 	public String deleteClientById(long id)
 	{
 		clientRepository.deleteById(id);
-		return SupplierStatus.DELETED.value;
+		return StatusEnum.CLIENT_DELETED.value;
 	}
 	
 }

@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.store.domain.Supplier;
 import com.store.dto.SupplierDTO;
-import com.store.enums.SupplierStatus;
+import com.store.enums.StatusEnum;
 import com.store.repositories.SupplierRepository;
 import com.store.services.SupplierService;
 import com.store.utils.CommonUtils;
@@ -47,10 +47,10 @@ public class SupplierService {
 		
 		    supplierRepository.save(supplier);
 		    namingSequenceservice.updateSupplierSequence();	
-		    supplierStatus = SupplierStatus.SAVED.value;
+		    supplierStatus = StatusEnum.SUPPLIER_SAVED.value;
 			}
 		else
-			supplierStatus = SupplierStatus.EXIST.value;
+			supplierStatus = StatusEnum.SUPPLIER_EXIST.value;
 		
 		return supplierStatus;
 	}
@@ -62,7 +62,7 @@ public class SupplierService {
 	public String deleteSupplierById(long id)
 	{
 		supplierRepository.deleteById(id);
-		return SupplierStatus.DELETED.value;
+		return StatusEnum.SUPPLIER_DELETED.value;
 	}
 	
 	public String updateSupplierById(SupplierDTO supplierDTO)
@@ -76,7 +76,7 @@ public class SupplierService {
 					.address(supplierDTO.getAddress())
 					.instagram(supplierDTO.getInstagram()).build();
 		 	supplierRepository.save(updatesupplier);
-		 	return SupplierStatus.UPDATED.value;
+		 	return StatusEnum.SUPPLIER_UPDATED.value;
 	}
 	
 	

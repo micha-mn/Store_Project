@@ -1,12 +1,10 @@
 package com.store.controller;
 
-import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,18 +13,17 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.store.domain.Supplier;
 import com.store.dto.SupplierDTO;
 import com.store.enums.FailureEnum;
-import com.store.enums.SupplierStatus;
-import com.store.exception.BadRequestException;
+import com.store.enums.StatusEnum;
 import com.store.services.SupplierService;
+import com.store.utils.ValidationUtils;
 
 import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping(value="supplier")
-public class SupplierController {
+public class SupplierController extends ValidationUtils{
 	String serviceName="supplier";
 	
     @Autowired
@@ -34,11 +31,11 @@ public class SupplierController {
 	
 	@PostMapping(value = "save")
     public ResponseEntity<?>  SaveSupplier(@RequestBody @Valid SupplierDTO supplierDTO, BindingResult bindingResult ){
-		validateBindingResults(bindingResult, FailureEnum.SAVE_SUPPLIER_FAILED);		 
+		validateBindingResults(bindingResult, FailureEnum.SAVE_SUPPLIER_FAILED, serviceName);		 
 		HttpStatus httpStatus;
 		String supplierStatus = supplierService.SaveSupplier(supplierDTO);
 	
-		if (supplierStatus == SupplierStatus.SAVED.value)
+		if (supplierStatus == StatusEnum.SUPPLIER_SAVED.value)
 			httpStatus = HttpStatus.OK;
 		else 
 			httpStatus = HttpStatus.BAD_REQUEST;
@@ -47,7 +44,7 @@ public class SupplierController {
     }
 	@PostMapping(value = "update")
     public ResponseEntity<?> UpdateSupplier(@RequestBody @Valid SupplierDTO supplierDTO, BindingResult bindingResult ){
-		validateBindingResults(bindingResult, FailureEnum.UPDATE_SUPPLIER_FAILED);
+		validateBindingResults(bindingResult, FailureEnum.UPDATE_SUPPLIER_FAILED ,serviceName);
 		return new ResponseEntity<>(supplierService.updateSupplierById(supplierDTO),HttpStatus.OK);
     }
 	@GetMapping(value = "getall")
@@ -59,14 +56,4 @@ public class SupplierController {
 	public  ResponseEntity<?> deleteSupplierbyid(@PathVariable("id") long id) {
 		return new ResponseEntity<>(supplierService.deleteSupplierById(id), HttpStatus.OK);
 	}
-	 private void validateBindingResults(BindingResult bindingResult, FailureEnum constant) {
-		    if (bindingResult.hasErrors()) {
-		      throw new BadRequestException(
-		          bindingResult.getFieldErrors().stream()
-		              .map(FieldError::getDefaultMessage)
-		              .collect(Collectors.joining(",")),
-		          constant,
-		          serviceName);
-		    }
-		  }
 }

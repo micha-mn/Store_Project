@@ -35,7 +35,7 @@ CREATE TABLE IF NOT EXISTS user_roles
         REFERENCES public.users (id) MATCH SIMPLE
         ON UPDATE NO ACTION
         ON DELETE NO ACTION
-)
+);
 
     
 INSERT INTO public.user_roles(
@@ -72,5 +72,92 @@ INSERT INTO public.naming_sequence(
 	supp_sequence, item_sequence)
 	VALUES (nextval('supp_sequence'), nextval('item_sequence'));
 
-)
 
+CREATE TABLE IF NOT EXISTS public.brand
+(
+    id bigint NOT NULL,
+    name_ar character varying(40) COLLATE pg_catalog."default",
+    name_en character varying(40) COLLATE pg_catalog."default",
+    CONSTRAINT brand_pkey PRIMARY KEY (id)
+);
+
+CREATE TABLE IF NOT EXISTS public.items
+(
+    id bigint NOT NULL,
+    created_by character varying(255) COLLATE pg_catalog."default",
+    created_date timestamp(6) without time zone,
+    last_modified_by character varying(255) COLLATE pg_catalog."default",
+    last_modified_date timestamp(6) without time zone,
+    brand_id character varying(10) COLLATE pg_catalog."default",
+    consignment_date timestamp(6) without time zone,
+    consignment_price character varying(60) COLLATE pg_catalog."default",
+    description character varying(60) COLLATE pg_catalog."default",
+    inclusions character varying(255) COLLATE pg_catalog."default",
+    item_code character varying(255) COLLATE pg_catalog."default",
+    selling_price character varying(60) COLLATE pg_catalog."default",
+    supp_code character varying(255) COLLATE pg_catalog."default",
+    CONSTRAINT items_pkey PRIMARY KEY (id)
+);
+
+CREATE TABLE IF NOT EXISTS public.report_management
+(
+    id bigint NOT NULL,
+    param1 character varying(40) COLLATE pg_catalog."default",
+    param2 character varying(40) COLLATE pg_catalog."default",
+    param3 character varying(40) COLLATE pg_catalog."default",
+    param4 character varying(40) COLLATE pg_catalog."default",
+    param5 character varying(40) COLLATE pg_catalog."default",
+    parameter_counter bigint,
+    report_code character varying(40) NOT NULL UNIQUE COLLATE pg_catalog."default",
+    report_jasper_path character varying(60) COLLATE pg_catalog."default",
+    report_jrxml_path character varying(60) COLLATE pg_catalog."default",
+    CONSTRAINT report_management_pkey PRIMARY KEY (id)
+);
+
+INSERT INTO public.report_management(
+	id ,param1, parameter_counter, report_code,  report_jrxml_path)
+	VALUES ('1','itemId', '1', 'ITEMBARCODE',  '\\src\\main\\resources\\static\\report\\ItemBarcode.jrxml');
+
+CREATE TABLE IF NOT EXISTS public.configuration_table
+(
+    id bigint NOT NULL,
+    column_name character varying(60) COLLATE pg_catalog."default",
+    is_hidden boolean NOT NULL,
+    table_name character varying(60) COLLATE pg_catalog."default",
+    CONSTRAINT configuration_table_pkey PRIMARY KEY (id)
+);
+
+INSERT INTO configuration_table(id,column_name,table_name,is_hidden) VALUES ('1','id','itemsView','TRUE');
+INSERT INTO configuration_table(id,column_name,table_name,is_hidden) VALUES ('2','createdBy','itemsView','TRUE');
+INSERT INTO configuration_table(id,column_name,table_name,is_hidden) VALUES ('3','createdDate','itemsView','FALSE');
+INSERT INTO configuration_table(id,column_name,table_name,is_hidden) VALUES ('4','lastModifiedBy','itemsView','TRUE');
+INSERT INTO configuration_table(id,column_name,table_name,is_hidden) VALUES ('5','lastModifiedDate','itemsView','FALSE');
+INSERT INTO configuration_table(id,column_name,table_name,is_hidden) VALUES ('6','brandName','itemsView','TRUE');
+INSERT INTO configuration_table(id,column_name,table_name,is_hidden) VALUES ('7','brandId','itemsView','TRUE');
+INSERT INTO configuration_table(id,column_name,table_name,is_hidden) VALUES ('8','consignmentDate','itemsView','FALSE');
+INSERT INTO configuration_table(id,column_name,table_name,is_hidden) VALUES ('9','consignmentPrice','itemsView','FALSE');
+INSERT INTO configuration_table(id,column_name,table_name,is_hidden) VALUES ('10','description','itemsView','FALSE');
+INSERT INTO configuration_table(id,column_name,table_name,is_hidden) VALUES ('11','inclusions','itemsView','TRUE');
+INSERT INTO configuration_table(id,column_name,table_name,is_hidden) VALUES ('12','itemCode','itemsView','FALSE');
+INSERT INTO configuration_table(id,column_name,table_name,is_hidden) VALUES ('13','sellingPrice','itemsView','FALSE');
+INSERT INTO configuration_table(id,column_name,table_name,is_hidden) VALUES ('14','suppCode','itemsView','TRUE');
+
+CREATE OR REPLACE VIEW public.items_view
+ AS
+ SELECT i.id,
+    i.created_by,
+    i.created_date,
+    i.last_modified_by,
+    i.last_modified_date,
+    b.name_en AS brand_name,
+    i.brand_id,
+    i.consignment_date,
+    i.consignment_price,
+    i.description,
+    i.inclusions,
+    i.item_code,
+    i.selling_price,
+    i.supp_code
+   FROM items i,
+    brand b
+  WHERE i.brand_id::integer = b.id;

@@ -24,7 +24,12 @@ public class CommonUtils {
 		String sequence ="";
 		if (sequenceName==NamingSequenceEnum.SEQUENCE_SUPPLIER.getSequenceName())
 			  sequence = namingSequenceservice.getSupplierSequence();
-		
+		else if (sequenceName==NamingSequenceEnum.SEQUENCE_ITEM.getSequenceName())
+			sequence = namingSequenceservice.getItemSequence();
 		return sequence;
+	}
+	public String generateItemCode(String suppCode) {
+		
+		return suppCode+"_"+generateSequence(NamingSequenceEnum.SEQUENCE_ITEM.getSequenceName());
 	}
 }

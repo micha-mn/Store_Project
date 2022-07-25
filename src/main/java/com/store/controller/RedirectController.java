@@ -2,13 +2,12 @@ package com.store.controller;
 
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 @RestController
 @RequestMapping(value="retail")
-public class LoginController {
+public class RedirectController {
 
 	@RequestMapping(value="/login")
 	public ModelAndView loginPage(ModelMap model) {
@@ -21,5 +20,9 @@ public class LoginController {
 	@RequestMapping(value="/client")
 	public ModelAndView clientTablesPage(ModelMap model) {
 		return new ModelAndView("html/client_tables");
+	}
+	@RequestMapping(value="/item")
+	public ModelAndView itemTablesPage(ModelMap model) {
+		return new ModelAndView("html/items_tables");
 	}
 }

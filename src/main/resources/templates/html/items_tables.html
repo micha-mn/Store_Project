@@ -119,10 +119,35 @@
 					<div id="grid"></div>
 				</div>
 			</div>
+			
 			<div id="windowContainer" class="d-none">
-				<div id="brandwindow">
+				<div id="brandwindowGrid">
 				<div id="windowHeader"> <span> Brand </span> </div>
 				<form class="p-5" id="brand_form_update" onSubmit="return false;">
+					
+					<div class="form-row">
+						<div class="col-1 mb-2">
+					<input type="button" value="Add Brand" id="jqxAddButton" class="btn bg-gradient-primary mt-4 mb-0"  onclick="openBrandWindow()" /> </div>
+						<div class="form-group col-md-12">
+							<div id="brandGrid"></div>
+					</div>
+					<div class="form-row">
+						<div class="form-group col-md-3 justify-content-between">
+							<button type="button" id="jqxSelectBrand" class="btn bg-outline-primary mt-4 mb-0 ml-2">select</button>
+						</div>
+						<div class="form-group col-md-1">
+							<div id="container_s" style="width: 335px; height: 30px; margin-top: 1rem;">
+								<div id="messageNotification_s">
+									<div id="notificationText_s"></div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</form>
+			</div>
+				<div id="brandwindow">
+				<div id="windowHeader"> <span> Brand </span> </div>
+				<form class="p-5 overflow-hidden" id="brand_form_update" onSubmit="return false;">
 					
 					<div class="form-row">
 						<div class="form-group col-md-12">
@@ -182,8 +207,11 @@
 						<div class="form-group col-md-6">
 							<label for="brand">Brand </label>
 							<div class="d-flex">
-							<div class="col-10 p-0"><div id="dropdownlistBrand"> </div></div>
-								<button type="button" class="btn bg-outline-primary ml-3" onclick="openBrandWindow()"><i class="fa-solid fa-plus"></i> </button>
+							<div class="col-10 p-0">
+							<input type="hidden" class="form-control" id="SelectedBrandId" placeholder=" Brand" disabled>
+							<input type="text" class="form-control" id="SelectedBrandName" placeholder=" Brand" disabled>
+							</div>
+								<button type="button" class="btn bg-outline-primary ml-3" onclick="openGridBrandWindow('Save Item - brand')"><i class="fa-solid fa-search"></i> </button>
 							</div>
 						</div>
 					</div>

@@ -8,9 +8,6 @@
   font-family: Titillium;
   src: url(/css/styles/font/TitilliumWeb-Regular.ttf);
 }
-#brand_form_update{
-  overflow:hidden;
-}
 :root {
   --bs-blue: #63B3ED;
   --bs-indigo: #596CFF;

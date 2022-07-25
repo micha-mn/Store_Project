@@ -7,20 +7,6 @@
  });
  $(document).ready(function() {
 
-		
- var urlBrand = "/brand/getall";
- var sourceBrand =
-	 {
-		 datatype: "json",
-		 datafields: [
-			 { name: 'id' },
-			 { name: 'nameEn' }
-		 ], url: urlBrand,
-		 async: true
-	 };
- var dataAdapterBrand = new $.jqx.dataAdapter(sourceBrand);
- $('#dropdownlistBrand').jqxDropDownList({ selectedIndex: -1,  source: dataAdapterBrand, displayMember: "nameEn" , valueMember: "id",theme: 'material-purple', height: 38, width: '100%'});
- $('#dropdownlistBrand_u').jqxDropDownList({ selectedIndex: -1,  source: dataAdapterBrand, displayMember: "nameEn" , valueMember: "id",theme: 'material-purple', height: 38, width: '100%'});
 
 	 var url = "/supplier/getall";
 	 var sourceSupp =
@@ -55,7 +41,7 @@
                 }
             });
      $("#consignmentDate").jqxDateTimeInput({ width: '100%', height: '38px',theme: 'material-purple', value:null, formatString : 'dd-MMM-yy'  });
-       $("#consignmentDate_u").jqxDateTimeInput({ width: '100%', height: '38px',theme: 'material-purple', value:null, formatString : 'dd-MMM-yy'  });
+     $("#consignmentDate_u").jqxDateTimeInput({ width: '100%', height: '38px',theme: 'material-purple', value:null, formatString : 'dd-MMM-yy'  });
  	$("#messageNotification").jqxNotification({
  		width: '100%',
  		appendContainer: "#container",
@@ -69,6 +55,16 @@
  	$("#messageNotification_u").jqxNotification({
  		width: '100%',
  		appendContainer: "#container_u",
+ 		opacity: 0.9,
+ 		autoOpen: false,
+ 		animationOpenDelay: 800,
+ 		autoClose: true,
+ 		autoCloseDelay: 2000,
+ 		template: "info"
+ 	});
+	$("#messageNotification_s").jqxNotification({
+ 		width: '100%',
+ 		appendContainer: "#container_s",
  		opacity: 0.9,
  		autoOpen: false,
  		animationOpenDelay: 800,
@@ -357,7 +353,64 @@
  	});
 		});
  	
-  
+  	var sourceBrand = {
+		url: '/brand/getall',
+		datatype: "json",
+ 		datafields: [{
+ 				name: 'id',
+ 				type: 'string'
+ 			},
+ 			{
+ 				name: 'nameEn',
+ 				type: 'string'
+ 			}
+ 		],
+ 		updaterow: function(rowid, rowdata, commit) {
+ 			commit(true);
+ 		}
+ 	};
+ 	var dataAdapterBrand = new $.jqx.dataAdapter(sourceBrand);
+    $("#brandGrid").jqxGrid({
+ 		width: '100%',
+ 		source: dataAdapterBrand,
+ 		pageable: true,
+        autoheight: true,
+        showfilterrow: true,
+        filterable: true,
+ 		theme: 'material-purple',
+ 		columns: [{
+ 				text: '',
+ 				datafield: 'id',
+ 				hidden: true
+ 			},
+		{
+ 				text: 'Brand',
+ 				datafield: 'nameEn',
+				width: '100%',
+ 				createfilterwidget: function (column, columnElement, widget) {
+			        widget.jqxInput({ width: '100%', height: 27, placeHolder: "Enter brand" });
+			}
+ 			}]
+		});
+  $('#jqxSelectBrand').on('click', function() {
+	   var selectedrowindex = $('#brandGrid').jqxGrid('selectedrowindex'); 
+	   var data = $('#brandGrid').jqxGrid('getrowdata', selectedrowindex);
+       if (data==null)
+			{
+				        $("#notificationText_s").empty();
+			 			$("#messageNotification_s").jqxNotification({
+			 				template: "info"
+			 			});
+			 			$("#notificationText_s").append("Please select a brand from the grid");
+			 			$("#messageNotification_s").jqxNotification("open");
+			}
+			else 
+			{
+			 $("#SelectedBrandId").val(data.id);
+			 $("#SelectedBrandName").val(data.nameEn);
+		     $('#brandwindowGrid').jqxWindow('close');
+			}
+	});
     $("#deleteItem").on('click', function() {
         var selectedrowindex = $('#grid').jqxGrid('getselectedrowindexes');
         var rowscount = $("#grid").jqxGrid('getdatainformation').rowscount;
@@ -591,7 +644,7 @@
  		
      });
       $("#jqxSaveBrand").on('click', function() {
-		saveBrand($("#brandName").val(),"#dropdownlistBrand","#dropdownlistBrand_u",'#brandwindow');
+		saveBrand($("#brandName").val());
       });
 	 $("#jqxSaveBrand_u").on('click', function() {
 		saveBrand($("#brandName_u").val(),"#dropdownlistBrand_u","#dropdownlistBrand",'#brandwindow_u');
@@ -640,6 +693,7 @@
  		theme: 'material-purple'
 
  	});
+
  $('#brandwindow').jqxWindow({
  		position: {
  			x: offset.left + 375,
@@ -665,6 +719,18 @@ $('#brandwindow_u').jqxWindow({
 
  	}); 
  	
+ $('#brandwindowGrid').jqxWindow({
+ 		position: {
+ 			x: offset.left + 300,
+ 			y: offset.top 
+ 		},
+ 		showCollapseButton: true,
+ 		autoOpen: false,
+ 		height: 650,
+ 		width: 575,
+ 		theme: 'material-purple'
+
+ 	});
  };
  
  function openBrandWindow()
@@ -672,12 +738,18 @@ $('#brandwindow_u').jqxWindow({
    $('#brandwindow').jqxWindow('open');
    $("#brandwindow").jqxWindow('bringToFront')
  }
+function openGridBrandWindow(title)
+ {
+   $('#brandwindowGrid').jqxWindow({ title: title }); 
+   $('#brandwindowGrid').jqxWindow('open');
+   $("#brandwindowGrid").jqxWindow('bringToFront')
+ }
 function openBrandWindow_u()
  {
    $('#brandwindow_u').jqxWindow('open');
    $("#brandwindow_u").jqxWindow('bringToFront')
  }
-async function saveBrand(name,dropDownName,dropDownName1,windowName)
+async function saveBrand(name)
 {
 	var brandId='';
 	var settings = {
@@ -695,9 +767,7 @@ async function saveBrand(name,dropDownName,dropDownName1,windowName)
 
 			$.ajax(settings).done(function (response) {
 				brandId= response;
-				$(dropDownName).jqxDropDownList('insertAt', { label: name, value: brandId }, 0);
-				$(dropDownName1).jqxDropDownList('insertAt', { label: name, value: brandId }, 0);
-				$(dropDownName).jqxDropDownList('selectItem', brandId ); 
-				$(windowName).jqxWindow('close');
+				$('#brandGrid').jqxGrid('addrow', rowid, {});
+				$("#brandwindow").jqxWindow('close');
 			});
 }

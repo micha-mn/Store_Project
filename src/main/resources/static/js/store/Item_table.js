@@ -20,7 +20,8 @@
 	 };
  var dataAdapterBrand = new $.jqx.dataAdapter(sourceBrand);
  $('#dropdownlistBrand').jqxDropDownList({ selectedIndex: -1,  source: dataAdapterBrand, displayMember: "nameEn" , valueMember: "id",theme: 'material-purple', height: 38, width: '100%'});
-$('#dropdownlistBrand_u').jqxDropDownList({ selectedIndex: -1,  source: dataAdapterBrand, displayMember: "nameEn" , valueMember: "id",theme: 'material-purple', height: 38, width: '100%'});			
+ $('#dropdownlistBrand_u').jqxDropDownList({ selectedIndex: -1,  source: dataAdapterBrand, displayMember: "nameEn" , valueMember: "id",theme: 'material-purple', height: 38, width: '100%'});
+
 	 var url = "/supplier/getall";
 	 var sourceSupp =
 	 {
@@ -53,8 +54,8 @@ $('#dropdownlistBrand_u').jqxDropDownList({ selectedIndex: -1,  source: dataAdap
                     return table;
                 }
             });
-     $("#consignmentDate").jqxDateTimeInput({ width: '100%', height: '38px',theme: 'material-purple', value:null, formatString : 'dd-MMM-yy HH:mm'  });
-       $("#consignmentDate_u").jqxDateTimeInput({ width: '100%', height: '38px',theme: 'material-purple', value:null, formatString : 'dd-MMM-yy HH:mm'  });
+     $("#consignmentDate").jqxDateTimeInput({ width: '100%', height: '38px',theme: 'material-purple', value:null, formatString : 'dd-MMM-yy'  });
+       $("#consignmentDate_u").jqxDateTimeInput({ width: '100%', height: '38px',theme: 'material-purple', value:null, formatString : 'dd-MMM-yy'  });
  	$("#messageNotification").jqxNotification({
  		width: '100%',
  		appendContainer: "#container",
@@ -180,7 +181,7 @@ $('#dropdownlistBrand_u').jqxDropDownList({ selectedIndex: -1,  source: dataAdap
  				text: 'Item code',
 			    hidden: config.itemCode,
  				datafield: 'itemCode',
- 				width: '8%',
+ 				width: '10%',
  				createfilterwidget: function (column, columnElement, widget) {
 			        widget.jqxInput({ width: '100%', height: 27, placeHolder: "Enter Code" });
 				  }
@@ -207,7 +208,7 @@ $('#dropdownlistBrand_u').jqxDropDownList({ selectedIndex: -1,  source: dataAdap
  				text: 'description',
 				hidden: config.description,
  				datafield: 'description',
- 				width: '21%',
+ 				width: '18%',
  				 createfilterwidget: function (column, columnElement, widget) {
 			        widget.jqxInput({ width: '100%', height: 27, placeHolder: "Enter Description" });
 				  }
@@ -266,7 +267,7 @@ $('#dropdownlistBrand_u').jqxDropDownList({ selectedIndex: -1,  source: dataAdap
 		{
  				text: '',
  				datafield: 'Barcode',
- 				width: '5%',
+ 				width: '6%',
                 columntype: 'button',
                 filterable: false,
  				cellsrenderer: function() {
@@ -278,8 +279,8 @@ $('#dropdownlistBrand_u').jqxDropDownList({ selectedIndex: -1,  source: dataAdap
  					var offset = $("#grid").offset();
  					var dataRecord = $("#grid").jqxGrid('getrowdata', editrow);
 				
-				// window.open("/report/generatereport/ITEMBARCODE/"+dataRecord.id);
-				var settings = {
+				window.open("/report/generatereport/ITEMBARCODE/"+dataRecord.id);
+				/*var settings = {
 					  "url": "/report/generatereport",
 					  "method": "POST",
 					  "headers": {
@@ -294,13 +295,11 @@ $('#dropdownlistBrand_u').jqxDropDownList({ selectedIndex: -1,  source: dataAdap
 					};
 					
 					$.ajax(settings).done(function (response) {
-			     	
-
 					  var blob = new Blob([response], {type: 'application/pdf'});
 					  var blobURL = URL.createObjectURL(blob);
 					  window.open(blobURL);
 					});
-					
+					*/
  				}
  			},
  			{
@@ -319,12 +318,12 @@ $('#dropdownlistBrand_u').jqxDropDownList({ selectedIndex: -1,  source: dataAdap
 
  					// get the clicked row's data and initialize the input fields.
  					var dataRecord = $("#grid").jqxGrid('getrowdata', editrow);
-
+				  
  					$("#id_item").val(dataRecord.id);
 					$("#itemCode").val(dataRecord.itemCode);
 				
  					$("#dropdownlistSupp_u").jqxDropDownList('selectItem', dataRecord.suppCode ); 
-			
+			debugger;
 					$("#dropdownlistBrand_u").jqxDropDownList('selectItem', dataRecord.brandId); 
 					
  					$("#description_u").val(dataRecord.description);
@@ -358,7 +357,7 @@ $('#dropdownlistBrand_u').jqxDropDownList({ selectedIndex: -1,  source: dataAdap
  	});
 		});
  	
-
+  
     $("#deleteItem").on('click', function() {
         var selectedrowindex = $('#grid').jqxGrid('getselectedrowindexes');
         var rowscount = $("#grid").jqxGrid('getdatainformation').rowscount;
@@ -592,22 +591,10 @@ $('#dropdownlistBrand_u').jqxDropDownList({ selectedIndex: -1,  source: dataAdap
  		
      });
       $("#jqxSaveBrand").on('click', function() {
-		saveBrand($("#brandName").val()).then(
-			  function(value) { 
-				$("#dropdownlistBrand").jqxDropDownList('insertAt', { label: $("#brandName").val(), value: value }, 0);
-				$("#dropdownlistBrand").jqxDropDownList('selectItem', value ); 
-				$('#brandwindow').jqxWindow('close');
-				}
-			);
+		saveBrand($("#brandName").val(),"#dropdownlistBrand","#dropdownlistBrand_u",'#brandwindow');
       });
 	 $("#jqxSaveBrand_u").on('click', function() {
-					saveBrand($("#brandName").val()).then(
-			  function(value) { 
-				$("#dropdownlistBrand_u").jqxDropDownList('insertAt', { label: $("#brandName_u").val(), value: value }, 0);
-				$("#dropdownlistBrand_u").jqxDropDownList('selectItem', value ); 
-				$('#brandwindow_u').jqxWindow('close');
-				}
-			);
+		saveBrand($("#brandName_u").val(),"#dropdownlistBrand_u","#dropdownlistBrand",'#brandwindow_u');
 	      });
       $("#CloseSaveItem").on('click', function() {
          $('#window').jqxWindow('close');
@@ -648,7 +635,7 @@ $('#dropdownlistBrand_u').jqxDropDownList({ selectedIndex: -1,  source: dataAdap
  		},
  		showCollapseButton: true,
  		autoOpen: false,
- 		height: 520,
+ 		height: 535,
  		width: 750,
  		theme: 'material-purple'
 
@@ -690,7 +677,7 @@ function openBrandWindow_u()
    $('#brandwindow_u').jqxWindow('open');
    $("#brandwindow_u").jqxWindow('bringToFront')
  }
-async function saveBrand(name)
+async function saveBrand(name,dropDownName,dropDownName1,windowName)
 {
 	var brandId='';
 	var settings = {
@@ -702,12 +689,15 @@ async function saveBrand(name)
 		    "Content-Type": "application/json"
 		  },
 		  "data": JSON.stringify({
-		    "nameEn": name
+		    "nameEn": name==''?null:name
 		  }),
 		};
 
 			$.ajax(settings).done(function (response) {
 				brandId= response;
+				$(dropDownName).jqxDropDownList('insertAt', { label: name, value: brandId }, 0);
+				$(dropDownName1).jqxDropDownList('insertAt', { label: name, value: brandId }, 0);
+				$(dropDownName).jqxDropDownList('selectItem', brandId ); 
+				$(windowName).jqxWindow('close');
 			});
-			return brandId;
 }

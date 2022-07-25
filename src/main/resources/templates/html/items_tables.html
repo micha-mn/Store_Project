@@ -122,12 +122,12 @@
 			<div id="windowContainer" class="d-none">
 				<div id="brandwindow">
 				<div id="windowHeader"> <span> Brand </span> </div>
-				<form class="p-5" id="brand_form_update">
+				<form class="p-5" id="brand_form_update" onSubmit="return false;">
 					
 					<div class="form-row">
 						<div class="form-group col-md-12">
 							<label for="inputBrand">Brand Name</label>
-							 	<input type="text" class="form-control" id="brandName" placeholder="Brand" autocomplete="off" required> 
+							 	<input type="text" class="form-control" id="brandName" placeholder="Brand" autocomplete="off"  oninput="this.value = this.value.toUpperCase()" required> 
 							</div>
 					</div>
 					<div class="form-row">
@@ -147,12 +147,12 @@
 			</div>
 				<div id="brandwindow_u">
 				<div id="windowHeader"> <span> Brand </span> </div>
-				<form class="p-5" id="brand_form_update">
+				<form class="p-5" id="brand_form_update" onSubmit="return false;">
 					
 					<div class="form-row">
 						<div class="form-group col-md-12">
 							<label for="inputBrand">Brand Name</label>
-							 	<input type="text" class="form-control" id="brandName_u" placeholder="Brand" autocomplete="off" required> 
+							 	<input type="text" class="form-control" id="brandName_u" placeholder="Brand" autocomplete="off"  oninput="this.value = this.value.toUpperCase()" required> 
 							</div>
 					</div>
 					<div class="form-row">
@@ -226,7 +226,7 @@
 			</div>
 			<div id="updatewindow">
 				<div id="windowHeader"> <span> Item </span> </div>
-				<form class="p-5" id="item_form_update">
+				<form class="p-5 overflow-hidden" id="item_form_update">
 					<div class="form-row">
 						<div class="form-group col-md-6">
 							<label for="inputSupplier Code">Supplier Code</label>

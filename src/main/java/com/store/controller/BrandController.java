@@ -5,7 +5,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,13 +26,13 @@ public class BrandController extends ValidationUtils{
 	BrandService brandService;
 	
 	@PostMapping(value = "save")
-    public ResponseEntity<?>  SaveSupplier(@RequestBody @Valid BrandDTO brandDTO, BindingResult bindingResult ){
+    public ResponseEntity<?>  SaveBrand(@RequestBody @Valid BrandDTO brandDTO, BindingResult bindingResult ){
 		validateBindingResults(bindingResult, FailureEnum.SAVE_BRAND_FAILED,serviceName);		 
 		
 	  return new ResponseEntity<>(brandService.saveBrand(brandDTO),HttpStatus.OK);
     }
 	@GetMapping(value = "getall")
-	public ResponseEntity<?> getSuppliers(){
+	public ResponseEntity<?> getBrands(){
 	  return new ResponseEntity<>(brandService.getAllBrands(), HttpStatus.OK);
 	}
 	

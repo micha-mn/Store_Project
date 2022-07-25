@@ -72,6 +72,16 @@
  		autoCloseDelay: 2000,
  		template: "info"
  	});
+$("#messageNotification_b").jqxNotification({
+ 		width: '100%',
+ 		appendContainer: "#container_s",
+ 		opacity: 0.9,
+ 		autoOpen: false,
+ 		animationOpenDelay: 800,
+ 		autoClose: true,
+ 		autoCloseDelay: 2000,
+ 		template: "info"
+ 	});
  	createWindow();
  	$("#firstLastName").append(getFirstLastName())
  	$("#jqxAddButton").jqxButton({
@@ -766,7 +776,7 @@ async function saveBrand(name)
 		};
 
 			$.ajax(settings).done(function (response) {
-				brandId= response;
+				debugger;
 				$('#brandGrid').jqxGrid('addrow', rowid, {});
 				$("#brandwindow").jqxWindow('close');
 			});

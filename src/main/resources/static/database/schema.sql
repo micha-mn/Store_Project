@@ -141,3 +141,23 @@ INSERT INTO configuration_table(id,column_name,table_name,is_hidden) VALUES ('11
 INSERT INTO configuration_table(id,column_name,table_name,is_hidden) VALUES ('12','itemCode','itemsView','FALSE');
 INSERT INTO configuration_table(id,column_name,table_name,is_hidden) VALUES ('13','sellingPrice','itemsView','FALSE');
 INSERT INTO configuration_table(id,column_name,table_name,is_hidden) VALUES ('14','suppCode','itemsView','TRUE');
+
+CREATE OR REPLACE VIEW public.items_view
+ AS
+ SELECT i.id,
+    i.created_by,
+    i.created_date,
+    i.last_modified_by,
+    i.last_modified_date,
+    b.name_en AS brand_name,
+    i.brand_id,
+    i.consignment_date,
+    i.consignment_price,
+    i.description,
+    i.inclusions,
+    i.item_code,
+    i.selling_price,
+    i.supp_code
+   FROM items i,
+    brand b
+  WHERE i.brand_id::integer = b.id;

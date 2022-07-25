@@ -127,17 +127,17 @@ CREATE TABLE IF NOT EXISTS public.configuration_table
     CONSTRAINT configuration_table_pkey PRIMARY KEY (id)
 );
 
-INSERT INTO configuration_table(id,column_name,table_name,is_hidden) VALUES ('1','id','itemsView','FALSE');
-INSERT INTO configuration_table(id,column_name,table_name,is_hidden) VALUES ('2','createdBy','itemsView','FALSE');
+INSERT INTO configuration_table(id,column_name,table_name,is_hidden) VALUES ('1','id','itemsView','TRUE');
+INSERT INTO configuration_table(id,column_name,table_name,is_hidden) VALUES ('2','createdBy','itemsView','TRUE');
 INSERT INTO configuration_table(id,column_name,table_name,is_hidden) VALUES ('3','createdDate','itemsView','FALSE');
-INSERT INTO configuration_table(id,column_name,table_name,is_hidden) VALUES ('4','lastModifiedBy','itemsView','FALSE');
+INSERT INTO configuration_table(id,column_name,table_name,is_hidden) VALUES ('4','lastModifiedBy','itemsView','TRUE');
 INSERT INTO configuration_table(id,column_name,table_name,is_hidden) VALUES ('5','lastModifiedDate','itemsView','FALSE');
 INSERT INTO configuration_table(id,column_name,table_name,is_hidden) VALUES ('6','brandName','itemsView','TRUE');
-INSERT INTO configuration_table(id,column_name,table_name,is_hidden) VALUES ('7','brandId','itemsView','FALSE');
-INSERT INTO configuration_table(id,column_name,table_name,is_hidden) VALUES ('8','consignmentDate','itemsView','TRUE');
-INSERT INTO configuration_table(id,column_name,table_name,is_hidden) VALUES ('9','consignmentPrice','itemsView','TRUE');
-INSERT INTO configuration_table(id,column_name,table_name,is_hidden) VALUES ('10','description','itemsView','TRUE');
+INSERT INTO configuration_table(id,column_name,table_name,is_hidden) VALUES ('7','brandId','itemsView','TRUE');
+INSERT INTO configuration_table(id,column_name,table_name,is_hidden) VALUES ('8','consignmentDate','itemsView','FALSE');
+INSERT INTO configuration_table(id,column_name,table_name,is_hidden) VALUES ('9','consignmentPrice','itemsView','FALSE');
+INSERT INTO configuration_table(id,column_name,table_name,is_hidden) VALUES ('10','description','itemsView','FALSE');
 INSERT INTO configuration_table(id,column_name,table_name,is_hidden) VALUES ('11','inclusions','itemsView','TRUE');
-INSERT INTO configuration_table(id,column_name,table_name,is_hidden) VALUES ('12','itemCode','itemsView','TRUE');
-INSERT INTO configuration_table(id,column_name,table_name,is_hidden) VALUES ('13','sellingPrice','itemsView','TRUE');
+INSERT INTO configuration_table(id,column_name,table_name,is_hidden) VALUES ('12','itemCode','itemsView','FALSE');
+INSERT INTO configuration_table(id,column_name,table_name,is_hidden) VALUES ('13','sellingPrice','itemsView','FALSE');
 INSERT INTO configuration_table(id,column_name,table_name,is_hidden) VALUES ('14','suppCode','itemsView','TRUE');

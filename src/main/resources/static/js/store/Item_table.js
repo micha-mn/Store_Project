@@ -439,7 +439,7 @@
  			});
  			$("#notificationText").append("SupplierCode is required");
  			$("#messageNotification").jqxNotification("open");
- 		} else if ($('#dropdownlistBrand').val().length === 0) {
+ 		} else if ($('#SelectedBrandName').val().length === 0) {
  			$("#notificationText").empty();
  			$("#messageNotification").jqxNotification({
  				template: "info"
@@ -499,7 +499,7 @@
  				"data": JSON.stringify({
 				"action":"save",
  					"suppCode": $("#dropdownlistSupp").val(),
- 					"brandId": $("#dropdownlistBrand").val(),
+ 					"brandId": $("#SelectedBrandId").val(),
  					"description": $("#description").val(),
  					"inclusions": $("#Inclusions").val(),
  					"consignmentPrice": $("#Consignmentprice").val(),
@@ -542,7 +542,7 @@
  			});
  			$("#notificationText").append("SupplierCode is required");
  			$("#messageNotification").jqxNotification("open");
- 		} else if ($('#dropdownlistBrand_u').val().length === 0) {
+ 		} else if ($('#SelectedBrandName_u').val().length === 0) {
  			$("#notificationText").empty();
  			$("#messageNotification").jqxNotification({
  				template: "info"
@@ -602,7 +602,7 @@
  					"id":$("#id_item").val(),
 				    "itemCode": $("#itemCode").val(),
  				    "suppCode": $("#dropdownlistSupp_u").val(),
- 					"brandId": $("#dropdownlistBrand_u").val(),
+ 					"brandId": $("#SelectedBrandId_u").val(),
  					"description": $("#description_u").val(),
  					"inclusions": $("#Inclusions_u").val(),
  					"consignmentPrice": $("#Consignmentprice_u").val(),

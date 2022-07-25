@@ -29,6 +29,8 @@ public class ReportManagement {
     private String reportJrxmlPath;
 	@Column(length=60)
 	private String reportJasperPath;
+	@Column(length=60)
+    private String staticPath;
 	@Column(length=40)
     private Long parameterCounter;
 	@Column(length=40)

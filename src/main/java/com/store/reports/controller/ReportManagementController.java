@@ -27,7 +27,7 @@ public class ReportManagementController extends ValidationUtils{
 	 ReportManagementUtil reportManagementUtil;
 
 	 @GetMapping("/generatereport/{reportCode}/{id}")
-		public ResponseEntity<?> generateItemBarcode(@PathVariable("reportCode") String reportCode,@PathVariable("id") String id ,HttpServletResponse response) {
+		public ResponseEntity<?> generateReport(@PathVariable("reportCode") String reportCode,@PathVariable("id") String id ,HttpServletResponse response) {
 		 ReportManagementDTO reportManagementDTO = ReportManagementDTO.builder().reportCode(reportCode).param1(id).build();
 			try {
 				reportManagementUtil.exportToPdf(reportManagementDTO,response);
@@ -37,7 +37,7 @@ public class ReportManagementController extends ValidationUtils{
 			return null;
 		}
 	 @PostMapping("/generatereport")
-		public String generateItemBarcode(@RequestBody @Valid ReportManagementDTO reportManagementDTO, BindingResult bindingResult,HttpServletResponse response) {
+		public String generateReport(@RequestBody @Valid ReportManagementDTO reportManagementDTO, BindingResult bindingResult,HttpServletResponse response) {
 			validateBindingResults(bindingResult, FailureEnum.INVALID_REPORT_INFO, serviceName);	
 			try {
 				reportManagementUtil.exportToPdf(reportManagementDTO,response);

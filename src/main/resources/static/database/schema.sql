@@ -109,14 +109,23 @@ CREATE TABLE IF NOT EXISTS public.report_management
     param5 character varying(40) COLLATE pg_catalog."default",
     parameter_counter bigint,
     report_code character varying(40) NOT NULL UNIQUE COLLATE pg_catalog."default",
+    report_name character varying(40) COLLATE pg_catalog."default",
     report_jasper_path character varying(60) COLLATE pg_catalog."default",
+    static_path character varying(60) COLLATE pg_catalog."default",
     report_jrxml_path character varying(60) COLLATE pg_catalog."default",
     CONSTRAINT report_management_pkey PRIMARY KEY (id)
 );
 
+
+-- INSERT INTO public.report_management(
+--	id ,param1, parameter_counter, report_code,  report_jrxml_path)
+--	VALUES ('1','itemId', '1', 'ITEMBARCODE',  '\\src\\main\\resources\\static\\report\\ItemBarcode.jrxml');
+
+       
 INSERT INTO public.report_management(
-	id ,param1, parameter_counter, report_code,  report_jrxml_path)
-	VALUES ('1','itemId', '1', 'ITEMBARCODE',  '\\src\\main\\resources\\static\\report\\ItemBarcode.jrxml');
+	id ,param1, parameter_counter, report_code,  report_jrxml_path, report_name, static_path)
+	VALUES ('1','itemId', '1', 'ITEMBARCODE',  '\\classes\\static\\report\\ItemBarcode.jrxml','ItemBarcode','\\classes\\static\\report\\');
+
 
 CREATE TABLE IF NOT EXISTS public.configuration_table
 (

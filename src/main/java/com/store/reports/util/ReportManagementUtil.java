@@ -44,10 +44,10 @@ public class ReportManagementUtil {
                   + reportInfo.getReportJrxmlPath());
       	
       	 JRSaver.saveObject(jasperReport,new File("").getAbsolutePath()
-                 + "\\src\\main\\resources\\static\\report\\"+reportInfo.getReportName()+".jasper");
+                 + reportInfo.getStaticPath()+reportInfo.getReportName()+".jasper");
       	 
-      	reportInfo.setReportJasperPath("\\src\\main\\resources\\static\\report\\"+reportInfo.getReportName()+".jasper");
-      	CompiledjasperReport =  new File("").getAbsolutePath() + "\\src\\main\\resources\\static\\report\\"+reportInfo.getReportName()+".jasper";
+      	reportInfo.setReportJasperPath(reportInfo.getStaticPath()+reportInfo.getReportName()+".jasper");
+      	CompiledjasperReport =  new File("").getAbsolutePath() + reportInfo.getStaticPath()+reportInfo.getReportName()+".jasper";
       	reportManagementService.saveReport(reportInfo);
       	}
       	else 

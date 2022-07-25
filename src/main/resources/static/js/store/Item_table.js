@@ -387,6 +387,7 @@ $("#messageNotification_b").jqxNotification({
  		pageable: true,
         autoheight: true,
         showfilterrow: true,
+        pagesize: 5,
         filterable: true,
  		theme: 'material-purple',
  		columns: [{
@@ -404,6 +405,7 @@ $("#messageNotification_b").jqxNotification({
  			}]
 		});
   $('#jqxSelectBrand').on('click', function() {
+	   var title = $('#brandwindowGrid').jqxWindow('title'); 
 	   var selectedrowindex = $('#brandGrid').jqxGrid('selectedrowindex'); 
 	   var data = $('#brandGrid').jqxGrid('getrowdata', selectedrowindex);
        if (data==null)
@@ -417,8 +419,15 @@ $("#messageNotification_b").jqxNotification({
 			}
 			else 
 			{
-			 $("#SelectedBrandId").val(data.id);
-			 $("#SelectedBrandName").val(data.nameEn);
+				if (title.includes("Save"))
+				{
+				 $("#SelectedBrandId").val(data.id);
+				 $("#SelectedBrandName").val(data.nameEn);
+			     } 
+				else {
+				 $("#SelectedBrandId_u").val(data.id);
+				 $("#SelectedBrandName_u").val(data.nameEn);
+			     } 
 		     $('#brandwindowGrid').jqxWindow('close');
 			}
 	});
@@ -776,7 +785,6 @@ async function saveBrand(name)
 		};
 
 			$.ajax(settings).done(function (response) {
-				debugger 
 				if (response.brand== null)
 				{
 					   $("#notificationText_b").empty();
@@ -787,7 +795,7 @@ async function saveBrand(name)
 			 			$("#messageNotification_b").jqxNotification("open");
 				}
 			else {
-				$('#brandGrid').jqxGrid('addrow', null, response.brand);
+				$('#brandGrid').jqxGrid('addrow', null, response.brand, 'first');
 				$("#brandwindow").jqxWindow('close');
 				}
 				

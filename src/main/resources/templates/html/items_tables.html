@@ -136,7 +136,7 @@
 							<button type="button" id="jqxSelectBrand" class="btn bg-outline-primary mt-4 mb-0 ml-2">select</button>
 						</div>
 						<div class="form-group col-md-1">
-							<div id="container_s" style="width: 335px; height: 30px; margin-top: 1rem;">
+							<div id="container_s" style="width: 365px; height: 30px; margin-top: 1rem;">
 								<div id="messageNotification_s">
 									<div id="notificationText_s"></div>
 								</div>
@@ -161,7 +161,7 @@
 							<button type="button" id="CloseSaveBrand" class="btn bg-outline-primary mt-4 mb-0 ml-2">Close</button>
 						</div>
 						<div class="form-group col-md-6">
-							<div id="container_b" style="width: 300px; height: 30px; margin-top: 1rem;">
+							<div id="container_b" style="width: 280px; height: 30px; margin-top: 1rem;">
 								<div id="messageNotification_b">
 									<div id="notificationText_b"></div>
 								</div>
@@ -261,9 +261,12 @@
 					      </div>
 						<div class="form-group col-md-6">
 							<label for="brand">Brand </label>
-							<div class="d-flex">
-							<div class="col-10 p-0"><div id="dropdownlistBrand_u"> </div></div>
-								<button type="button" class="btn bg-outline-primary ml-3" onclick="openBrandWindow_u()"><i class="fa-solid fa-plus"></i> </button>
+								<div class="d-flex">
+							<div class="col-10 p-0">
+							<input type="hidden" class="form-control" id="SelectedBrandId_u" placeholder=" Brand" disabled>
+							<input type="text" class="form-control" id="SelectedBrandName_u" placeholder=" Brand" disabled>
+							</div>
+								<button type="button" class="btn bg-outline-primary ml-3" onclick="openGridBrandWindow('Update Item - brand')"><i class="fa-solid fa-search"></i> </button>
 							</div>
 						</div>
 					</div>

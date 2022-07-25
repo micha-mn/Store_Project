@@ -329,8 +329,10 @@ $("#messageNotification_b").jqxNotification({
 					$("#itemCode").val(dataRecord.itemCode);
 				
  					$("#dropdownlistSupp_u").jqxDropDownList('selectItem', dataRecord.suppCode ); 
-					$("#dropdownlistBrand_u").jqxDropDownList('selectItem', dataRecord.brandId); 
-					
+
+		 			$("#SelectedBrandId_u").val(dataRecord.brandId);
+ 					$("#SelectedBrandName_u").val(dataRecord.brandName);
+
  					$("#description_u").val(dataRecord.description);
  					$("#Inclusions_u").val(dataRecord.inclusions);
  					$("#Consignmentprice_u").val(dataRecord.consignmentPrice);
@@ -774,6 +776,7 @@ async function saveBrand(name)
 		};
 
 			$.ajax(settings).done(function (response) {
+				debugger 
 				if (response.brand== null)
 				{
 					   $("#notificationText_b").empty();

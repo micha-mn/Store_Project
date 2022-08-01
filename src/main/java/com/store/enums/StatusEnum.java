@@ -3,6 +3,7 @@ package com.store.enums;
 public enum StatusEnum {
     SUPPLIER_SAVED("New Supplier has been added"),
     SUPPLIER_EXIST("Supplier with given Name1 and Name2 already exist"),
+    SUPPLIER_CODE_EXIST("Supplier Code already exist"),
     SUPPLIER_UPDATED("Supplier has been updated"),
     SUPPLIER_DELETED("Supplier has been deleted"),
     CLIENT_SAVED("New Client has been added"),

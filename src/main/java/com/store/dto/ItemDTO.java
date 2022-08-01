@@ -27,9 +27,9 @@ public class ItemDTO {
 		@NotNull(message = ErrorConstants.ITEM_INCLUSIONS_NOT_NULL)
 		private String inclusions;
 		@NotNull(message = ErrorConstants.ITEM_CONSIGNMENTPRICE_NOT_NULL)
-	    private String consignmentPrice;
+	    private Double consignmentPrice;
 		@NotNull(message = ErrorConstants.ITEM_CONSIGNMENTDATE_NOT_NULL)
 	    private Date consignmentDate;
 		@NotNull(message = ErrorConstants.ITEM_SELLINGPRICE_NOT_NULL)
-	    private String sellingPrice;
+	    private Double sellingPrice;
 }

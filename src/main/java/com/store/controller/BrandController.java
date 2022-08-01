@@ -35,5 +35,4 @@ public class BrandController extends ValidationUtils{
 	public ResponseEntity<?> getBrands(){
 	  return new ResponseEntity<>(brandService.getAllBrands(), HttpStatus.OK);
 	}
-	
 }

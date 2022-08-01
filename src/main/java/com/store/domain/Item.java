@@ -30,8 +30,8 @@ public class Item extends Auditable<String> {
     private String description;
 	private String inclusions;
 	@Column(length=60)
-    private String consignmentPrice;
+    private Double consignmentPrice;
     private Date consignmentDate;
     @Column(length=60)
-    private String sellingPrice ;
+    private Double sellingPrice ;
 }

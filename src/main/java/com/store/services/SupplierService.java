@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.store.domain.Supplier;
@@ -30,14 +31,22 @@ public class SupplierService {
 		else
 			return false;
 	}
+	public boolean checkifSuppCodeexists(String supplierCode) {
+		Optional<Supplier> issupplier = supplierRepository.findBySuppCode(supplierCode);
+		if (issupplier.isPresent())
+			return true;
+		else
+			return false;
+	}
 	public String SaveSupplier(SupplierDTO supplierDTO)
 	{  String supplierStatus="";
 	   boolean exists = checkifSupplierexists(supplierDTO);
 	   if (!exists) 
 			{
 			 String supplierCode = commonUtils.generateSupplierCode(supplierDTO.getFirstName(),supplierDTO.getLastName());
-				
-			 Supplier supplier = Supplier.builder()
+			 boolean suppExists = checkifSuppCodeexists(supplierCode);
+			 if (!suppExists)
+			 { Supplier supplier = Supplier.builder()
 									.suppCode(supplierCode)
 									.firstName(supplierDTO.getFirstName())
 									.lastName(supplierDTO.getLastName())
@@ -48,6 +57,10 @@ public class SupplierService {
 		    supplierRepository.save(supplier);
 		    namingSequenceservice.updateSupplierSequence();	
 		    supplierStatus = StatusEnum.SUPPLIER_SAVED.value;
+			 }
+			 else {
+				 supplierStatus = StatusEnum.SUPPLIER_CODE_EXIST.value;
+			 }
 			}
 		else
 			supplierStatus = StatusEnum.SUPPLIER_EXIST.value;
@@ -57,6 +70,10 @@ public class SupplierService {
 	public List<Supplier> getAllSupplier()
 	{
 		return supplierRepository.findAllByOrderByIdDesc();	
+	}
+	public List<Supplier> getAllSupplierSorted()
+	{
+		return supplierRepository.findAll((Sort.by(Sort.Direction.ASC, "suppCode")));	
 	}
 	
 	public String deleteSupplierById(long id)

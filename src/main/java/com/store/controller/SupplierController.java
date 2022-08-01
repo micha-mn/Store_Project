@@ -51,6 +51,10 @@ public class SupplierController extends ValidationUtils{
 	public ResponseEntity<?> getSuppliers(){
 	  return new ResponseEntity<>(supplierService.getAllSupplier(), HttpStatus.OK);
 	}
+	@GetMapping(value = "getallsorted")
+	public ResponseEntity<?> getSortedSuppliers(){
+	  return new ResponseEntity<>(supplierService.getAllSupplierSorted(), HttpStatus.OK);
+	}
 	
 	@DeleteMapping(value = "delete/{id}")
 	public  ResponseEntity<?> deleteSupplierbyid(@PathVariable("id") long id) {

@@ -9,7 +9,7 @@
  $(document).ready(function() {
 
 
-	 var url = "/supplier/getall";
+	 var url = "/supplier/getallsorted";
 	 var sourceSupp =
 	 {
 		 datatype: "json",

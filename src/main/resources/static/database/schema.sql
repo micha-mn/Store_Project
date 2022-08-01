@@ -151,6 +151,14 @@ INSERT INTO configuration_table(id,column_name,table_name,is_hidden) VALUES ('12
 INSERT INTO configuration_table(id,column_name,table_name,is_hidden) VALUES ('13','sellingPrice','itemsView','FALSE');
 INSERT INTO configuration_table(id,column_name,table_name,is_hidden) VALUES ('14','suppCode','itemsView','TRUE');
 
+drop view public.items_view
+
+ALTER TABLE public.items
+ALTER COLUMN consignment_price TYPE DOUBLE PRECISION USING consignment_price::double precision;
+
+ALTER TABLE public.items
+ALTER COLUMN selling_price TYPE DOUBLE PRECISION USING selling_price::double precision;
+
 CREATE OR REPLACE VIEW public.items_view
  AS
  SELECT i.id,
@@ -170,3 +178,4 @@ CREATE OR REPLACE VIEW public.items_view
    FROM items i,
     brand b
   WHERE i.brand_id::integer = b.id;
+

@@ -18,7 +18,7 @@
  i.description,
  i.inclusions,
  i.item_code,
- i.selling_price,
+ TO_CHAR(i.selling_price, 'fm999G999D99') as selling_price,
  i.supp_code
 	
 from items i, brand b
@@ -111,35 +111,34 @@ and CAST (i.brand_id AS INTEGER) = b.id]]>
 	<detail>
 		<band height="250" splitType="Stretch">
 			<property name="com.jaspersoft.studio.unit.height" value="px"/>
-			<textField>
-				<reportElement x="200" y="155" width="90" height="20" uuid="35d0cdab-b163-49ec-9d37-029e12dd864e">
-					<property name="com.jaspersoft.studio.unit.height" value="px"/>
-				</reportElement>
-				<textElement textAlignment="Right" verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$F{selling_price}]]></textFieldExpression>
-			</textField>
-			<staticText>
-				<reportElement x="90" y="155" width="30" height="20" uuid="9b67dc8c-5bbe-4f64-9246-2fc3da604f2d">
-					<property name="com.jaspersoft.studio.unit.height" value="px"/>
-				</reportElement>
-				<textElement verticalAlignment="Middle"/>
-				<text><![CDATA[Price]]></text>
-			</staticText>
 			<componentElement>
-				<reportElement stretchType="RelativeToTallestObject" x="90" y="95" width="200" height="60" uuid="f4043fc3-7cda-40af-8a15-e0b78ffe7271">
+				<reportElement stretchType="ContainerHeight" x="104" y="95" width="173" height="60" uuid="f4043fc3-7cda-40af-8a15-e0b78ffe7271">
 					<property name="com.jaspersoft.studio.unit.barWidth" value="px"/>
-					<property name="com.jaspersoft.studio.unit.barHeight" value="px"/>
+					<property name="com.jaspersoft.studio.unit.barHeight" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
-				<jr:barbecue xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" type="Code39 (Extended)" drawText="false" checksumRequired="false" barHeight="100">
+				<jr:barbecue xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" type="Code39 (Extended)" drawText="false" checksumRequired="false" barHeight="90">
 					<jr:codeExpression><![CDATA[$F{item_code}]]></jr:codeExpression>
 				</jr:barbecue>
 			</componentElement>
 			<textField>
-				<reportElement x="90" y="75" width="200" height="20" uuid="2939ea76-e418-425e-a1f5-8b7bb95a3ef1"/>
+				<reportElement x="104" y="75" width="174" height="20" uuid="2939ea76-e418-425e-a1f5-8b7bb95a3ef1"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{brand}+" - "+$F{description}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="104" y="155" width="90" height="20" uuid="1faa7328-ca57-4850-a8cc-7b5202e9596c">
+					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{item_code}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="199" y="155" width="80" height="30" uuid="0c5d7dee-4e02-490e-9b4f-e255c6a3455d"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$F{selling_price}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>

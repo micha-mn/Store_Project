@@ -1,5 +1,8 @@
 package com.store.domain;
 
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Parameter;
+
 import com.store.audit.Auditable;
 
 import jakarta.persistence.Column;
@@ -21,7 +24,16 @@ import lombok.NoArgsConstructor;
 @Table(name = "Supplier")
 public class Supplier extends Auditable<String> {
 	@Id
-    @GeneratedValue
+	@GeneratedValue(generator = "supplier_sequence")
+	   @GenericGenerator(
+	      name = "supplier_sequence",
+	      strategy = "org.hibernate.id.enhanced.SequenceStyleGenerator",
+	      parameters = {
+	        @Parameter(name = "sequence_name", value = "supplier_sequence"),
+	        @Parameter(name = "initial_value", value = "1"),
+	        @Parameter(name = "increment_size", value = "1")
+	        }
+	    )
     private Long id;
 	@Column(unique=true)
 	private String suppCode;

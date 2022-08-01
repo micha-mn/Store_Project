@@ -1,13 +1,16 @@
 package com.store.services;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.store.domain.Item;
 import com.store.domain.ItemsView;
+import com.store.dto.BrandDTOResponce;
 import com.store.dto.ItemDTO;
+import com.store.dto.ItemResponceDTO;
 import com.store.enums.StatusEnum;
 import com.store.repositories.ItemRepository;
 import com.store.repositories.ItemViewRepository;
@@ -24,8 +27,9 @@ public class ItemService {
 	@Autowired
 	CommonUtils commonUtils;
 	
-	public String SaveItem(@Valid ItemDTO itemDTO) {
+	public ItemResponceDTO SaveItem(@Valid ItemDTO itemDTO) {
 		Item item = null;
+		Optional<ItemsView> ItemsView =null;
 		String status="";
 		if(itemDTO.getAction().equalsIgnoreCase("save"))
 		{
@@ -41,6 +45,7 @@ public class ItemService {
 	    		        .itemCode(itemCode)
 	    		        .build();
 	     status= StatusEnum.ITEM_SAVED.value;
+	     ItemsView = findByID(itemRepository.save(item).getId());
 		}
 		else 
 			{ item = Item.builder()
@@ -55,17 +60,21 @@ public class ItemService {
 				        .itemCode(itemDTO.getItemCode())
 				        .build();
 			  status= StatusEnum.ITEM_UPDATED.value;
+			  ItemsView = findByID(itemRepository.save(item).getId());
 			}
 		
-		itemRepository.save(item);
-		
-		return status;
+		ItemResponceDTO itemResponceDTO = ItemResponceDTO.builder().itemsView(ItemsView).Message(status).build();
+		return itemResponceDTO;
 	}
 
 	public List<ItemsView> getAllItem() {
 		
 		return itemViewRepository.findAllByOrderByIdDesc();
 	}
+	public Optional<ItemsView> findByID(Long id) {
+		return itemViewRepository.findById(id);
+	}
+	
 	public String deleteItemById(long id)
 	{
 		itemRepository.deleteById(id);

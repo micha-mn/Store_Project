@@ -25,4 +25,8 @@ public class NamingSequenceService {
 	{
 		namingSequenceRepository.updateSupplierSequence();	
 	}
+	public void updateItemSequence()
+	{
+		namingSequenceRepository.updateItemSequence();	
+	}
 }

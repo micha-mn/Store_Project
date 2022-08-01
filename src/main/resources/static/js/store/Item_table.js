@@ -203,21 +203,21 @@ $("#messageNotification_b").jqxNotification({
 				  }
  			},
  			{
- 				text: 'brand',
-				hidden: config.brandName,
- 				datafield: 'brandName',
- 				width: '10%',
- 				  createfilterwidget: function (column, columnElement, widget) {
-			        widget.jqxInput({ width: '100%', height: 27, placeHolder: "Enter Brand" });
-				  }
- 			},
- 			{
  				text: 'description',
 				hidden: config.description,
  				datafield: 'description',
- 				width: '18%',
+ 				width: '10%',
  				 createfilterwidget: function (column, columnElement, widget) {
 			        widget.jqxInput({ width: '100%', height: 27, placeHolder: "Enter Description" });
+				  }
+ 			},
+ 			{
+ 				text: 'brand',
+				hidden: config.brandName,
+ 				datafield: 'brandName',
+ 				width: '8%',
+ 				  createfilterwidget: function (column, columnElement, widget) {
+			        widget.jqxInput({ width: '100%', height: 27, placeHolder: "Enter Brand" });
 				  }
  			},
  			{
@@ -535,7 +535,7 @@ $("#messageNotification_b").jqxNotification({
  				$("#messageNotification").jqxNotification({
  					template: "info"
  				});
- 				$("#notificationText").append(response);
+ 				$("#notificationText").append(response.message);
  				$("#messageNotification").jqxNotification("open");
  				var dataAdapter = new $.jqx.dataAdapter(source);
  				 $('#dropdownlistSupp').jqxDropDownList({ selectedIndex: -1});
@@ -634,30 +634,18 @@ $("#messageNotification_b").jqxNotification({
  		};
 
  		$.ajax(settings).done(function(response) {
+	debugger
  		        $("#notificationText_u").empty();
  				$("#messageNotification_u").jqxNotification({
  					template: "info"
  				});
- 				$("#notificationText_u").append(response);
+ 				$("#notificationText_u").append(response.message);
  				$("#messageNotification_u").jqxNotification("open");
              
         var selectedrowindex = $('#grid').jqxGrid('getselectedrowindexes');
         var rowid = $('#grid').jqxGrid('getrowid', selectedrowindex);
         var rowdata=$('#grid').jqxGrid('getrowdata', selectedrowindex);
-         $('#grid').jqxGrid('updaterow', rowid, {
-                                                    "id":$("#id_item").val(),
-												    "itemCode": $("#itemCode").val(),
-								 				    "suppCode": $("#dropdownlistSupp_u").val(),
-								 					"brandId": $("#dropdownlistBrand_u").val(),
-								 					"description": $("#description_u").val(),
-								 					"inclusions": $("#Inclusions_u").val(),
-								 					"consignmentPrice": $("#Consignmentprice_u").val(),
-								 					"consignmentDate": $("#consignmentDate_u").jqxDateTimeInput("getDate"),
-								 					"sellingPrice": $("#Sellingprice_u").val(),
-                                                    "lastModifiedDate": new Date(),
-                                                    "creationDate": rowdata.creationDate
-                                                }
-                                                );
+         $('#grid').jqxGrid('updaterow', rowid, response.itemsView );
          
  			//$(':input', '#supplier_form_update').val('')
  		});

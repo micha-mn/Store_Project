@@ -25,6 +25,8 @@ public class ItemService {
 	@Autowired
 	ItemViewRepository itemViewRepository;
 	@Autowired
+	NamingSequenceService namingSequenceservice;
+	@Autowired
 	CommonUtils commonUtils;
 	
 	public ItemResponceDTO SaveItem(@Valid ItemDTO itemDTO) {
@@ -46,6 +48,7 @@ public class ItemService {
 	    		        .build();
 	     status= StatusEnum.ITEM_SAVED.value;
 	     ItemsView = findByID(itemRepository.save(item).getId());
+	     namingSequenceservice.updateItemSequence();
 		}
 		else 
 			{ item = Item.builder()
@@ -65,6 +68,7 @@ public class ItemService {
 		
 		ItemResponceDTO itemResponceDTO = ItemResponceDTO.builder().itemsView(ItemsView).Message(status).build();
 		return itemResponceDTO;
+			
 	}
 
 	public List<ItemsView> getAllItem() {

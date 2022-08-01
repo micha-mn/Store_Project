@@ -17,4 +17,10 @@ public interface NamingSequenceRepository extends JpaRepository<NamingSequence, 
      @Query(value = "update naming_sequence set supp_sequence = nextval('supp_sequence')",
        nativeQuery = true)
        void updateSupplierSequence();
+     
+     @Transactional
+     @Modifying
+     @Query(value = "update naming_sequence set item_sequence = nextval('item_sequence')",
+       nativeQuery = true)
+       void updateItemSequence();
 }

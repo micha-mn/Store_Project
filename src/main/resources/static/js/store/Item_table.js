@@ -7,8 +7,17 @@
   $("#loginUserName").removeClass("d-none"); 
  });
  $(document).ready(function() {
+                var source = [
+                    "New",
+                    "Very Good",
+                    "Fair",
+                    "Like New",
+                    "Excellent"
+		        ];
 
-
+                // Create a jqxDropDownList
+                $("#conditionDropDown").jqxDropDownList({  selectedIndex: -1,source: source,theme: 'material-purple', width: '100%',itemHeight: 35, height: '38'});
+    $("#conditionDropDown_u").jqxDropDownList({  selectedIndex: -1,source: source,theme: 'material-purple', width: '100%',itemHeight: 35, height: '38'});
 	 var url = "/supplier/getallsorted";
 	 var sourceSupp =
 	 {
@@ -230,12 +239,12 @@ $("#messageNotification_b").jqxNotification({
  			}
  			},
  			{
- 				text: 'consignment Price',
+ 				text: 'consignment Price (EUR)',
 				hidden: config.consignmentPrice,
  				datafield: 'consignmentPrice',
- 				width: '12%',
+ 				width: '14%',
  			    createfilterwidget: function (column, columnElement, widget) {
-			    widget.jqxInput({ width: '100%', height: 27, placeHolder: "Enter consignmentPrice" });
+			    widget.jqxInput({ width: '100%', height: 27, placeHolder: "Enter consignmentPrice " });
  			}
  			},
  			{
@@ -247,7 +256,7 @@ $("#messageNotification_b").jqxNotification({
 				cellsformat: 'dd-MMM-yy' 
 			 },
 			 {
- 				text: 'selling Price',
+ 				text: 'selling Price(EUR)',
 				hidden: config.sellingPrice,
  				datafield: 'sellingPrice',
  				width: '10%',
@@ -259,7 +268,7 @@ $("#messageNotification_b").jqxNotification({
  				text: 'Create Date',
 				hidden: config.creationDate,
 			    datafield: 'creationDate',
-				width: '12%',
+				width: '10%',
 				filtertype: 'date', 
 				cellsformat: 'dd-MMM-yy HH:mm' 
 			 },
@@ -268,7 +277,7 @@ $("#messageNotification_b").jqxNotification({
 				hidden: config.lastModifiedDate,
 				datafield: 'lastModifiedDate',
 			    filtertype: 'date', 
-				width: '12%',
+				width: '10%',
 				cellsformat: 'dd-MMM-yy HH:mm' 
  			},
 		{
@@ -399,10 +408,49 @@ $("#messageNotification_b").jqxNotification({
 		{
  				text: 'Brand',
  				datafield: 'nameEn',
-				width: '100%',
+				width: '75%',
  				createfilterwidget: function (column, columnElement, widget) {
 			        widget.jqxInput({ width: '100%', height: 27, placeHolder: "Enter brand" });
 			}
+ 			},
+ 				{
+ 				text: '',
+ 				datafield: 'Edit',
+ 				width: '10%',
+                columntype: 'button',
+                filterable: false,
+ 				cellsrenderer: function() {
+ 					return "Edit";
+ 				},
+ 				buttonclick: function(row) {
+ 					// open the popup window when the user clicks a button.
+ 					editrow = row;
+ 					var offset = $("#brandGrid").offset();
+
+ 					// get the clicked row's data and initialize the input fields.
+ 					var dataRecord = $("#brandGrid").jqxGrid('getrowdata', editrow);
+ 					
+ 				  $('#brandwindow').jqxWindow('open');
+   $("#brandwindow").jqxWindow('bringToFront')
+				  
+ 				}
+ 			},
+			{
+ 				text: '',
+ 				datafield: 'Delete',
+ 				width: '15%',
+                columntype: 'button',
+                filterable: false,
+ 				cellsrenderer: function() {
+ 					return "Delete";
+ 				},
+ 				buttonclick: function(row) {
+	             deleteRow = row;
+                 var dataRecord = $("#brandGrid").jqxGrid('getrowdata', deleteRow);
+                 $("#deletedBrand").empty();
+                 $('#deletedBrand').append('Brand : '+dataRecord.nameEn)
+                 $('#ConfirmationModalBrand').modal('show'); 
+ 				}
  			}]
 		});
   $('#jqxSelectBrand').on('click', function() {

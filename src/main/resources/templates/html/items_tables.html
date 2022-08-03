@@ -240,14 +240,19 @@
 					</div>
 					<div class="form-row">
 						<div class="form-group col-md-6">
-							<label for="inputConsignment price">Consignment price</label>
+							<label for="inputConsignment price">Consignment Price (EUR)</label>
 							<input type="number" class="form-control" id="Consignmentprice" placeholder="Consignment Price"> </div>
 							<div class="form-group col-md-6">
 							<label for="inputConsignment date">Consignment date</label>
 								<div id='consignmentDate'></div>
 							 </div>
 							<div class="form-group col-md-6">
-							<label for="inputSelling price">Selling price </label>
+							<label for="inputSelling price">Condition </label>
+							 <div id='conditionDropDown'>
+        </div>
+							</div>
+							<div class="form-group col-md-6">
+							<label for="inputSelling price">Selling Price (EUR) </label>
 							<input type="number" class="form-control" id="Sellingprice" placeholder="Selling Price "> </div>
 							
 						<div class="form-row">
@@ -298,14 +303,19 @@
 					</div>
 					<div class="form-row">
 						<div class="form-group col-md-6">
-							<label for="inputConsignment price">Consignment price</label>
+							<label for="inputConsignment price">Consignment Price (EUR)</label>
 							<input type="number" class="form-control" id="Consignmentprice_u" placeholder="Consignment Price"> </div>
 							<div class="form-group col-md-6">
 							<label for="inputConsignment date">Consignment date</label>
 								<div id='consignmentDate_u'></div>
 							 </div>
+							 	<div class="form-group col-md-6">
+							<label for="inputSelling price">Condition </label>
+							 <div id='conditionDropDown_u'>
+        </div>
+							</div>
 							<div class="form-group col-md-6">
-							<label for="inputSelling price">Selling price </label>
+							<label for="inputSelling price">Selling Price (EUR) </label>
 							<input type="number" class="form-control" id="Sellingprice_u" placeholder="Selling Price ">
 							
 						 </div>
@@ -346,6 +356,26 @@
 					<div class="modal-footer justify-content-center">
 						<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
 						<button type="button" class="btn btn-danger" id="deleteItem">Delete</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div id="ConfirmationModalBrand" class="modal fade">
+			<div class="modal-dialog modal-confirm modal-dialog-centered">
+				<div class="modal-content">
+					<div class="modal-header flex-column">
+						<div class="icon-box"> <i class="fa-solid fa-x"></i> </div>
+						<h4 class="modal-title w-100">Are you sure?</h4>
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					</div>
+					<div class="modal-body">
+						<p>Do you really want to delete these records?</p>
+						<div id="deletedBrand" style="color: #cb0c9f; font-size: 1.2rem; font-weight: bold;"></div>
+						<p>This process cannot be undone.</p>
+					</div>
+					<div class="modal-footer justify-content-center">
+						<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+						<button type="button" class="btn btn-danger" id="deleteBrand">Delete</button>
 					</div>
 				</div>
 			</div>

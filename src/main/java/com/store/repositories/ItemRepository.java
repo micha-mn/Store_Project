@@ -11,4 +11,6 @@ public interface ItemRepository  extends JpaRepository<Item, Long> {
 	  public Item findById(long id);
 
 	  public boolean existsByBrandId(String brandId);
+
+	  public boolean existsBySuppCode(String suppCode);
 }

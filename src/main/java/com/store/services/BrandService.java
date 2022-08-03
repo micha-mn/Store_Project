@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.store.domain.Brand;
-import com.store.domain.Item;
 import com.store.dto.BrandDTO;
 import com.store.dto.BrandDTOResponce;
 import com.store.enums.StatusEnum;
@@ -56,7 +55,7 @@ public class BrandService {
 		return brandRepository.findAllByOrderByIdDesc();	
 	}
 	public String deleteBrandById(long id)
-	{   boolean isInItem =  itemService.checkifBrandIdexistsInItem(id);
+	{   boolean isInItem =  itemService.checkifBrandIdExistsInItem(id);
 		if(!isInItem)
 			{brandRepository.deleteById(id);
 			return StatusEnum.BRAND_DELETED.value;

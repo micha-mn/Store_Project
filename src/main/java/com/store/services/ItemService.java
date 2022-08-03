@@ -31,9 +31,17 @@ public class ItemService {
 	@Autowired
 	CommonUtils commonUtils;
 	
-	public boolean checkifBrandIdexistsInItem(long brandId) {
+	public boolean checkifBrandIdExistsInItem(long brandId) {
 		boolean exists = itemRepository.existsByBrandId(String.valueOf(brandId));
 			return exists;
+	}
+	public boolean checkifSuppCodeExistsInItem(String suppCode) {
+		boolean exists = itemRepository.existsBySuppCode(suppCode);
+			return exists;
+	}
+	public Item getItem(long id) {
+		Item item= itemRepository.findById(id);
+			return item;
 	}
 	public ItemResponceDTO SaveItem(@Valid ItemDTO itemDTO) {
 		Item item = null;
@@ -58,7 +66,11 @@ public class ItemService {
 	     namingSequenceservice.updateItemSequence();
 		}
 		else 
-			{ item = Item.builder()
+			{ 
+			Item OldItem = getItem(itemDTO.getId());
+			if(!OldItem.getSuppCode().equalsIgnoreCase(itemDTO.getSuppCode()))
+				 itemDTO.setItemCode(commonUtils.updateItemCode(itemDTO.getItemCode(),itemDTO.getSuppCode()));
+			item = Item.builder()
 				        .id(itemDTO.getId())
 				        .suppCode(itemDTO.getSuppCode())
 				        .brandId(itemDTO.getBrandId())

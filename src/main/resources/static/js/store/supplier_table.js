@@ -220,7 +220,9 @@
                  var dataRecord = $("#grid").jqxGrid('getrowdata', deleteRow);
                  $("#deletedSupplier").empty();
                  $('#deletedSupplier').append('Supplier : '+dataRecord.firstName+' '+dataRecord.lastName)
-                 $('#ConfirmationModal').modal('show'); 
+                 $("#deletedBrandMessage").empty();
+                 $("#deletedBrandMessage").addClass("d-none");                
+ 				 $('#ConfirmationModal').modal('show'); 
  				}
  			}
  		]
@@ -234,11 +236,17 @@
             type: "DELETE",
             url: "/supplier/delete/" + SupplierId,
             success: function(result) {
-                $('#ConfirmationModal').modal('hide');
-                if (selectedrowindex >= 0 && selectedrowindex < rowscount) {
-                    var id = $("#grid").jqxGrid('getrowid', selectedrowindex);
-                    var commit = $("#grid").jqxGrid('deleterow', id);
-                }
+	          if (result == "success")
+                { $('#ConfirmationModal').modal('hide');
+	                if (selectedrowindex >= 0 && selectedrowindex < rowscount) {
+	                    var id = $("#grid").jqxGrid('getrowid', selectedrowindex);
+	                    var commit = $("#grid").jqxGrid('deleterow', id);
+	                }
+				}else {
+				 $("#deletedBrandMessage").removeClass("d-none");
+			     $("#deletedBrandMessage").empty();
+                 $('#deletedBrandMessage').append(result);
+				}
             },
             error: function(e) {
                 console.log(e);

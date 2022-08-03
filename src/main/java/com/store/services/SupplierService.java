@@ -22,6 +22,8 @@ public class SupplierService {
 	@Autowired
 	NamingSequenceService namingSequenceservice;
 	@Autowired
+	ItemService itemService;
+	@Autowired
 	CommonUtils commonUtils;
 	public boolean checkifSupplierexists(SupplierDTO supplierDTO) {
 		Optional<Supplier> issupplier = supplierRepository.findByFirstNameIgnoreCaseAndLastNameIgnoreCase(supplierDTO.getFirstName(),
@@ -75,11 +77,21 @@ public class SupplierService {
 	{
 		return supplierRepository.findAll((Sort.by(Sort.Direction.ASC, "suppCode")));	
 	}
-	
+	public Optional<Supplier> getSupplier(long id)
+	{
+		return supplierRepository.findById(id);	
+	}
 	public String deleteSupplierById(long id)
 	{
-		supplierRepository.deleteById(id);
+		Optional<Supplier> supplier = getSupplier(id);
+		boolean isInItem = itemService.checkifSuppCodeExistsInItem(supplier.get().getSuppCode());
+		if(!isInItem)
+		{supplierRepository.deleteById(id);
 		return StatusEnum.SUPPLIER_DELETED.value;
+		}
+	else 
+		return StatusEnum.SUPPLIER_EXIST_IN_ITEM.value;
+		
 	}
 	
 	public String updateSupplierById(SupplierDTO supplierDTO)

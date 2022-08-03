@@ -33,4 +33,8 @@ public class CommonUtils {
 		
 		return suppCode+"_"+generateSequence(NamingSequenceEnum.SEQUENCE_ITEM.getSequenceName());
 	}
+	public String updateItemCode(String oldCode, String suppCode) {
+		
+		return suppCode+"_"+oldCode.split("_")[1];
+	}
 }

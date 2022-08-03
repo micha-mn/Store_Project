@@ -16,8 +16,8 @@
 		        ];
 
                 // Create a jqxDropDownList
-                $("#conditionDropDown").jqxDropDownList({  selectedIndex: -1,source: source,theme: 'material-purple', width: '100%',itemHeight: 35, height: '38'});
-    $("#conditionDropDown_u").jqxDropDownList({  selectedIndex: -1,source: source,theme: 'material-purple', width: '100%',itemHeight: 35, height: '38'});
+                $("#conditionDropDown").jqxDropDownList({ dropDownHeight:200 , selectedIndex: -1,source: source,theme: 'material-purple', width: '100%',itemHeight: 35, height: '38'});
+    $("#conditionDropDown_u").jqxDropDownList({ dropDownHeight:200, selectedIndex: -1,source: source,theme: 'material-purple', width: '100%',itemHeight: 35, height: '38'});
 	 var url = "/supplier/getallsorted";
 	 var sourceSupp =
 	 {
@@ -229,7 +229,7 @@ $("#messageNotification_b").jqxNotification({
  				text: 'brand',
 				hidden: config.brandName,
  				datafield: 'brandName',
- 				width: '8%',
+ 				width: '10%',
  				  createfilterwidget: function (column, columnElement, widget) {
 			        widget.jqxInput({ width: '100%', height: 27, placeHolder: "Enter Brand" });
 				  }

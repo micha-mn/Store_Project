@@ -39,6 +39,8 @@ public class Item extends Auditable<String> {
     private String brandId;
     @Column(length=60)
     private String description;
+    @Column(length=60)
+    private String condition;
 	private String inclusions;
 	@Column(length=60)
     private Double consignmentPrice;

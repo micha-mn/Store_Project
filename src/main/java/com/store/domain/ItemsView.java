@@ -34,5 +34,6 @@ public class ItemsView extends Auditable<String> {
     private String createdBy;
     private Date lastModifiedDate;
     private String lastModifiedBy;
+    private String condition;
 }
 

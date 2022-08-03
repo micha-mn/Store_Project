@@ -138,7 +138,7 @@ $("#messageNotification_b").jqxNotification({
  			},
  			{
  				name: 'consignmentPrice',
- 				type: 'string'
+ 				type: 'float'
  			},
  			{
  				name: 'consignmentDate',
@@ -146,7 +146,7 @@ $("#messageNotification_b").jqxNotification({
 			 },
 			 {
  				name: 'sellingPrice',
- 				type: 'string'
+ 				type: 'float'
 			 },
 			 {
  				name: 'creationDate',
@@ -156,6 +156,11 @@ $("#messageNotification_b").jqxNotification({
  				name: 'lastModifiedDate',
  				type: 'date'
  			},
+		    {
+ 				name: 'condition',
+ 				type: 'string'
+ 			},
+		
  		],
  		updaterow: function(rowid, rowdata, commit) {
  			commit(true);
@@ -243,6 +248,7 @@ $("#messageNotification_b").jqxNotification({
 				hidden: config.consignmentPrice,
  				datafield: 'consignmentPrice',
  				width: '14%',
+			    cellsformat: 'D2',
  			    createfilterwidget: function (column, columnElement, widget) {
 			    widget.jqxInput({ width: '100%', height: 27, placeHolder: "Enter consignmentPrice " });
  			}
@@ -255,10 +261,20 @@ $("#messageNotification_b").jqxNotification({
 				filtertype: 'date',
 				cellsformat: 'dd-MMM-yy' 
 			 },
+		    {
+ 				text: 'Condition',
+				hidden: config.condition,
+ 				datafield: 'condition',
+ 				width: '10%',
+ 				createfilterwidget: function (column, columnElement, widget) {
+			        widget.jqxInput({ width: '100%', height: 27, placeHolder: "Enter condition" });
+			}
+			 },
 			 {
  				text: 'selling Price(EUR)',
 				hidden: config.sellingPrice,
  				datafield: 'sellingPrice',
+			    cellsformat: 'D2',
  				width: '10%',
  				createfilterwidget: function (column, columnElement, widget) {
 			        widget.jqxInput({ width: '100%', height: 27, placeHolder: "Enter sellingPrice" });
@@ -339,6 +355,7 @@ $("#messageNotification_b").jqxNotification({
 					$("#itemCode").val(dataRecord.itemCode);
 				
  					$("#dropdownlistSupp_u").jqxDropDownList('selectItem', dataRecord.suppCode ); 
+				    $("#conditionDropDown_u").jqxDropDownList('selectItem', dataRecord.condition ); 
 
 		 			$("#SelectedBrandId_u").val(dataRecord.brandId);
  					$("#SelectedBrandName_u").val(dataRecord.brandName);
@@ -594,8 +611,8 @@ $("#messageNotification_b").jqxNotification({
  					"inclusions": $("#Inclusions").val(),
  					"consignmentPrice": $("#Consignmentprice").val(),
  					"consignmentDate": $("#consignmentDate").jqxDateTimeInput("getDate"),
- 					"sellingPrice": $("#Sellingprice").val()
- 					
+ 					"sellingPrice": $("#Sellingprice").val(),
+ 					"condition": $("#conditionDropDown").val()
  				}),
  			};
 
@@ -698,7 +715,8 @@ $("#messageNotification_b").jqxNotification({
  					"inclusions": $("#Inclusions_u").val(),
  					"consignmentPrice": $("#Consignmentprice_u").val(),
  					"consignmentDate": $("#consignmentDate_u").jqxDateTimeInput("getDate"),
- 					"sellingPrice": $("#Sellingprice_u").val()
+ 					"sellingPrice": $("#Sellingprice_u").val(),
+				    "condition": $("#conditionDropDown_u").val()
  			}),
  		};
 
@@ -836,7 +854,7 @@ function openBrandWindow_u()
 async function saveBrand(name)
 {   var json;
 	var title = $('#brandwindow').jqxWindow('title'); 
-	debugger;
+	
 	if (title.includes("Save"))
 	{
 		json = {

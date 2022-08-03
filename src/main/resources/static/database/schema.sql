@@ -150,6 +150,7 @@ INSERT INTO configuration_table(id,column_name,table_name,is_hidden) VALUES ('11
 INSERT INTO configuration_table(id,column_name,table_name,is_hidden) VALUES ('12','itemCode','itemsView','FALSE');
 INSERT INTO configuration_table(id,column_name,table_name,is_hidden) VALUES ('13','sellingPrice','itemsView','FALSE');
 INSERT INTO configuration_table(id,column_name,table_name,is_hidden) VALUES ('14','suppCode','itemsView','TRUE');
+INSERT INTO configuration_table(id,column_name,table_name,is_hidden) VALUES ('15','condition','itemsView','TRUE');
 
 drop view public.items_view
 
@@ -174,8 +175,8 @@ CREATE OR REPLACE VIEW public.items_view
     i.inclusions,
     i.item_code,
     i.selling_price,
-    i.supp_code
+    i.supp_code,
+    i.condition
    FROM items i,
     brand b
   WHERE i.brand_id::integer = b.id;
-

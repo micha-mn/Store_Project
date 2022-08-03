@@ -18,9 +18,8 @@
  i.description,
  i.inclusions,
  i.item_code,
- TO_CHAR(i.selling_price, '999,999,999') as selling_price,
+ TO_CHAR(i.selling_price, '999,999,999.99') as selling_price,
  i.supp_code
-	
 from items i, brand b
 where i.id = CAST ($P{itemId} AS INTEGER)
 and CAST (i.brand_id AS INTEGER) = b.id]]>

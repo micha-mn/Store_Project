@@ -32,4 +32,5 @@ public class ItemDTO {
 	    private Date consignmentDate;
 		@NotNull(message = ErrorConstants.ITEM_SELLINGPRICE_NOT_NULL)
 	    private Double sellingPrice;
+		private String condition;
 }

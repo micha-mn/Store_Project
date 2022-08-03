@@ -45,6 +45,7 @@ public class ItemService {
 	    		        .consignmentPrice(itemDTO.getConsignmentPrice())
 	    		        .sellingPrice(itemDTO.getSellingPrice())
 	    		        .itemCode(itemCode)
+	    		        .condition(itemDTO.getCondition())
 	    		        .build();
 	     status= StatusEnum.ITEM_SAVED.value;
 	     ItemsView = findByID(itemRepository.save(item).getId());
@@ -61,6 +62,7 @@ public class ItemService {
 				        .consignmentPrice(itemDTO.getConsignmentPrice())
 				        .sellingPrice(itemDTO.getSellingPrice())
 				        .itemCode(itemDTO.getItemCode())
+				        .condition(itemDTO.getCondition())
 				        .build();
 			  status= StatusEnum.ITEM_UPDATED.value;
 			  ItemsView = findByID(itemRepository.save(item).getId());

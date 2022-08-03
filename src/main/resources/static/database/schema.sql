@@ -180,3 +180,6 @@ CREATE OR REPLACE VIEW public.items_view
    FROM items i,
     brand b
   WHERE i.brand_id::integer = b.id;
+  
+   alter table if exists supplier 
+       add column is_active boolean DEFAULT true;

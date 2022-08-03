@@ -9,4 +9,6 @@ import com.store.domain.Item;
 public interface ItemRepository  extends JpaRepository<Item, Long> {
 	
 	  public Item findById(long id);
+
+	  public boolean existsByBrandId(String brandId);
 }

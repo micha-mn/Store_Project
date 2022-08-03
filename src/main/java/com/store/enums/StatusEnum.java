@@ -15,7 +15,8 @@ public enum StatusEnum {
     ITEM_DELETED("Item has been deleted"),
     BRAND_SAVED("New Brand has been added"),
     BRAND_EXIST("Brand with given Name already exist"),
-    BRAND_DELETED("Brand has been deleted"),;
+    BRAND_DELETED("success"),
+    BRAND_EXIST_IN_ITEM("The selected brand cannot be deleted since it is connected to an item.");
 
     public final String value;
 

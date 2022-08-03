@@ -6,8 +6,10 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.store.domain.Brand;
 import com.store.domain.Item;
 import com.store.domain.ItemsView;
+import com.store.dto.BrandDTO;
 import com.store.dto.BrandDTOResponce;
 import com.store.dto.ItemDTO;
 import com.store.dto.ItemResponceDTO;
@@ -29,6 +31,10 @@ public class ItemService {
 	@Autowired
 	CommonUtils commonUtils;
 	
+	public boolean checkifBrandIdexistsInItem(long brandId) {
+		boolean exists = itemRepository.existsByBrandId(String.valueOf(brandId));
+			return exists;
+	}
 	public ItemResponceDTO SaveItem(@Valid ItemDTO itemDTO) {
 		Item item = null;
 		Optional<ItemsView> ItemsView =null;

@@ -468,7 +468,9 @@ $("#messageNotification_b").jqxNotification({
 	             deleteRow = row;
                  var dataRecord = $("#brandGrid").jqxGrid('getrowdata', deleteRow);
                  $("#deletedBrand").empty();
-                 $('#deletedBrand').append('Brand : '+dataRecord.nameEn)
+                 $('#deletedBrand').append('Brand : '+dataRecord.nameEn);
+				 $("#deletedBrandMessage").empty();
+                 $("#deletedBrandMessage").addClass("d-none");
                  $('#ConfirmationModalBrand').modal('show'); 
  				}
  			}]
@@ -527,11 +529,17 @@ $("#messageNotification_b").jqxNotification({
             type: "DELETE",
             url: "/brand/delete/" + BrandId,
             success: function(result) {
-                $('#ConfirmationModalBrand').modal('hide');
-                if (selectedrowindex >= 0 && selectedrowindex < rowscount) {
-                    var id = $("#brandGrid").jqxGrid('getrowid', selectedrowindex);
-                    var commit = $("#brandGrid").jqxGrid('deleterow', id);
-                }
+                if (result == "success")
+                { $('#ConfirmationModalBrand').modal('hide');
+	                if (selectedrowindex >= 0 && selectedrowindex < rowscount) {
+	                    var id = $("#brandGrid").jqxGrid('getrowid', selectedrowindex);
+	                    var commit = $("#brandGrid").jqxGrid('deleterow', id);
+	                }
+				}else {
+				 $("#deletedBrandMessage").removeClass("d-none");
+			     $("#deletedBrandMessage").empty();
+                 $('#deletedBrandMessage').append(result);
+				}
             },
             error: function(e) {
                 console.log(e);

@@ -1,14 +1,13 @@
 package com.store.services;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.store.domain.Brand;
+import com.store.domain.Item;
 import com.store.dto.BrandDTO;
 import com.store.dto.BrandDTOResponce;
 import com.store.enums.StatusEnum;
@@ -19,6 +18,9 @@ public class BrandService {
 	@Autowired
 	BrandRepository brandRepository;
 	
+	@Autowired
+	ItemService itemService;
+	
 	public boolean checkifBrandexists(BrandDTO brandDTO) {
 		Optional<Brand> isBrand = brandRepository.findByNameEnIgnoreCase(brandDTO.getNameEn());
 		if (isBrand.isPresent())
@@ -26,6 +28,7 @@ public class BrandService {
 		else
 			return false;
 	}
+	
 	public BrandDTOResponce saveBrand(BrandDTO brandDTO) {
 		boolean exists = checkifBrandexists(brandDTO);
 		Brand brand = null;
@@ -53,9 +56,13 @@ public class BrandService {
 		return brandRepository.findAllByOrderByIdDesc();	
 	}
 	public String deleteBrandById(long id)
-	{
-		brandRepository.deleteById(id);
-		return StatusEnum.BRAND_DELETED.value;
+	{   boolean isInItem =  itemService.checkifBrandIdexistsInItem(id);
+		if(!isInItem)
+			{brandRepository.deleteById(id);
+			return StatusEnum.BRAND_DELETED.value;
+			}
+		else 
+			return StatusEnum.BRAND_EXIST_IN_ITEM.value;
 	}
 	
 	

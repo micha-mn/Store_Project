@@ -42,4 +42,5 @@ public class Supplier extends Auditable<String> {
 	private String address;
     private String phone;
     private String instagram;
+    private boolean isActive;
 }

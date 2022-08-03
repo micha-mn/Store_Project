@@ -229,7 +229,7 @@ $("#messageNotification_b").jqxNotification({
  				text: 'brand',
 				hidden: config.brandName,
  				datafield: 'brandName',
- 				width: '10%',
+ 				width: '14%',
  				  createfilterwidget: function (column, columnElement, widget) {
 			        widget.jqxInput({ width: '100%', height: 27, placeHolder: "Enter Brand" });
 				  }
@@ -247,7 +247,7 @@ $("#messageNotification_b").jqxNotification({
  				text: 'consignment Price (EUR)',
 				hidden: config.consignmentPrice,
  				datafield: 'consignmentPrice',
- 				width: '14%',
+ 				width: '10%',
 			    cellsformat: 'D2',
  			    createfilterwidget: function (column, columnElement, widget) {
 			    widget.jqxInput({ width: '100%', height: 27, placeHolder: "Enter consignmentPrice " });
@@ -362,9 +362,10 @@ $("#messageNotification_b").jqxNotification({
 
  					$("#description_u").val(dataRecord.description);
  					$("#Inclusions_u").val(dataRecord.inclusions);
- 					$("#Consignmentprice_u").val(dataRecord.consignmentPrice);
+
+ 					$("#Consignmentprice_u").val(isNaN(dataRecord.consignmentPrice)?dataRecord.consignmentPrice.replaceAll(",",""):dataRecord.consignmentPrice);
 				    $("#consignmentDate_u").jqxDateTimeInput('setDate',dataRecord.consignmentDate);
- 					$("#Sellingprice_u").val(dataRecord.sellingPrice);
+ 					$("#Sellingprice_u").val(isNaN(dataRecord.sellingPrice)?dataRecord.sellingPrice.replaceAll(",",""):dataRecord.sellingPrice);
 
  					// show the popup window.
  					$('#updatewindow').jqxWindow('open');
@@ -625,6 +626,7 @@ $("#messageNotification_b").jqxNotification({
  				$("#messageNotification").jqxNotification("open");
  				var dataAdapter = new $.jqx.dataAdapter(source);
  				 $('#dropdownlistSupp').jqxDropDownList({ selectedIndex: -1});
+		         $('#conditionDropDown').jqxDropDownList({ selectedIndex: -1});
  				$('#grid').jqxGrid({
  					source: dataAdapter
                  });
@@ -731,8 +733,13 @@ $("#messageNotification_b").jqxNotification({
              
         var selectedrowindex = $('#grid').jqxGrid('getselectedrowindexes');
         var rowid = $('#grid').jqxGrid('getrowid', selectedrowindex);
-        var rowdata=$('#grid').jqxGrid('getrowdata', selectedrowindex);
-         $('#grid').jqxGrid('updaterow', rowid, response.itemsView );
+        var data= response.itemsView;
+           data.consignmentDate =  dataAdapter.formatDate(new Date(data.consignmentDate), 'dd-MMM-yy');
+		   data.creationDate =  dataAdapter.formatDate(new Date(data.creationDate), 'dd-MMM-yy HH:mm' );
+		   data.lastModifiedDate =  dataAdapter.formatDate(new Date(data.lastModifiedDate),'dd-MMM-yy HH:mm' );
+           data.consignmentPrice = dataAdapter.formatNumber( data.consignmentPrice,'D2');
+		   data.sellingPrice = dataAdapter.formatNumber(data.sellingPrice,'D2');
+         $('#grid').jqxGrid('updaterow', rowid, data );
          
  			//$(':input', '#supplier_form_update').val('')
  		});

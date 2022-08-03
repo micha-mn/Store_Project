@@ -14,7 +14,8 @@ public enum StatusEnum {
     ITEM_UPDATED("Item has been updated"),
     ITEM_DELETED("Item has been deleted"),
     BRAND_SAVED("New Brand has been added"),
-    BRAND_EXIST("Brand with given Name already exist");
+    BRAND_EXIST("Brand with given Name already exist"),
+    BRAND_DELETED("Brand has been deleted"),;
 
     public final String value;
 

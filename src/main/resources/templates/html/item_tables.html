@@ -145,7 +145,7 @@
 					
 					<div class="form-row">
 						<div class="col-1 mb-2">
-					<input type="button" value="Add Brand" id="jqxAddButton" class="btn bg-gradient-primary mt-4 mb-0"  onclick="openBrandWindow()" /> </div>
+					<input type="button" value="Add Brand" id="jqxAddButton" class="btn bg-gradient-primary mt-4 mb-0"  onclick="openBrandWindow('Save - brand','save')" /> </div>
 						<div class="form-group col-md-12">
 							<div id="brandGrid"></div>
 					</div>
@@ -170,6 +170,7 @@
 					<div class="form-row">
 						<div class="form-group col-md-12">
 							<label for="inputBrand">Brand Name</label>
+							    <input type="hidden" class="form-control" id="brandId"  required> 
 							 	<input type="text" class="form-control" id="brandName" placeholder="Brand" autocomplete="off" required> 
 							</div>
 					</div>

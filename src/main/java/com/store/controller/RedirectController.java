@@ -23,7 +23,7 @@ public class RedirectController {
 	}
 	@RequestMapping(value="/item")
 	public ModelAndView itemTablesPage(ModelMap model) {
-		return new ModelAndView("html/items_tables");
+		return new ModelAndView("html/item_tables");
 	}
 	@RequestMapping(value="/sales")
 	public ModelAndView salesTablesPage(ModelMap model) {

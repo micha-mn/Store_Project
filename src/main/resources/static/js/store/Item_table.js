@@ -430,8 +430,10 @@ $("#messageNotification_b").jqxNotification({
  					// get the clicked row's data and initialize the input fields.
  					var dataRecord = $("#brandGrid").jqxGrid('getrowdata', editrow);
  					
- 				  $('#brandwindow').jqxWindow('open');
-   $("#brandwindow").jqxWindow('bringToFront')
+					$("#brandId").val(dataRecord.id);
+					$("#brandName").val(dataRecord.nameEn);
+					
+ 				 openBrandWindow('Update - brand','update');
 				  
  				}
  			},
@@ -492,6 +494,25 @@ $("#messageNotification_b").jqxNotification({
                 if (selectedrowindex >= 0 && selectedrowindex < rowscount) {
                     var id = $("#grid").jqxGrid('getrowid', selectedrowindex);
                     var commit = $("#grid").jqxGrid('deleterow', id);
+                }
+            },
+            error: function(e) {
+                console.log(e);
+            }
+        });
+    });
+ $("#deleteBrand").on('click', function() {
+        var selectedrowindex = $('#brandGrid').jqxGrid('getselectedrowindexes');
+        var rowscount = $("#brandGrid").jqxGrid('getdatainformation').rowscount;
+        var BrandId = $('#brandGrid').jqxGrid('getrowdata', selectedrowindex).id
+        $.ajax({
+            type: "DELETE",
+            url: "/brand/delete/" + BrandId,
+            success: function(result) {
+                $('#ConfirmationModalBrand').modal('hide');
+                if (selectedrowindex >= 0 && selectedrowindex < rowscount) {
+                    var id = $("#brandGrid").jqxGrid('getrowid', selectedrowindex);
+                    var commit = $("#brandGrid").jqxGrid('deleterow', id);
                 }
             },
             error: function(e) {
@@ -790,8 +811,14 @@ $('#brandwindow_u').jqxWindow({
  	});
  };
  
- function openBrandWindow()
- {
+ function openBrandWindow(title,action)
+ { if(action=="save")
+	{
+	$("#brandId").val(null);
+	$("#brandName").val(null);
+	}
+	$('#brandwindow').jqxWindow({ title: title }); 
+				
    $('#brandwindow').jqxWindow('open');
    $("#brandwindow").jqxWindow('bringToFront')
  }
@@ -807,8 +834,25 @@ function openBrandWindow_u()
    $("#brandwindow_u").jqxWindow('bringToFront')
  }
 async function saveBrand(name)
-{
-	var brandId='';
+{   var json;
+	var title = $('#brandwindow').jqxWindow('title'); 
+	debugger;
+	if (title.includes("Save"))
+	{
+		json = {
+		    "nameEn": name==''?null:name,
+			 "action" :'save'
+		  }
+	}
+	else 
+	{
+		json = {
+			"id":$("#brandId").val(),
+		    "nameEn": name==''?null:name,
+			"action" :'update'
+		  }
+	};
+	
 	var settings = {
 		  "url": "/brand/save",
 		  "method": "POST",
@@ -817,15 +861,13 @@ async function saveBrand(name)
 		    "Authorization": "Bearer " + getJwt(),
 		    "Content-Type": "application/json"
 		  },
-		  "data": JSON.stringify({
-		    "nameEn": name==''?null:name
-		  }),
+		  "data": JSON.stringify(json),
 		};
 
 			$.ajax(settings).done(function (response) {
 				if (response.brand== null)
 				{
-					   $("#notificationText_b").empty();
+					    $("#notificationText_b").empty();
 			 			$("#messageNotification_b").jqxNotification({
 			 				template: "info"
 			 			});
@@ -833,8 +875,16 @@ async function saveBrand(name)
 			 			$("#messageNotification_b").jqxNotification("open");
 				}
 			else {
+				if (json.action=='save'){
 				$('#brandGrid').jqxGrid('addrow', null, response.brand, 'first');
 				$("#brandwindow").jqxWindow('close');
+				}
+				else {
+					 var selectedrowindex = $('#brandGrid').jqxGrid('getselectedrowindexes');
+			         var rowid = $('#brandGrid').jqxGrid('getrowid', selectedrowindex);
+			         $('#brandGrid').jqxGrid('updaterow', rowid,response.brand);
+	                 $("#brandwindow").jqxWindow('close');
+				}
 				}
 				
 			});

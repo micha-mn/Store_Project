@@ -30,14 +30,19 @@ public class BrandService {
 		boolean exists = checkifBrandexists(brandDTO);
 		Brand brand = null;
 		String message=null;
-		if (!exists)
-		{
-		  brand = Brand.builder().nameEn(brandDTO.getNameEn()).build();
-          brandRepository.save(brand);
-          message = StatusEnum.BRAND_SAVED.value;
-		}
-		else
-		 message = StatusEnum.BRAND_EXIST.value;
+		
+			if (!exists)
+			{ 
+				if(brandDTO.getAction().equalsIgnoreCase("save"))
+				brand = Brand.builder().nameEn(brandDTO.getNameEn()).build();
+				else 
+				 brand = Brand.builder().id(brandDTO.getId()).nameEn(brandDTO.getNameEn()).build();
+				
+	          brandRepository.save(brand);
+	          message = StatusEnum.BRAND_SAVED.value;
+			}
+			else
+			 message = StatusEnum.BRAND_EXIST.value;
 		
 		BrandDTOResponce brandDTOResponce = BrandDTOResponce.builder().brand(brand).Message(message).build();
 		return  brandDTOResponce;
@@ -47,5 +52,11 @@ public class BrandService {
 	
 		return brandRepository.findAllByOrderByIdDesc();	
 	}
+	public String deleteBrandById(long id)
+	{
+		brandRepository.deleteById(id);
+		return StatusEnum.BRAND_DELETED.value;
+	}
+	
 	
 }

@@ -17,4 +17,5 @@ public class BrandDTO {
 	    private String nameAr;
 	    @NotNull(message = ErrorConstants.BRAND_NAMEEN_NOT_NULL)
 	    private String nameEn;
+	    private String action;
 }

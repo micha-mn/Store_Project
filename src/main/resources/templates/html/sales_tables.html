@@ -189,8 +189,12 @@
 				<div id="windowHeader"> <span> Item </span> </div>
 				<form class="p-5" id="sale_form">
 
-
+<button type="button" class="btn bg-outline-primary ml-3"
+										onclick="openGridWindow('#ItemWindowGrid','Item')">
+										<i class="fa-solid fa-search"></i>
+									</button>
 					 <div class="form-row">
+					 	
 							<div class="form-group col-md-3">
 								<label for="brand">Item Code</label>
 								<div class="d-flex">
@@ -224,21 +228,9 @@
 									</div>
 								</div>
 							</div>
+							
 						</div>
 						<div class="form-row">
-							<div class="form-group col-md-6">
-								<label for="brand">Item Code</label>
-								<div class="d-flex">
-									<div class="col-10 p-0">
-										<input type="hidden" class="form-control" id="SelectedItemId" disabled> 
-										<input type="text" class="form-control" id="SelectedItemCode" placeholder="Item Code" disabled>
-									</div>
-									<button type="button" class="btn bg-outline-primary ml-3"
-										onclick="openGridWindow('#ItemWindowGrid','Item')">
-										<i class="fa-solid fa-search"></i>
-									</button>
-								</div>
-							</div>
 							<div class="form-group col-md-6">
 								<label for="brand">Client Name</label>
 								<div class="d-flex">

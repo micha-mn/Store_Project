@@ -240,7 +240,7 @@ var source = {
             }
         });
     });
-/*
+
 
 
   	var sourceItem = {
@@ -251,7 +251,19 @@ var source = {
  				type: 'string'
  			},
  			{
- 				name: 'nameEn',
+ 				name: 'brandName',
+ 				type: 'string'
+ 			},
+		    {
+ 				name: 'description',
+ 				type: 'string'
+ 			},
+		    {
+ 				name: 'sellingPrice',
+ 				type: 'float'
+ 			},
+		    {
+ 				name: 'itemCode',
  				type: 'string'
  			}
  		],
@@ -259,8 +271,8 @@ var source = {
  			commit(true);
  		}
  	};
- 	var dataAdapterBrand = new $.jqx.dataAdapter(sourceBrand);
-    $("#brandGrid").jqxGrid({
+ 	var dataAdapterBrand = new $.jqx.dataAdapter(sourceItem);
+    $("#ItemGrid").jqxGrid({
  		width: '100%',
  		source: dataAdapterBrand,
  		pageable: true,
@@ -274,59 +286,61 @@ var source = {
  				datafield: 'id',
  				hidden: true
  			},
-		{
- 				text: 'Brand',
- 				datafield: 'nameEn',
-				width: '75%',
+		   {
+ 				text: 'Item Code',
+ 				datafield: 'itemCode',
+				width: '25%',
+ 				createfilterwidget: function (column, columnElement, widget) {
+			        widget.jqxInput({ width: '100%', height: 27, placeHolder: "Enter code" });
+			}},
+			  {
+ 				text: 'brand name',
+ 				datafield: 'brandName',
+				width: '25%',
  				createfilterwidget: function (column, columnElement, widget) {
 			        widget.jqxInput({ width: '100%', height: 27, placeHolder: "Enter brand" });
-			}
- 			},
- 				{
- 				text: '',
- 				datafield: 'Edit',
- 				width: '10%',
-                columntype: 'button',
-                filterable: false,
- 				cellsrenderer: function() {
- 					return "Edit";
- 				},
- 				buttonclick: function(row) {
- 					// open the popup window when the user clicks a button.
- 					editrow = row;
- 					var offset = $("#brandGrid").offset();
-
- 					// get the clicked row's data and initialize the input fields.
- 					var dataRecord = $("#brandGrid").jqxGrid('getrowdata', editrow);
- 					
-					$("#brandId").val(dataRecord.id);
-					$("#brandName").val(dataRecord.nameEn);
-					
- 				 openBrandWindow('Update - brand','update');
-				  
- 				}
- 			},
-			{
- 				text: '',
- 				datafield: 'Delete',
- 				width: '15%',
-                columntype: 'button',
-                filterable: false,
- 				cellsrenderer: function() {
- 					return "Delete";
- 				},
- 				buttonclick: function(row) {
-	             deleteRow = row;
-                 var dataRecord = $("#brandGrid").jqxGrid('getrowdata', deleteRow);
-                 $("#deletedBrand").empty();
-                 $('#deletedBrand').append('Brand : '+dataRecord.nameEn);
-				 $("#deletedBrandMessage").empty();
-                 $("#deletedBrandMessage").addClass("d-none");
-                 $('#ConfirmationModalBrand').modal('show'); 
- 				}
- 			}]
+			}},
+			 {
+ 				text: 'Description',
+ 				datafield: 'description',
+				width: '25%',
+ 				createfilterwidget: function (column, columnElement, widget) {
+			        widget.jqxInput({ width: '100%', height: 27, placeHolder: "Enter description" });
+			}},
+			 {
+ 				text: 'Selling price',
+ 				datafield: 'sellingPrice',
+				width: '25%',
+				cellsformat: 'D2',
+ 				createfilterwidget: function (column, columnElement, widget) {
+			        widget.jqxInput({ width: '100%', height: 27, placeHolder: "Enter brand" });
+			}},
+			]
 		});
-*/
+
+  $('#jqxSelectItem').on('click', function() {
+	   var selectedrowindex = $('#ItemGrid').jqxGrid('selectedrowindex'); 
+	   var data = $('#ItemGrid').jqxGrid('getrowdata', selectedrowindex);
+       if (data==null)
+			{
+				        $("#notificationText_I").empty();
+			 			$("#messageNotification_I").jqxNotification({
+			 				template: "info"
+			 			});
+			 			$("#notificationText_I").append("Please select a brand from the grid");
+			 			$("#messageNotification_I").jqxNotification("open");
+			}
+			else 
+			{
+				
+				 $("#SelectedItemId").val(data.id);
+				 $("#SelectedItemCode").val(data.itemCode);
+			     } 
+				
+		     $('#ItemWindowGrid').jqxWindow('close');
+	});
+	
+
  });
 
 

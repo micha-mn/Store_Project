@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.store.domain.Client;
 import com.store.domain.Supplier;
 import com.store.dto.ClientDTO;
+import com.store.dto.ClientNameDTO;
 import com.store.enums.StatusEnum;
 import com.store.repositories.ClientRepository;
 @Service
@@ -52,9 +53,9 @@ public class ClientService{
 	{
 		return clientRepository.findAllByOrderByIdDesc();	
 	}
-	public List<Client> getAllClientSorted()
+	public List<ClientNameDTO> getAllClientSorted()
 	{
-		return clientRepository.findAll((Sort.by(Sort.Direction.ASC, "name1")));	
+		return clientRepository.getClientSortedByAlphabeticOrder();	
 	}
 	public String updateClientById(ClientDTO clientDTO)
 	{

@@ -16,7 +16,7 @@
 		        ];
 
                 // Create a jqxDropDownList
-                $("#conditionDropDown").jqxDropDownList({ dropDownHeight:200 , selectedIndex: -1,source: source,theme: 'material-purple', width: '100%',itemHeight: 35, height: '38'});
+    $("#conditionDropDown").jqxDropDownList({ dropDownHeight:200 , selectedIndex: -1,source: source,theme: 'material-purple', width: '100%',itemHeight: 35, height: '38'});
     $("#conditionDropDown_u").jqxDropDownList({ dropDownHeight:200, selectedIndex: -1,source: source,theme: 'material-purple', width: '100%',itemHeight: 35, height: '38'});
 	 var url = "/supplier/getallsorted";
 	 var sourceSupp =

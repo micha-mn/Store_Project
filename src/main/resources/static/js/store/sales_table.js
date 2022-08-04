@@ -13,6 +13,8 @@
        });
 
 createWindow();
+	$("#firstLastName").append(getFirstLastName())
+
 var source = {
 		url: '/sales/getall',
 		datatype: "json",

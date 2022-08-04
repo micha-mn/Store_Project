@@ -346,7 +346,10 @@ var source = {
 				
 				 $("#SelectedItemId").val(data.id);
 				 $("#SelectedItemCode").val(data.itemCode);
-				   $('#ItemWindowGrid').jqxWindow('close');
+			     $("#SelectedBrandName").val(data.brandName);
+				 $("#SelectedItemDescription").val(data.description);
+				 $("#SelectedSellingPrice").val(data.sellingPrice);
+			     $('#ItemWindowGrid').jqxWindow('close');
 			     } 
 				
 		   
@@ -394,7 +397,7 @@ var source = {
 			]
 		});
 
-  $('#jqxSelectItem').on('click', function() {
+  $('#jqxSelectItems').on('click', function() {
 	   var selectedrowindex = $('#ItemGrid').jqxGrid('selectedrowindex'); 
 	   var data = $('#ItemGrid').jqxGrid('getrowdata', selectedrowindex);
        if (data==null)

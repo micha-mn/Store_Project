@@ -260,6 +260,18 @@ var source = {
 	 		theme: 'material-purple'
 	
 	 	});
+		 $('#ItemWindowGrid').jqxWindow({
+	 		position: {
+	 			x: offset.left + 300,
+	 			y: offset.top 
+	 		},
+	 		showCollapseButton: true,
+	 		autoOpen: false,
+	 		height: 650,
+	 		width: 575,
+	 		theme: 'material-purple'
+	
+	 	});
 	 };
 
  function openWindow(title,action) {
@@ -272,6 +284,10 @@ var source = {
 	$('#window').jqxWindow('open');
 	 };
 
-
-
- 
+ function openGridItemWindow(title)
+	 {
+   $('#ItemWindowGrid').jqxWindow({ title: title }); 
+   $('#ItemWindowGrid').jqxWindow('open');
+   $("#ItemWindowGrid").jqxWindow('bringToFront')
+		
+	}

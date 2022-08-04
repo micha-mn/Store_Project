@@ -46,6 +46,10 @@ public class ClientController extends ValidationUtils{
 	public ResponseEntity<?> getClients(){
 	  return new ResponseEntity<>(clientService.getAllClient(), HttpStatus.OK);
 	}
+	@GetMapping(value = "getallsorted")
+	public ResponseEntity<?> getClientSorted(){
+	  return new ResponseEntity<>(clientService.getAllClientSorted(), HttpStatus.OK);
+	}
 	@PostMapping(value = "update")
     public ResponseEntity<?> UpdateClient(@RequestBody @Valid ClientDTO clientDTO, BindingResult bindingResult ){
 		validateBindingResults(bindingResult, FailureEnum.UPDATE_CLIENT_FAILED, serviceName);	

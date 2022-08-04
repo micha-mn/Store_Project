@@ -183,3 +183,31 @@ CREATE OR REPLACE VIEW public.items_view
   
    alter table if exists supplier 
        add column is_active boolean DEFAULT true;
+
+   
+
+CREATE OR REPLACE VIEW public.sales_view
+ AS
+ SELECT s.id,
+        i.item_code,
+        s.item_id,
+        c.name1 as client_name,
+        s.client_id,
+        S.selling_date,
+        s.notes
+   FROM sales s,
+    items i,
+    client c
+  WHERE s.item_id::integer = i.id
+  and s.client_id::integer = c.id;
+  
+  
+INSERT INTO configuration_table(id,column_name,table_name,is_hidden) VALUES ('16','id','salesView','TRUE');
+INSERT INTO configuration_table(id,column_name,table_name,is_hidden) VALUES ('17','itemCode','salesView','FALSE');
+INSERT INTO configuration_table(id,column_name,table_name,is_hidden) VALUES ('18','clientName','salesView','FALSE');
+INSERT INTO configuration_table(id,column_name,table_name,is_hidden) VALUES ('19','itemId','salesView','TRUE');
+INSERT INTO configuration_table(id,column_name,table_name,is_hidden) VALUES ('20','clientId','salesView','TRUE'); 
+INSERT INTO configuration_table(id,column_name,table_name,is_hidden) VALUES ('21','sellingDate','salesView','FALSE'); 
+INSERT INTO configuration_table(id,column_name,table_name,is_hidden) VALUES ('22','createdDate','salesView','FALSE');
+INSERT INTO configuration_table(id,column_name,table_name,is_hidden) VALUES ('23','lastModifiedDate','salesView','TRUE');
+INSERT INTO configuration_table(id,column_name,table_name,is_hidden) VALUES ('24','notes','salesView','FALSE'); 

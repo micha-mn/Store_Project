@@ -30,6 +30,8 @@ public class ItemService {
 	NamingSequenceService namingSequenceservice;
 	@Autowired
 	CommonUtils commonUtils;
+	@Autowired
+	SalesService salesService;
 	
 	public boolean checkifBrandIdExistsInItem(long brandId) {
 		boolean exists = itemRepository.existsByBrandId(String.valueOf(brandId));
@@ -100,9 +102,15 @@ public class ItemService {
 	}
 	
 	public String deleteItemById(long id)
-	{
-		itemRepository.deleteById(id);
-		return StatusEnum.ITEM_DELETED.value;
+	{  
+		boolean isInSales = salesService.checkIfItemIdExistsInSales(id);
+
+		if (!isInSales) {
+			itemRepository.deleteById(id);
+			return StatusEnum.ITEM_DELETED.value;
+		} else
+			return StatusEnum.ITEM_EXIST_IN_SALES.value;
+
 	}
 	
 }

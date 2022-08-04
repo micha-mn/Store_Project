@@ -384,7 +384,9 @@ $("#messageNotification_b").jqxNotification({
 	             deleteRow = row;
                  var dataRecord = $("#grid").jqxGrid('getrowdata', deleteRow);
                  $("#deletedSupplier").empty();
-                 $('#deletedSupplier').append('Supplier : '+dataRecord.firstName+' '+dataRecord.lastName)
+                 $('#deletedSupplier').append('Supplier : '+dataRecord.firstName+' '+dataRecord.lastName);
+                 $("#deletedItemMessage").empty();
+                 $("#deletedItemMessage").addClass("d-none");
                  $('#ConfirmationModal').modal('show'); 
  				}
  			}
@@ -509,12 +511,18 @@ $("#messageNotification_b").jqxNotification({
         $.ajax({
             type: "DELETE",
             url: "/item/delete/" + ItemId,
-            success: function(result) {
-                $('#ConfirmationModal').modal('hide');
-                if (selectedrowindex >= 0 && selectedrowindex < rowscount) {
-                    var id = $("#grid").jqxGrid('getrowid', selectedrowindex);
-                    var commit = $("#grid").jqxGrid('deleterow', id);
-                }
+            success: function(result)  {
+	          if (result == "success")
+                { $('#ConfirmationModal').modal('hide');
+	                if (selectedrowindex >= 0 && selectedrowindex < rowscount) {
+	                    var id = $("#grid").jqxGrid('getrowid', selectedrowindex);
+	                    var commit = $("#grid").jqxGrid('deleterow', id);
+	                }
+				}else {
+				 $("#deletedItemMessage").removeClass("d-none");
+			     $("#deletedItemMessage").empty();
+                 $('#deletedItemMessage').append(result);
+				}
             },
             error: function(e) {
                 console.log(e);

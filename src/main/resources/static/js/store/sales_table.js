@@ -411,9 +411,13 @@ var source = {
 				
 				 $("#SelectedItemId").val(data.id);
 				 $("#SelectedItemCode").val(data.itemCode);
-			     } 
+			     $("#SelectedBrandName").val(data.brandName);
+				 $("#SelectedItemDescription").val(data.description);
+				 $("#SelectedSellingPrice").val(data.sellingPrice);
+			     $('#ItemWindowGrid').jqxWindow('close');
+              } 
 				
-		     $('#ItemWindowGrid').jqxWindow('close');
+		    
 	});
 	
 

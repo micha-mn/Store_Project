@@ -25,8 +25,8 @@
 		<hr class="horizontal dark mt-0">
 		<div class="collapse navbar-collapse  w-auto " id="sidenav-collapse-main">
 			<ul class="navbar-nav">
-				<li class="nav-item">
-					<a class="nav-link" href="/retail/sale">
+						<li class="nav-item">
+					<a class="nav-link  " href="/retail/supplier">
 						<div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
 							<svg width="12px" height="12px" viewBox="0 0 42 42" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
 								<title>office</title>
@@ -41,7 +41,7 @@
 									</g>
 								</g>
 							</svg>
-						</div> <span class="nav-link-text ms-1">sales</span> </a>
+						</div> <span class="nav-link-text ms-1">Suppliers</span> </a>
 				</li>
 				<li class="nav-item">
 					<a class="nav-link" href="/retail/client">
@@ -141,7 +141,7 @@
 			<div id="windowContainer" class="d-none">
 				<div id="ItemWindowGrid">
 				<div id="windowHeader"> <span>  </span> </div>
-				<form class="p-5" id="brand_form_update" onSubmit="return false;">
+				<form class="p-5" id="Item_form_update" onSubmit="return false;">
 
 						<div class="form-row">
 							<div class="form-group col-md-12">
@@ -151,6 +151,29 @@
 						<div class="form-row">
 						<div class="form-group col-md-3 justify-content-between">
 							<button type="button" id="jqxSelectItem" class="btn bg-outline-primary mt-4 mb-0 ml-2">select</button>
+						</div>
+						<div class="form-group col-md-1">
+							<div id="container_I" style="width: 365px; height: 30px; margin-top: 1rem;">
+								<div id="messageNotification_I">
+									<div id="notificationText_I"></div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</form>
+			</div>
+				<div id="ClientWindowGrid">
+				<div id="windowHeader"> <span>  </span> </div>
+				<form class="p-5" id="client_form_update" onSubmit="return false;">
+
+						<div class="form-row">
+							<div class="form-group col-md-12">
+								<div id="ClientGrid"></div>
+							</div>
+						</div>
+						<div class="form-row">
+						<div class="form-group col-md-3 justify-content-between">
+							<button type="button" id="jqxSelectClient" class="btn bg-outline-primary mt-4 mb-0 ml-2">select</button>
 						</div>
 						<div class="form-group col-md-1">
 							<div id="container_I" style="width: 365px; height: 30px; margin-top: 1rem;">
@@ -176,7 +199,7 @@
 										<input type="text" class="form-control" id="SelectedItemCode" placeholder="Item Code" disabled>
 									</div>
 									<button type="button" class="btn bg-outline-primary ml-3"
-										onclick="openGridWindow('#ItemWindowGrid','Save Sales - Item')">
+										onclick="openGridWindow('#ItemWindowGrid','Item')">
 										<i class="fa-solid fa-search"></i>
 									</button>
 								</div>
@@ -185,13 +208,13 @@
 								<label for="brand">Client Name</label>
 								<div class="d-flex">
 									<div class="col-10 p-0">
-										<input type="hidden" class="form-control" id="SelectedBrandId"
-											placeholder=" Brand" disabled> <input type="text"
-											class="form-control" id="SelectedBrandName"
-											placeholder=" Brand" disabled>
+										<input type="hidden" class="form-control" id="SelectedClientNameId"
+											placeholder=" Client Name" disabled> <input type="text"
+											class="form-control" id="SelectedClientName"
+											placeholder=" Client Name" disabled>
 									</div>
 									<button type="button" class="btn bg-outline-primary ml-3"
-										onclick="openGridBrandWindow('Save Item - brand')">
+										onclick="openGridWindow('#ClientWindowGrid','Client')">
 										<i class="fa-solid fa-search"></i>
 									</button>
 								</div>

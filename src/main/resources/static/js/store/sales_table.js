@@ -8,6 +8,16 @@
 
  });
  $(document).ready(function() {
+		$("#messageNotification_I").jqxNotification({
+ 		width: '100%',
+ 		appendContainer: "#container_I",
+ 		opacity: 0.9,
+ 		autoOpen: false,
+ 		animationOpenDelay: 800,
+ 		autoClose: true,
+ 		autoCloseDelay: 2000,
+ 		template: "info"
+ 	});
 		  $('#clearfilteringbutton').click(function () {
            $("#grid").jqxGrid('clearfilters');
        });
@@ -319,6 +329,72 @@ var source = {
 		});
 
   $('#jqxSelectItem').on('click', function() {
+	debugger
+	   var selectedrowindex = $('#ItemGrid').jqxGrid('selectedrowindex'); 
+	   var data = $('#ItemGrid').jqxGrid('getrowdata', selectedrowindex);
+       if (data==null)
+			{
+				        $("#notificationText_I").empty();
+			 			$("#messageNotification_I").jqxNotification({
+			 				template: "info"
+			 			});
+			 			$("#notificationText_I").append("Please select a brand from the grid");
+			 			$("#messageNotification_I").jqxNotification("open");
+			}
+			else 
+			{
+				
+				 $("#SelectedItemId").val(data.id);
+				 $("#SelectedItemCode").val(data.itemCode);
+				   $('#ItemWindowGrid').jqxWindow('close');
+			     } 
+				
+		   
+	});
+		var sourceClient = {
+		url: '/client/getallsorted',
+		datatype: "json",
+ 		datafields: [{
+ 				name: 'id',
+ 				type: 'string'
+ 			},
+ 			{
+ 				name: 'name',
+ 				type: 'string'
+ 			},
+		   
+ 		],
+ 		updaterow: function(rowid, rowdata, commit) {
+ 			commit(true);
+ 		}
+ 	};
+ 	var dataAdapterBrand = new $.jqx.dataAdapter(sourceClient);
+    $("#ClientGrid").jqxGrid({
+ 		width: '100%',
+ 		source: dataAdapterBrand,
+ 		pageable: true,
+        autoheight: true,
+        showfilterrow: true,
+        pagesize: 5,
+        filterable: true,
+ 		theme: 'material-purple',
+ 		columns: [{
+ 				text: '',
+ 				datafield: 'id',
+ 				hidden: true
+ 			},
+		   {
+ 				text: 'Client Name',
+ 				datafield: 'name',
+				width: '100%',
+ 				createfilterwidget: function (column, columnElement, widget) {
+			        widget.jqxInput({ width: '100%', height: 27, placeHolder: "Enter name" });
+			}}
+		
+			]
+		});
+
+  $('#jqxSelectItem').on('click', function() {
 	   var selectedrowindex = $('#ItemGrid').jqxGrid('selectedrowindex'); 
 	   var data = $('#ItemGrid').jqxGrid('getrowdata', selectedrowindex);
        if (data==null)
@@ -361,6 +437,18 @@ var source = {
 	
 	 	});
 		 $('#ItemWindowGrid').jqxWindow({
+	 		position: {
+	 			x: offset.left + 300,
+	 			y: offset.top 
+	 		},
+	 		showCollapseButton: true,
+	 		autoOpen: false,
+	 		height: 650,
+	 		width: 575,
+	 		theme: 'material-purple'
+	
+	 	});
+	 		 $('#ClientWindowGrid').jqxWindow({
 	 		position: {
 	 			x: offset.left + 300,
 	 			y: offset.top 

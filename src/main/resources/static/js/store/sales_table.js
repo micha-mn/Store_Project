@@ -240,7 +240,93 @@ var source = {
             }
         });
     });
+/*
 
+
+  	var sourceItem = {
+		url: '/item/getall',
+		datatype: "json",
+ 		datafields: [{
+ 				name: 'id',
+ 				type: 'string'
+ 			},
+ 			{
+ 				name: 'nameEn',
+ 				type: 'string'
+ 			}
+ 		],
+ 		updaterow: function(rowid, rowdata, commit) {
+ 			commit(true);
+ 		}
+ 	};
+ 	var dataAdapterBrand = new $.jqx.dataAdapter(sourceBrand);
+    $("#brandGrid").jqxGrid({
+ 		width: '100%',
+ 		source: dataAdapterBrand,
+ 		pageable: true,
+        autoheight: true,
+        showfilterrow: true,
+        pagesize: 5,
+        filterable: true,
+ 		theme: 'material-purple',
+ 		columns: [{
+ 				text: '',
+ 				datafield: 'id',
+ 				hidden: true
+ 			},
+		{
+ 				text: 'Brand',
+ 				datafield: 'nameEn',
+				width: '75%',
+ 				createfilterwidget: function (column, columnElement, widget) {
+			        widget.jqxInput({ width: '100%', height: 27, placeHolder: "Enter brand" });
+			}
+ 			},
+ 				{
+ 				text: '',
+ 				datafield: 'Edit',
+ 				width: '10%',
+                columntype: 'button',
+                filterable: false,
+ 				cellsrenderer: function() {
+ 					return "Edit";
+ 				},
+ 				buttonclick: function(row) {
+ 					// open the popup window when the user clicks a button.
+ 					editrow = row;
+ 					var offset = $("#brandGrid").offset();
+
+ 					// get the clicked row's data and initialize the input fields.
+ 					var dataRecord = $("#brandGrid").jqxGrid('getrowdata', editrow);
+ 					
+					$("#brandId").val(dataRecord.id);
+					$("#brandName").val(dataRecord.nameEn);
+					
+ 				 openBrandWindow('Update - brand','update');
+				  
+ 				}
+ 			},
+			{
+ 				text: '',
+ 				datafield: 'Delete',
+ 				width: '15%',
+                columntype: 'button',
+                filterable: false,
+ 				cellsrenderer: function() {
+ 					return "Delete";
+ 				},
+ 				buttonclick: function(row) {
+	             deleteRow = row;
+                 var dataRecord = $("#brandGrid").jqxGrid('getrowdata', deleteRow);
+                 $("#deletedBrand").empty();
+                 $('#deletedBrand').append('Brand : '+dataRecord.nameEn);
+				 $("#deletedBrandMessage").empty();
+                 $("#deletedBrandMessage").addClass("d-none");
+                 $('#ConfirmationModalBrand').modal('show'); 
+ 				}
+ 			}]
+		});
+*/
  });
 
 
@@ -284,10 +370,10 @@ var source = {
 	$('#window').jqxWindow('open');
 	 };
 
- function openGridItemWindow(title)
+ function openGridWindow(windowGridId, title)
 	 {
-   $('#ItemWindowGrid').jqxWindow({ title: title }); 
-   $('#ItemWindowGrid').jqxWindow('open');
-   $("#ItemWindowGrid").jqxWindow('bringToFront')
+   $(windowGridId).jqxWindow({ title: title }); 
+   $(windowGridId).jqxWindow('open');
+   $(windowGridId).jqxWindow('bringToFront')
 		
 	}

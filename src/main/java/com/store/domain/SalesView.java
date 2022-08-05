@@ -20,8 +20,11 @@ import lombok.NoArgsConstructor;
 public class SalesView {
 	@Id
     private Long id;
-	private String itemCode;
 	private String itemId;
+	private String itemCode;
+	private String brandName;
+	private String description;
+	private String sellingPrice;
 	private String clientName;
 	private String clientId;
 	private Date sellingDate;

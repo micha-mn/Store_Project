@@ -37,7 +37,15 @@ var source = {
  				type: 'string'
  			},
 			{
- 				name: 'suppCode',
+ 				name: 'brandName',
+ 				type: 'string'
+ 			},
+		    {
+ 				name: 'description',
+ 				type: 'string'
+ 			},
+		    {
+ 				name: 'sellingPrice',
  				type: 'string'
  			},
  			{
@@ -110,6 +118,21 @@ var source = {
  				datafield: 'clientId',
  				hidden:  config.clientId
  			},
+		   {
+ 				text: 'brand',
+ 				datafield: 'brandName',
+ 				hidden:  config.brandName
+ 			},
+		   {
+ 				text: 'description',
+ 				datafield: 'description',
+ 				hidden:  config.description
+ 			},
+		   {
+ 				text: 'selling Price',
+ 				datafield: 'sellingPrice',
+ 				hidden:  config.sellingPrice
+ 			},
 			{
  				text: 'Item code',
 			    hidden: config.itemCode,
@@ -177,7 +200,16 @@ var source = {
 
  					// get the clicked row's data and initialize the input fields.
  					var dataRecord = $("#grid").jqxGrid('getrowdata', editrow);
-				  
+				
+						$("#saleId").val(dataRecord.id);
+						$("#SelectedItemId").val(dataRecord.itemId);
+						$("#SelectedItemCode").val(dataRecord.itemCode);
+						$("#SelectedBrandName").val(dataRecord.brandName);
+						$("#SelectedItemDescription").val(dataRecord.description);
+						$("#SelectedSellingPrice").val(dataRecord.sellingPrice);
+						$("#SelectedClientName").val(dataRecord.clientName);
+						$("#SelectedClientNameId").val(dataRecord.clientId);
+						$("#notes").val(dataRecord.notes);
  					// show the popup window.
  					 openWindow('Update - sale','update');
  				}
@@ -270,7 +302,7 @@ var source = {
  			},
 		    {
  				name: 'sellingPrice',
- 				type: 'float'
+ 				type: 'string'
  			},
 		    {
  				name: 'itemCode',
@@ -321,7 +353,6 @@ var source = {
  				text: 'Selling price',
  				datafield: 'sellingPrice',
 				width: '25%',
-				cellsformat: 'D2',
  				createfilterwidget: function (column, columnElement, widget) {
 			        widget.jqxInput({ width: '100%', height: 27, placeHolder: "Enter brand" });
 			}},
@@ -472,7 +503,7 @@ var source = {
  function openWindow(title,action) {
 	if(action=="save")
 	{
-	$("#saleId").val(null);
+	resetFields()
     // reset all input values
 	}
     $('#window').jqxWindow({ title: title }); 
@@ -485,4 +516,16 @@ var source = {
    $(windowGridId).jqxWindow('open');
    $(windowGridId).jqxWindow('bringToFront')
 		
+	}
+	
+	function resetFields(){
+		$("#saleId").val(null);
+		$("#SelectedItemId").val(null);
+		$("#SelectedItemCode").val(null);
+		$("#SelectedBrandName").val(null);
+		$("#SelectedItemDescription").val(null);
+		$("#SelectedSellingPrice").val(null);
+		$("#SelectedClientName").val(null);
+		$("#SelectedClientNameId").val(null);
+		$("#notes").val(null);
 	}

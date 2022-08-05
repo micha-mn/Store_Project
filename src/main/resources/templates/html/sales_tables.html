@@ -188,47 +188,51 @@
 			<div id="window">
 				<div id="windowHeader"> <span> Item </span> </div>
 				<form class="p-5" id="sale_form">
-
-<button type="button" class="btn bg-outline-primary ml-3"
+ <div class="parentForm">
+     	<label for="brand" class="title-section">Item Details</label>
+						 <div class="form-row">
+						    <div class="form-row col-11">
+							 	   <div class="form-group col-md-3">
+										<label for="brand">Item Code</label>
+										<div class="d-flex">
+											<div class="col-10 p-0">
+												<input type="hidden" class="form-control" id="SelectedItemId" disabled> 
+												<input type="text" class="form-control" id="SelectedItemCode" placeholder="Item Code" disabled>
+											</div>
+										</div>
+									</div>
+									<div class="form-group col-md-3">
+										<label for="brand">Brand name</label>
+										<div class="d-flex">
+											<div class="col-10 p-0">
+												<input type="text" class="form-control" id="SelectedBrandName" placeholder="Brand name" disabled>
+											</div>
+										</div>
+									</div>
+									<div class="form-group col-md-3">
+										<label for="brand">Description</label>
+										<div class="d-flex">
+											<div class="col-10 p-0">
+												<input type="text" class="form-control" id="SelectedItemDescription" placeholder="Description" disabled>
+											</div>
+										</div>
+									</div>
+									<div class="form-group col-md-3">
+										<label for="brand">Selling Price (Eur)</label>
+										<div class="d-flex">
+											<div class="col-10 p-0">
+												<input type="text" class="form-control" id="SelectedSellingPrice" placeholder="Selling Price" disabled>
+											</div>
+										</div>
+									</div>
+								</div>
+								 <div class="col-1">
+								 <button type="button" class="btn bg-outline-primary mt-4"
 										onclick="openGridWindow('#ItemWindowGrid','Item')">
 										<i class="fa-solid fa-search"></i>
 									</button>
-					 <div class="form-row">
-					 	
-							<div class="form-group col-md-3">
-								<label for="brand">Item Code</label>
-								<div class="d-flex">
-									<div class="col-10 p-0">
-										<input type="hidden" class="form-control" id="SelectedItemId" disabled> 
-										<input type="text" class="form-control" id="SelectedItemCode" placeholder="Item Code" disabled>
-									</div>
-								</div>
+								 </div>
 							</div>
-							<div class="form-group col-md-3">
-								<label for="brand">Brand name</label>
-								<div class="d-flex">
-									<div class="col-10 p-0">
-										<input type="text" class="form-control" id="SelectedBrandName" placeholder="Item Code" disabled>
-									</div>
-								</div>
-							</div>
-							<div class="form-group col-md-3">
-								<label for="brand">Description</label>
-								<div class="d-flex">
-									<div class="col-10 p-0">
-										<input type="text" class="form-control" id="SelectedItemDescription" placeholder="Item Code" disabled>
-									</div>
-								</div>
-							</div>
-							<div class="form-group col-md-3">
-								<label for="brand">Selling Price (Eur)</label>
-								<div class="d-flex">
-									<div class="col-10 p-0">
-										<input type="text" class="form-control" id="SelectedSellingPrice" placeholder="Item Code" disabled>
-									</div>
-								</div>
-							</div>
-							
 						</div>
 						<div class="form-row">
 							<div class="form-group col-md-6">

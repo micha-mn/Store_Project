@@ -8,6 +8,15 @@
   font-family: Titillium;
   src: url(/css/styles/font/TitilliumWeb-Regular.ttf);
 }
+.parentForm {
+    border: 1px solid #e4e4e4;
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+label.title-section {
+    font-size: .9rem;
+}
 :root {
   --bs-blue: #63B3ED;
   --bs-indigo: #596CFF;

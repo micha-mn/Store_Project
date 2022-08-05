@@ -18,6 +18,16 @@
  		autoCloseDelay: 2000,
  		template: "info"
  	});
+ 	$("#messageNotification_C").jqxNotification({
+ 		width: '100%',
+ 		appendContainer: "#container_C",
+ 		opacity: 0.9,
+ 		autoOpen: false,
+ 		animationOpenDelay: 800,
+ 		autoClose: true,
+ 		autoCloseDelay: 2000,
+ 		template: "info"
+ 	});
 		  $('#clearfilteringbutton').click(function () {
            $("#grid").jqxGrid('clearfilters');
        });
@@ -428,27 +438,24 @@ var source = {
 			]
 		});
 
-  $('#jqxSelectItems').on('click', function() {
-	   var selectedrowindex = $('#ItemGrid').jqxGrid('selectedrowindex'); 
-	   var data = $('#ItemGrid').jqxGrid('getrowdata', selectedrowindex);
+  $('#jqxSelectClient').on('click', function() {
+	   var selectedrowindex = $('#ClientGrid').jqxGrid('selectedrowindex'); 
+	   var data = $('#ClientGrid').jqxGrid('getrowdata', selectedrowindex);
        if (data==null)
 			{
-				        $("#notificationText_I").empty();
+				        $("#notificationText_C").empty();
 			 			$("#messageNotification_I").jqxNotification({
 			 				template: "info"
 			 			});
-			 			$("#notificationText_I").append("Please select a brand from the grid");
-			 			$("#messageNotification_I").jqxNotification("open");
+			 			$("#notificationText_C").append("Please select a brand from the grid");
+			 			$("#messageNotification_C").jqxNotification("open");
 			}
 			else 
 			{
 				
-				 $("#SelectedItemId").val(data.id);
-				 $("#SelectedItemCode").val(data.itemCode);
-			     $("#SelectedBrandName").val(data.brandName);
-				 $("#SelectedItemDescription").val(data.description);
-				 $("#SelectedSellingPrice").val(data.sellingPrice);
-			     $('#ItemWindowGrid').jqxWindow('close');
+				 $("#SelectedClientNameId").val(data.id);
+				 $("#SelectedClientName").val(data.name);
+			     $('#ClientWindowGrid').jqxWindow('close');
               } 
 				
 		    

@@ -261,6 +261,21 @@ var source = {
       });
 
  $("#Save").on('click', function() {
+	if ($('#SelectedItemId').val().length === 0 ) {
+ 			$("#notificationText").empty();
+ 			$("#messageNotification").jqxNotification({
+ 				template: "info"
+ 			});
+ 			$("#notificationText").append("Item is required");
+ 			$("#messageNotification").jqxNotification("open");
+ 		}else if ($('#SelectedClientNameId').val().length === 0) {
+ 			$("#notificationText").empty();
+ 			$("#messageNotification").jqxNotification({
+ 				template: "info"
+ 			});
+ 			$("#notificationText").append("Client is required");
+ 			$("#messageNotification").jqxNotification("open");
+ 		} else {
 	    var json;
         var title = $('#window').jqxWindow('title'); 
 		if (title.includes("Save"))
@@ -317,7 +332,7 @@ var source = {
  				$("#notificationText").append(response.responseText);
  				$("#messageNotification").jqxNotification("open");
 			});
-
+            }
       });
 		
 

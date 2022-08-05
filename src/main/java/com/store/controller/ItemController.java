@@ -37,7 +37,10 @@ public class ItemController extends ValidationUtils{
 	public ResponseEntity<?> getItems(){
 	  return new ResponseEntity<>(itemService.getAllItem(), HttpStatus.OK);
 	}
-	
+	@GetMapping(value = "getunsold")
+	public ResponseEntity<?> getUnsoldItems(){
+	  return new ResponseEntity<>(itemService.getUnsoldItems(), HttpStatus.OK);
+	}
 	@DeleteMapping(value = "delete/{id}")
 	public  ResponseEntity<?> deleteItemById(@PathVariable("id") long id) {
 		return new ResponseEntity<>(itemService.deleteItemById(id), HttpStatus.OK);

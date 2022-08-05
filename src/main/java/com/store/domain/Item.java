@@ -46,5 +46,6 @@ public class Item extends Auditable<String> {
     private Double consignmentPrice;
     private Date consignmentDate;
     @Column(length=60)
-    private Double sellingPrice ;
+    private Double sellingPrice;
+    private boolean isSold;
 }

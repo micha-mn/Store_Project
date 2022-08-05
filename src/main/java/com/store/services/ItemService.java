@@ -62,6 +62,7 @@ public class ItemService {
 	    		        .sellingPrice(itemDTO.getSellingPrice())
 	    		        .itemCode(itemCode)
 	    		        .condition(itemDTO.getCondition())
+	    		        .isSold(itemDTO.isSold())
 	    		        .build();
 	     status= StatusEnum.ITEM_SAVED.value;
 	     ItemsView = findByID(itemRepository.save(item).getId());
@@ -83,6 +84,7 @@ public class ItemService {
 				        .sellingPrice(itemDTO.getSellingPrice())
 				        .itemCode(itemDTO.getItemCode())
 				        .condition(itemDTO.getCondition())
+				        .isSold(itemDTO.isSold())
 				        .build();
 			  status= StatusEnum.ITEM_UPDATED.value;
 			  ItemsView = findByID(itemRepository.save(item).getId());
@@ -96,6 +98,9 @@ public class ItemService {
 	public List<ItemsView> getAllItem() {
 		
 		return itemViewRepository.findAllByOrderByIdDesc();
+	}
+   public List<ItemsView> getUnsoldItems() {
+		return itemViewRepository.findByIsSoldFalseOrderByIdDesc();
 	}
 	public Optional<ItemsView> findByID(Long id) {
 		return itemViewRepository.findById(id);

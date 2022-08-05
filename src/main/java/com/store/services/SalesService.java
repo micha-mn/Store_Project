@@ -1,5 +1,6 @@
 package com.store.services;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -11,6 +12,7 @@ import com.store.domain.SalesView;
 import com.store.dto.SalesDTO;
 import com.store.dto.SalesResponceDTO;
 import com.store.enums.StatusEnum;
+import com.store.repositories.ItemRepository;
 import com.store.repositories.SalesRepository;
 import com.store.repositories.SalesViewRepository;
 
@@ -22,7 +24,8 @@ public class SalesService {
 	SalesRepository salesRepository;
 	@Autowired
 	SalesViewRepository salesViewRepository;
-	
+	@Autowired
+	ItemRepository itemRepository;
 	public SalesResponceDTO SaveSale(@Valid SalesDTO salesDTO) {
 		Sales sales = null;
 		 Optional<SalesView> salesView =null;
@@ -33,8 +36,10 @@ public class SalesService {
 					    .clientId(salesDTO.getClientId())
 					    .itemId(salesDTO.getItemId())
 					    .notes(salesDTO.getNotes())
+					    .sellingDate(new Date())
 	    		        .build();
-	     status= StatusEnum.SALES_SAVED.value;
+	      status= StatusEnum.SALES_SAVED.value;
+	      itemRepository.updateSoldItem(salesDTO.getItemId());
 	      salesView = findByID(salesRepository.save(sales).getId());
 		}
 		else 

@@ -132,6 +132,10 @@ $("#messageNotification_b").jqxNotification({
  				name: 'description',
  				type: 'string'
  			},
+		   {
+ 		   		name: 'isSold',
+ 				type: 'string'
+ 			},
  			{
  				name: 'inclusions',
  				type: 'string'
@@ -270,6 +274,12 @@ $("#messageNotification_b").jqxNotification({
 			        widget.jqxInput({ width: '100%', height: 27, placeHolder: "Enter condition" });
 			}
 			 },
+			  {
+	 				text: 'isSold',
+					hidden: config.isSold,
+	 				datafield: 'isSold',
+	 				width: '10%'
+			 },
 			 {
  				text: 'selling Price(EUR)',
 				hidden: config.sellingPrice,
@@ -352,6 +362,7 @@ $("#messageNotification_b").jqxNotification({
  					var dataRecord = $("#grid").jqxGrid('getrowdata', editrow);
 				  
  					$("#id_item").val(dataRecord.id);
+				    $("#isSold").val(dataRecord.isSold);
 					$("#itemCode").val(dataRecord.itemCode);
 				
  					$("#dropdownlistSupp_u").jqxDropDownList('selectItem', dataRecord.suppCode ); 
@@ -654,7 +665,7 @@ $("#messageNotification_b").jqxNotification({
  				});
  				$("#notificationText").append(response.responseText);
  				$("#messageNotification").jqxNotification("open");
-});
+			});
 
  		}
      });
@@ -726,6 +737,7 @@ $("#messageNotification_b").jqxNotification({
  			"data": JSON.stringify({
 		            "action":"update",
  					"id":$("#id_item").val(),
+				     "isSold":$("#isSold").val(),
 				    "itemCode": $("#itemCode").val(),
  				    "suppCode": $("#dropdownlistSupp_u").val(),
  					"brandId": $("#SelectedBrandId_u").val(),
@@ -734,7 +746,8 @@ $("#messageNotification_b").jqxNotification({
  					"consignmentPrice": $("#Consignmentprice_u").val(),
  					"consignmentDate": $("#consignmentDate_u").jqxDateTimeInput("getDate"),
  					"sellingPrice": $("#Sellingprice_u").val(),
-				    "condition": $("#conditionDropDown_u").val()
+				    "condition": $("#conditionDropDown_u").val(),
+					"isSold":false
  			}),
  		};
 

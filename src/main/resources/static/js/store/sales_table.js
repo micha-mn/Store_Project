@@ -33,7 +33,7 @@
        });
 
 createWindow();
-	$("#firstLastName").append(getFirstLastName())
+	$("#firstLastName").append(getFirstLastName());
 
 var source = {
 		url: '/sales/getall',
@@ -237,7 +237,7 @@ var source = {
 	             deleteRow = row;
                  var dataRecord = $("#grid").jqxGrid('getrowdata', deleteRow);
                  $("#deletedSales").empty();
-                 $('#deletedSales').append('Supplier : '+dataRecord.firstName+' '+dataRecord.lastName);
+               //  $('#deletedSales').append('Sales : '+dataRecord.firstName+' '+dataRecord.lastName);
                  $('#ConfirmationModal').modal('show'); 
  				}
  			}
@@ -256,18 +256,58 @@ var source = {
 		if (title.includes("Save"))
 			{
 				json = {
-				    "I": name==''?null:name,
-					 "action" :'save'
+				     "itemId": $("#SelectedItemId").val(),
+ 					 "clientId": $("#SelectedClientNameId").val(),
+			         "notes": $("#notes").val(),
+			 		 "action" :'save'
 				  }
 			}
 			else 
 			{
 				json = {
 					"id":$("#brandId").val(),
-				    "nameEn": name==''?null:name,
-					"action" :'update'
+					"action" :'update',
+				    "itemId": $("#SelectedItemId").val(),
+ 				     "clientId": $("#SelectedClientNameId").val(),
+			         "notes": $("#notes").val(),
 				  }
 			};
+			
+			var settings = {
+ 				"url": "/sales/save",
+ 				"method": "POST",
+ 				"timeout": 0,
+ 				"headers": {
+ 					"Authorization": "Bearer " + getJwt(),
+ 					"Content-Type": "application/json"
+ 				},
+ 				"data": JSON.stringify(json),
+ 			};
+			$.ajax(settings).done(function(response) {
+ 				$("#notificationText").empty();
+ 				$("#messageNotification").jqxNotification({
+ 					template: "info"
+ 				});
+ 				$("#notificationText").append(response.message);
+ 				$("#messageNotification").jqxNotification("open");
+ 				var dataAdapter = new $.jqx.dataAdapter(source);
+ 				var dataAdapterItemGrid = new $.jqx.dataAdapter(sourceItem);
+ 				$('#grid').jqxGrid({
+ 					source: dataAdapter
+                 });
+                $('#ItemGrid').jqxGrid({
+ 					source: dataAdapterItemGrid
+                 });
+                resetFields();
+ 			}).fail(function(response) {
+	         	$("#notificationText").empty();
+ 				$("#messageNotification").jqxNotification({
+ 					template: "info"
+ 				});
+ 				$("#notificationText").append(response.responseText);
+ 				$("#messageNotification").jqxNotification("open");
+			});
+
       });
 		
 
@@ -296,7 +336,7 @@ var source = {
 
 
   	var sourceItem = {
-		url: '/item/getall',
+		url: '/item/getunsold',
 		datatype: "json",
  		datafields: [{
  				name: 'id',
@@ -312,7 +352,7 @@ var source = {
  			},
 		    {
  				name: 'sellingPrice',
- 				type: 'string'
+ 				type: 'float'
  			},
 		    {
  				name: 'itemCode',
@@ -323,10 +363,10 @@ var source = {
  			commit(true);
  		}
  	};
- 	var dataAdapterBrand = new $.jqx.dataAdapter(sourceItem);
+ 	var dataAdapterItem = new $.jqx.dataAdapter(sourceItem);
     $("#ItemGrid").jqxGrid({
  		width: '100%',
- 		source: dataAdapterBrand,
+ 		source: dataAdapterItem,
  		pageable: true,
         autoheight: true,
         showfilterrow: true,
@@ -363,6 +403,7 @@ var source = {
  				text: 'Selling price',
  				datafield: 'sellingPrice',
 				width: '25%',
+				 cellsformat: 'D2',
  				createfilterwidget: function (column, columnElement, widget) {
 			        widget.jqxInput({ width: '100%', height: 27, placeHolder: "Enter brand" });
 			}},

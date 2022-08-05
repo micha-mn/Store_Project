@@ -162,7 +162,7 @@ ALTER COLUMN selling_price TYPE DOUBLE PRECISION USING selling_price::double pre
 
 CREATE OR REPLACE VIEW public.items_view
  AS
- SELECT i.id,
+SELECT i.id,
     i.created_by,
     i.created_date,
     i.last_modified_by,
@@ -176,7 +176,8 @@ CREATE OR REPLACE VIEW public.items_view
     i.item_code,
     i.selling_price,
     i.supp_code,
-    i.condition
+    i.condition,
+    i.is_sold
    FROM items i,
     brand b
   WHERE i.brand_id::integer = b.id;
@@ -219,3 +220,9 @@ INSERT INTO configuration_table(id,column_name,table_name,is_hidden) VALUES ('25
 INSERT INTO configuration_table(id,column_name,table_name,is_hidden) VALUES ('26','description','salesView','TRUE');
 INSERT INTO configuration_table(id,column_name,table_name,is_hidden) VALUES ('27','sellingPrice','salesView','TRUE');
 
+   alter table if exists items 
+       add column is_sold boolean not null default false;
+ 
+INSERT INTO configuration_table(id,column_name,table_name,is_hidden) VALUES ('28','isSold','itemsView','TRUE');
+ 
+ 

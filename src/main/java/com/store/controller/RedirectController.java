@@ -29,4 +29,8 @@ public class RedirectController {
 	public ModelAndView salesTablesPage(ModelMap model) {
 		return new ModelAndView("html/sales_tables");
 	}
+	@RequestMapping(value="/reports")
+	public ModelAndView reportsTablesPage(ModelMap model) {
+		return new ModelAndView("html/reports_tables");
+	}
 }

@@ -8,6 +8,16 @@
 
  });
  $(document).ready(function() {
+		$("#messageNotification").jqxNotification({
+ 		width: '100%',
+ 		appendContainer: "#container",
+ 		opacity: 0.9,
+ 		autoOpen: false,
+ 		animationOpenDelay: 800,
+ 		autoClose: true,
+ 		autoCloseDelay: 2000,
+ 		template: "info"
+ 	});
 		$("#messageNotification_I").jqxNotification({
  		width: '100%',
  		appendContainer: "#container_I",

@@ -197,14 +197,28 @@ CREATE OR REPLACE VIEW public.sales_view
         concat(c.name1,' ',c.name2) as client_name,
         s.client_id,
         S.selling_date,
-        s.notes
+        s.notes,
+        p.id as payment_id,
+        pm.name as payment_method,
+        p.payment_method_id, 
+        p.down_payment,
+        p.down_payment_card,
+        p.deferred_payment,
+        p.payment_date,
+        p.payment_status,
+        i.selling_price as total_price
    FROM sales s,
     items i,
     client c,
-     brand b
+    brand b,
+    payments p,
+    payment_method pm
   WHERE s.item_id::integer = i.id
-  and s.client_id::integer = c.id
-  and i.brand_id::integer = b.id;
+      and s.client_id::integer = c.id
+      and i.brand_id::integer = b.id
+      and p.sale_id::integer = s.id
+      and p.payment_method_id::integer = pm.id;
+  
   
   
 INSERT INTO configuration_table(id,column_name,table_name,is_hidden) VALUES ('16','id','salesView','TRUE');

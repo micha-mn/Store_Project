@@ -24,9 +24,19 @@ public class SalesView {
 	private String itemCode;
 	private String brandName;
 	private String description;
-	private String sellingPrice;
+	private Double sellingPrice;
 	private String clientName;
 	private String clientId;
 	private Date sellingDate;
 	private String notes;
+	private String paymentId;
+	private String paymentMethodId;
+	private String paymentMethod;
+	private Double downPayment;
+	private Double downPaymentCard;
+	private Double deferredPayment;
+	private Double totalPrice;
+	private Date paymentDate;
+	private String paymentStatus;
+   
 }

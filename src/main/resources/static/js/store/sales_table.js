@@ -21,7 +21,22 @@
 	 };
  var dataAdapter = new $.jqx.dataAdapter(source);
   $("#dropdownPaymentMethod").jqxDropDownList({ dropDownHeight:200 , selectedIndex: -1,source: dataAdapter,displayMember: "name" , valueMember: "id", theme: 'material-purple', width: '100%',itemHeight: 35, height: '38'});         
-
+  $('#dropdownPaymentMethod').on('change', function (event)
+		 {  var args = event.args;
+		    if (args) {
+		    // index represents the item's index.                      
+		    var index = args.index;
+		    var item = args.item;
+		    // get item's label and value.
+		    var label = item.label;
+		    var value = item.value;
+		if (value==3)
+		   $("#downPaymentCardInput").removeClass("d-none");
+		else
+			$("#downPaymentCardInput").addClass("d-none");
+				  
+		} 
+	});
 		$("#messageNotification").jqxNotification({
  		width: '100%',
  		appendContainer: "#container",
@@ -32,7 +47,7 @@
  		autoCloseDelay: 2000,
  		template: "info"
  	});
-		$("#messageNotification_I").jqxNotification({
+	$("#messageNotification_I").jqxNotification({
  		width: '100%',
  		appendContainer: "#container_I",
  		opacity: 0.9,
@@ -94,7 +109,7 @@ var source = {
  				name: 'clientName',
  				type: 'string'
  			},
-		   {
+		    {
  				name: 'notes',
  				type: 'string'
  			},

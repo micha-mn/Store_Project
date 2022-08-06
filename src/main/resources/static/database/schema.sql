@@ -236,9 +236,7 @@ INSERT INTO configuration_table(id,column_name,table_name,is_hidden) VALUES ('31
 INSERT INTO configuration_table(id,column_name,table_name,is_hidden) VALUES ('32','deferredPayment','salesView','TRUE');
 INSERT INTO configuration_table(id,column_name,table_name,is_hidden) VALUES ('33','totalPrice','salesView','TRUE');
 INSERT INTO configuration_table(id,column_name,table_name,is_hidden) VALUES ('34','paymentStatus','salesView','TRUE');
-INSERT INTO configuration_table(id,column_name,table_name,is_hidden) VALUES ('35','createdDate','salesView','TRUE');
-INSERT INTO configuration_table(id,column_name,table_name,is_hidden) VALUES ('36','lastModifiedDate','salesView','TRUE');
-INSERT INTO configuration_table(id,column_name,table_name,is_hidden) VALUES ('37','paymentMethodId','salesView','TRUE');
+INSERT INTO configuration_table(id,column_name,table_name,is_hidden) VALUES ('35','paymentMethodId','salesView','TRUE');
 
 
    alter table if exists items 

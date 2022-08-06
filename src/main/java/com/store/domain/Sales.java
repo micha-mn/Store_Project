@@ -43,4 +43,11 @@ public class Sales extends Auditable<String> {
 	private Date sellingDate;
 	@Column(length=70)
 	private String notes;
+	private String paymentMethodId;
+	private Double downPayment;
+	private Double downPaymentCard;
+	private Double totalPrice;
+	private Double deferredPayment;
+	@Column(length=70)
+	private String paymentStatus;
 }

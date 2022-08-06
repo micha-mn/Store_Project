@@ -8,6 +8,20 @@
 
  });
  $(document).ready(function() {
+	
+	 var url = "/sales/getpaymentmethods";
+	 var source =
+	 {
+		 datatype: "json",
+		 datafields: [
+			 { name: 'id' },
+			 { name: 'name' }
+		 ], url: url,
+		 async: true
+	 };
+ var dataAdapter = new $.jqx.dataAdapter(source);
+  $("#dropdownPaymentMethod").jqxDropDownList({ dropDownHeight:200 , selectedIndex: -1,source: dataAdapter,displayMember: "name" , valueMember: "id", theme: 'material-purple', width: '100%',itemHeight: 35, height: '38'});         
+
 		$("#messageNotification").jqxNotification({
  		width: '100%',
  		appendContainer: "#container",

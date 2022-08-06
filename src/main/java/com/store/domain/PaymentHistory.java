@@ -24,8 +24,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor 
 @AllArgsConstructor
 @Entity
-@Table(name = "Payments")
-public class Payments extends Auditable<String> {
+@Table(name = "payment_history")
+public class PaymentHistory extends Auditable<String> {
 	@Id
 	@GeneratedValue(generator = "payment_sequence")
 	   @GenericGenerator(

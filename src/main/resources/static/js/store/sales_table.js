@@ -32,22 +32,33 @@
  		}else {
 	 $("#dropdownPaymentMethod").jqxDropDownList({disabled: false});
 	 $("#dropdownPaymentMethod").jqxDropDownList('open' ); 
-	     
-	  }
+     $("#downPayment").prop( "disabled", false );
+
+	   }
      });
   $('#dropdownPaymentMethod').on('change', function (event)
 		 {  var args = event.args;
-		    if (args) {
-		    // index represents the item's index.                      
-		    var index = args.index;
+		    if (args) {              
 		    var item = args.item;
-		    // get item's label and value.
-		    var label = item.label;
 		    var value = item.value;
 		if (value==3)
-		   $("#downPaymentCardInput").removeClass("d-none");
+		   {
+			$("#paymentMethodForm").removeClass("col-md-4").addClass("col-md-3");
+			$("#downPaymentForm").removeClass("col-md-4").addClass("col-md-3");
+			$("#deferredPaymentForm").removeClass("col-md-4").addClass("col-md-3");
+			$("#downPaymentCardInput").removeClass("d-none");
+            $("#downPaymentCard").val(null);
+            $("#deferredPayment").val($("#SelectedSellingPrice").val()-($("#downPayment").val()+$("#downPaymentCard").val()));
+            }
 		else
+			{
+			$("#paymentMethodForm").removeClass("col-md-3").addClass("col-md-4");
+			$("#downPaymentForm").removeClass("col-md-3").addClass("col-md-4");
+			$("#deferredPaymentForm").removeClass("col-md-3").addClass("col-md-4");
 			$("#downPaymentCardInput").addClass("d-none");
+			$("#deferredPayment").val($("#SelectedSellingPrice").val()-$("#downPayment").val());
+			}
+			 $("#deferredPayment").trigger("change");
 				  
 		} 
 	});
@@ -364,7 +375,7 @@ var source = {
  					 openWindow('Update - sale','update');
  				}
  			},
- 			{
+ 			/*{
  				text: '',
  				datafield: 'Delete',
  				width: '5%',
@@ -380,7 +391,7 @@ var source = {
                //  $('#deletedSales').append('Sales : '+dataRecord.firstName+' '+dataRecord.lastName);
                  $('#ConfirmationModal').modal('show'); 
  				}
- 			}
+ 			}*/
  		]
  	});
 
@@ -566,7 +577,8 @@ var source = {
 		});
 
   $('#jqxSelectItem').on('click', function() {
-	debugger
+	debugger;
+	
 	   var selectedrowindex = $('#ItemGrid').jqxGrid('selectedrowindex'); 
 	   var data = $('#ItemGrid').jqxGrid('getrowdata', selectedrowindex);
        if (data==null)
@@ -580,15 +592,18 @@ var source = {
 			}
 			else 
 			{
-				
-				 $("#SelectedItemId").val(data.id);
-				 $("#SelectedItemCode").val(data.itemCode);
-			     $("#SelectedBrandName").val(data.brandName);
-				 $("#SelectedItemDescription").val(data.description);
-				 $("#SelectedSellingPrice").val(data.sellingPrice);
-			     $('#ItemWindowGrid').jqxWindow('close');
-			     } 
-				
+					if(data.id != $("#SelectedItemId").val())
+					{
+					 $("#SelectedItemId").val(data.id);
+					 $("#SelectedItemCode").val(data.itemCode);
+				     $("#SelectedBrandName").val(data.brandName);
+					 $("#SelectedItemDescription").val(data.description);
+					 $("#SelectedSellingPrice").val(data.sellingPrice);
+				     $('#ItemWindowGrid').jqxWindow('close');
+                     if($("#downPayment").val().length != 0)
+                        $("#deferredPayment").val($("#SelectedSellingPrice").val()-$("#downPayment").val());
+	                }
+			  } 
 		   
 	});
 		var sourceClient = {
@@ -668,11 +683,11 @@ var source = {
 	 	$('#window').jqxWindow({
 	 		position: {
 	 			x: offset.left + 50,
-	 			y: offset.top - 10
+	 			y: offset.top 
 	 		},
 	 		showCollapseButton: true,
 	 		autoOpen: false,
-	 		height: 700,
+	 		height: 650,
 	 		width: 950,
 	 		theme: 'material-purple'
 	
@@ -731,4 +746,34 @@ var source = {
 		$("#SelectedClientName").val(null);
 		$("#SelectedClientNameId").val(null);
 		$("#notes").val(null);
+	    $("#downPayment").prop( "disabled", true );
+		$("#dropdownPaymentMethod").jqxDropDownList({disabled: true ,selectedIndex: -1});
+	    $("#downPayment").val(null);
+        $("#downPaymentCard").val(null);
+        $("#deferredPayment").val(null);
+     }
+	$("#downPayment")[0].addEventListener('input', updateValue);
+    $("#downPaymentCard")[0].addEventListener('input', updateValue);
+   function updateValue(e) {
+		debugger;
+		if ($("#dropdownPaymentMethod").val()==3)
+		{  if(e.currentTarget.id == "downPaymentCard")
+		    $("#deferredPayment").val($("#SelectedSellingPrice").val()-$("#downPayment").val()-e.target.value);
+          else if(e.currentTarget.id == "downPayment")
+		    $("#deferredPayment").val($("#SelectedSellingPrice").val()-$("#downPaymentCard").val()-e.target.value);
+		}else
+	   $("#deferredPayment").val($("#SelectedSellingPrice").val()-e.target.value);
+       $("#deferredPayment").trigger("change");
 	}
+   
+$("#deferredPayment").change(function(){
+ if($("#deferredPayment").val()!=0)
+			{
+				$("#isDefered").empty();
+				$("#isDefered").append('YES');
+			}
+			else {
+					$("#isDefered").empty();
+				$("#isDefered").append('NO');
+			}
+});

@@ -288,28 +288,49 @@
 					 <div class="parentForm">
      	             <label for="brand" class="title-section">Payment Details</label>
 						 <div class="form-row">
-						 <div class="form-group col-md-4">
+						 <div class="form-group col-md-4" id="paymentMethodForm">
 								<label for="brand">Payment Method</label>
 								<div class="d-flex">
 										<div id="dropdownPaymentMethod"> </div> 
 								</div>
 						</div>
-						 <div class="form-group col-md-4">
+						 <div class="form-group col-md-4" id="downPaymentForm">
 								<label for="brand">Down Payment</label>
 								<div class="d-flex">
 										<div class="col-10 p-0">
-											<input type="text" class="form-control" id="downPayment" placeholder="Down Payment">
-										</div>
+											<input type="number" class="form-control" id="downPayment" placeholder="Down Payment" disabled>
+									</div>
 								</div>
 						</div>
-						 <div class="form-group col-md-4  d-none" id="downPaymentCardInput">
+						 <div class="form-group col-md-3  d-none" id="downPaymentCardInput">
 								<label for="brand">Down Payment card</label>
 								<div class="d-flex">
 										<div class="col-10 p-0">
-											<input type="text" class="form-control" id="downPaymentCard" placeholder="Down Payment Card">
+											<input type="number" class="form-control" id="downPaymentCard" placeholder="Down Payment Card">
 										</div>
 								</div>
 						</div>
+						 <div class="form-group col-md-4" id="deferredPaymentForm">
+								<label for="brand">Deferred Payment Amount</label>
+									<div class="d-flex">
+											<div class="col-10 p-0">
+												<input type="number" class="form-control" id="deferredPayment" placeholder="Down Payment Card" disabled>
+									</div>
+								</div>
+						</div>
+						</div>
+						<div class="form-row">
+						<div class="form-group col-md-3"></div>
+						<div class="form-group col-md-3"></div>
+						<div class="form-group col-md-3"></div>
+							<div class="form-group col-md-3">
+									<label for="brand">Deferred Payment Status</label>
+									<div class="d-flex">
+											<div class="col-10 p-0">
+											  <div id="isDefered" ></div>
+											</div>
+									</div>
+							</div>
 						</div>
 					</div>
 					<div class="form-row">

@@ -43,7 +43,7 @@ public class SalesController extends ValidationUtils{
 	public ResponseEntity<?> getPaymentMethod(){
 	  return new ResponseEntity<>(paymentMethodService.getPaymentMethod(), HttpStatus.OK);
 	}
-	@DeleteMapping(value = "delete/{id}")
+	// @DeleteMapping(value = "delete/{id}")
 	public  ResponseEntity<?> deleteSaleById(@PathVariable("id") long id) {
 		return new ResponseEntity<>(salesService.deleteSalesById(id), HttpStatus.OK);
 	}

@@ -445,7 +445,7 @@ var source = {
 			 			$("#messageNotification_I").jqxNotification({
 			 				template: "info"
 			 			});
-			 			$("#notificationText_I").append("Please select a brand from the grid");
+			 			$("#notificationText_I").append("Please select a Item from the grid");
 			 			$("#messageNotification_I").jqxNotification("open");
 			}
 			else 
@@ -513,7 +513,7 @@ var source = {
 			 			$("#messageNotification_I").jqxNotification({
 			 				template: "info"
 			 			});
-			 			$("#notificationText_C").append("Please select a brand from the grid");
+			 			$("#notificationText_C").append("Please select a Client from the grid");
 			 			$("#messageNotification_C").jqxNotification("open");
 			}
 			else 

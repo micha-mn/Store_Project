@@ -10,6 +10,7 @@
 	<link rel="stylesheet" href="/css/styles/jqx.material-purple.css" type="text/css" />
 	<link rel="stylesheet" href="/css/fontawesome/all.css" type="text/css" />
 	<link href="/css/intlTelInput.css" rel="stylesheet" />
+	<link href="/css/jquery-idle-hands.min.css" rel="stylesheet" />
 	<title>Retail-App</title>
 	<!-- Font Awesome Icons -->
 	<!-- CSS Files -->
@@ -219,6 +220,25 @@
 			<div id="window">
 				<div id="windowHeader"> <span> Item </span> </div>
 				<form class="p-5" id="sale_form">
+					<div class="form-row">
+							<div class="form-group col-md-6">
+								<label for="brand">Client Name</label>
+								<div class="d-flex">
+									<div class="col-10 p-0">
+										<input type="hidden" class="form-control" id="SelectedClientNameId"
+											placeholder=" Client Name" disabled> <input type="text"
+											class="form-control" id="SelectedClientName"
+											placeholder=" Client Name" disabled> 
+											</div>
+									<button type="button" class="btn bg-outline-primary ml-3"
+										onclick="openGridWindow('#ClientWindowGrid','Client')">
+										<i class="fa-solid fa-search"></i>
+									</button>
+									
+								</div>
+							</div>
+						</div>
+					
  <div class="parentForm">
      	<label for="brand" class="title-section">Item Details</label>
 						 <div class="form-row">
@@ -265,25 +285,11 @@
 								 </div>
 							</div>
 						</div>
-						<div class="form-row">
-							<div class="form-group col-md-6">
-								<label for="brand">Client Name</label>
-								<div class="d-flex">
-									<div class="col-10 p-0">
-										<input type="hidden" class="form-control" id="SelectedClientNameId"
-											placeholder=" Client Name" disabled> <input type="text"
-											class="form-control" id="SelectedClientName"
-											placeholder=" Client Name" disabled> 
-											</div>
-									<button type="button" class="btn bg-outline-primary ml-3"
-										onclick="openGridWindow('#ClientWindowGrid','Client')">
-										<i class="fa-solid fa-search"></i>
-									</button>
-									
-								</div>
-							</div>
+					 <div class="parentForm">
+     	             <label for="brand" class="title-section">Payment Details</label>
+						
 						</div>
-					
+						
 					<div class="form-row">
 						<div class="form-group col-md-6">
 							<label for="inputDescription">Notes</label>
@@ -357,6 +363,9 @@
 	<script src="/js/jqwidgets/jqxnotification.js"></script>
 	<script src="/js/store/sales_table.js"></script>
 	<script src="/js/store/session_storage.js"></script>
+	<script src="/js/jquery-idle-hands.min.js"></script>
+	<script src="/js/basil.min.js"></script>
+	<script src="/js/store/session_dialog.js"></script>
 	<!-- Control Center for Soft Dashboard: parallax effects, scripts for the example pages etc -->
 	<script src="/js/soft-ui-dashboard.min.js"></script>
 </body>

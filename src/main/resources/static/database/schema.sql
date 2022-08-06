@@ -224,5 +224,17 @@ INSERT INTO configuration_table(id,column_name,table_name,is_hidden) VALUES ('27
        add column is_sold boolean not null default false;
  
 INSERT INTO configuration_table(id,column_name,table_name,is_hidden) VALUES ('28','isSold','itemsView','TRUE');
+
+CREATE TABLE IF NOT EXISTS public.payment_method
+(
+    id bigint NOT NULL,
+    name character varying(40) COLLATE pg_catalog."default",
+    CONSTRAINT payment_method_pkey PRIMARY KEY (id)
+);
  
- 
+INSERT INTO public.payment_method(id, name)VALUES (1, 'Cash');
+INSERT INTO public.payment_method(id, name)VALUES (2, 'Card');
+INSERT INTO public.payment_method(id, name)VALUES (3, 'Cash and Card'); 
+INSERT INTO public.payment_method(id, name)VALUES (4, 'Transfer');  
+INSERT INTO public.payment_method(id, name)VALUES (5, 'Cheques');  
+INSERT INTO public.payment_method(id, name)VALUES (6, 'Other');   

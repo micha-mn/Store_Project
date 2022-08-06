@@ -1,10 +1,10 @@
 $(document).ready(function() {
-	document.querySelector('#password').addEventListener('keypress', function (e) {
+	document.querySelector('#newPassword').addEventListener('keypress', function (e) {
     if (e.key === 'Enter') {
    	 $( "#submit" ).trigger( "click" );
     };
 });
-	document.querySelector('#username').addEventListener('keypress', function (e) {
+	document.querySelector('#confirmNewPassword').addEventListener('keypress', function (e) {
     if (e.key === 'Enter') {
    	 $( "#submit" ).trigger( "click" );
     };
@@ -21,34 +21,33 @@ $(document).ready(function() {
 		template: "info"
 	});
 	$('#submit').click(function() {
-
-		if ($('#username').val().length === 0) {
+		if ($('#newPassword').val().length === 0 || $('#confirmNewPassword').val().length === 0)
+		{
 			$("#notificationText").empty();
 			$("#messageNotification").jqxNotification({
-				template: "info"
+				template: "danger"
 			});
-			$("#notificationText").append("Enter your username");
+			$("#notificationText").append("Please enter your new password and confrim new password");
 			$("#messageNotification").jqxNotification("open");
-
-		} else if ($('#password').val().length === 0) {
+		}else if ($('#newPassword').val()!=$('#confirmNewPassword').val())
+		{
 			$("#notificationText").empty();
 			$("#messageNotification").jqxNotification({
-				template: "info"
+				template: "danger"
 			});
-			$("#notificationText").append("Enter your password");
+			$("#notificationText").append("New password and confirm password do not match");
 			$("#messageNotification").jqxNotification("open");
-
-		} else {
+		}
+		else{
 			dataParam = {
-				"userName": $('#username').val(),
-				"password": $('#password').val()
+				"userName": getUsername(),
+				"password": $('#confirmNewPassword').val()
 			};
-
 			
-			$.ajax({
+				$.ajax({
 				type: "POST",
 				contentType: "application/json",
-				url: "/api/auth/signin",
+				url: "/api/auth/changepassword",
 				data: JSON.stringify(dataParam),
 				dataType: 'json',
 				async: true,
@@ -56,33 +55,13 @@ $(document).ready(function() {
 				timeout: 600000,
 				success: function(data) {
 
-					setJwt(data.jwt);
-					setFirstLastName(data.firstName, data.lastName, data.username);
-					if (data.firstLogin)
-					{
-							
-					var settings = {
-						"url": "/retail/welcome",
-						"method": "POST",
-						"timeout": 0,
-						"headers": {
-							"Authorization": "Bearer " + data.jwt
-						},
-					};
-
-					$.ajax(settings).done(function(response) {
-						window.location.href = '/retail/welcome'
-						console.log(response);
-					});
-					}
-					else {
 					
 					var settings = {
 						"url": "/retail/supplier",
 						"method": "POST",
 						"timeout": 0,
 						"headers": {
-							"Authorization": "Bearer " + data.jwt
+							"Authorization": "Bearer " + getJwt()
 						},
 					};
 
@@ -91,7 +70,6 @@ $(document).ready(function() {
 						console.log(response);
 					});
 					
-					}
 				},
 				error: function(e) {
 					if (e.status = 401) {
@@ -108,7 +86,7 @@ $(document).ready(function() {
 				}
 			});
 		}
-	})
+	});
 });
 
 

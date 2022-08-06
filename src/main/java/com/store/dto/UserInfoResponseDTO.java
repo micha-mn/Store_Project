@@ -14,5 +14,6 @@ public class UserInfoResponseDTO {
 	    private String username;
 		private String firstName;
 	    private String lastName;
+	    private boolean isFirstLogin;
 	    private String jwt;
 }

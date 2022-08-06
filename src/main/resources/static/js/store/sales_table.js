@@ -20,7 +20,28 @@
 		 async: true
 	 };
  var dataAdapter = new $.jqx.dataAdapter(source);
-  $("#dropdownPaymentMethod").jqxDropDownList({ dropDownHeight:220 , selectedIndex: -1,source: dataAdapter,displayMember: "name" , valueMember: "id", theme: 'material-purple', width: '90%',itemHeight: 35, height: '38'});         
+
+   $("#dropdownPaymentMethod").jqxDropDownList({disabled: true, dropDownHeight:220 , selectedIndex: -1,source: dataAdapter,displayMember: "name" , valueMember: "id", theme: 'material-purple', width: '90%',itemHeight: 35, height: '38'});          $('#dropdownPaymentMethod').click(function () {
+         if ($('#SelectedClientNameId').val().length === 0) {
+ 			$("#notificationText").empty();
+ 			$("#messageNotification").jqxNotification({
+ 				template: "info"
+ 			});
+ 			$("#notificationText").append("Client is required");
+ 			$("#messageNotification").jqxNotification("open");
+ 		} else if ($('#SelectedItemId').val().length === 0 ) {
+ 			$("#notificationText").empty();
+ 			$("#messageNotification").jqxNotification({
+ 				template: "info"
+ 			});
+ 			$("#notificationText").append("Item is required");
+ 			$("#messageNotification").jqxNotification("open");
+ 		}else {
+	 $("#dropdownPaymentMethod").jqxDropDownList({disabled: false});
+	 $("#dropdownPaymentMethod").jqxDropDownList('open' ); 
+	     
+	  }
+     });
   $('#dropdownPaymentMethod').on('change', function (event)
 		 {  var args = event.args;
 		    if (args) {

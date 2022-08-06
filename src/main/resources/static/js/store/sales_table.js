@@ -113,6 +113,34 @@ var source = {
  				name: 'notes',
  				type: 'string'
  			},
+ 			 {
+ 				name: 'paymentMethodId',
+ 				type: 'string'
+ 			},
+ 			{
+ 				name: 'paymentMethod',
+ 				type: 'string'
+ 			},
+ 			{
+ 				name: 'downPayment',
+ 				type: 'float'
+ 			},
+ 			{
+ 				name: 'downPaymentCard',
+ 				type: 'float'
+ 			},
+ 			{
+ 				name: 'deferredPayment',
+ 				type: 'float'
+ 			},
+ 			{
+ 				name: 'totalPrice',
+ 				type: 'float'
+ 			},
+ 			{
+ 				name: 'paymentStatus',
+ 				type: 'string'
+ 			},
 	   	    {
  				name: 'sellingDate',
  				type: 'date'
@@ -209,9 +237,68 @@ var source = {
 				cellsformat: 'dd-MMM-yy HH:mm' 
  			},
 			{
- 				text: 'notes',
+ 				text: 'Notes',
 				hidden: config.notes,
  				datafield: 'notes',
+ 				width: '8%',
+ 				createfilterwidget: function (column, columnElement, widget) {
+			        widget.jqxInput({ width: '100%', height: 27, placeHolder: "Enter Code" });
+				  }
+ 			},
+ 			{
+ 				text: 'paymentMethodId',
+				hidden: config.paymentMethodId,
+ 				datafield: 'paymentMethodId'
+ 			},
+ 			{
+ 				text: 'Payment Method',
+				hidden: config.paymentMethod,
+ 				datafield: 'paymentMethod',
+ 				width: '8%',
+ 				createfilterwidget: function (column, columnElement, widget) {
+			        widget.jqxInput({ width: '100%', height: 27, placeHolder: "Enter Code" });
+				  }
+ 			},
+ 			{
+ 				text: 'Down Payment',
+				hidden: config.downPayment,
+ 				datafield: 'downPayment',
+ 				width: '8%',
+ 				createfilterwidget: function (column, columnElement, widget) {
+			        widget.jqxInput({ width: '100%', height: 27, placeHolder: "Enter Code" });
+				  }
+ 			},
+ 			{
+ 				text: 'Down Payment Card',
+				hidden: config.downPaymentCard,
+ 				datafield: 'downPaymentCard',
+ 				width: '8%',
+ 				createfilterwidget: function (column, columnElement, widget) {
+			        widget.jqxInput({ width: '100%', height: 27, placeHolder: "Enter Code" });
+				  }
+ 			},
+ 				{
+ 				text: 'deferred Payment',
+				hidden: config.deferredPayment,
+ 				datafield: 'deferredPayment',
+ 				width: '8%',
+ 				createfilterwidget: function (column, columnElement, widget) {
+			        widget.jqxInput({ width: '100%', height: 27, placeHolder: "Enter Code" });
+				  }
+ 			},
+ 			{
+ 				text: 'Total Price',
+				hidden: config.totalPrice,
+ 				datafield: 'totalPrice',
+ 				width: '8%',
+ 				createfilterwidget: function (column, columnElement, widget) {
+			        widget.jqxInput({ width: '100%', height: 27, placeHolder: "Enter Code" });
+				  }
+ 			},
+ 			{
+ 				text: 'Payment Status',
+				hidden: config.paymentStatus,
+ 				datafield: 'paymentStatus',
  				width: '8%',
  				createfilterwidget: function (column, columnElement, widget) {
 			        widget.jqxInput({ width: '100%', height: 27, placeHolder: "Enter Code" });

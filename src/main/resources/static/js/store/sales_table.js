@@ -22,14 +22,7 @@
  var dataAdapter = new $.jqx.dataAdapter(source);
 
    $("#dropdownPaymentMethod").jqxDropDownList({disabled: true, dropDownHeight:220 , selectedIndex: -1,source: dataAdapter,displayMember: "name" , valueMember: "id", theme: 'material-purple', width: '90%',itemHeight: 35, height: '38'});          $('#dropdownPaymentMethod').click(function () {
-         if ($('#SelectedClientNameId').val().length === 0) {
- 			$("#notificationText").empty();
- 			$("#messageNotification").jqxNotification({
- 				template: "info"
- 			});
- 			$("#notificationText").append("Client is required");
- 			$("#messageNotification").jqxNotification("open");
- 		} else if ($('#SelectedItemId').val().length === 0 ) {
+    if ($('#SelectedItemId').val().length === 0) {
  			$("#notificationText").empty();
  			$("#messageNotification").jqxNotification({
  				template: "info"
@@ -246,7 +239,7 @@ var source = {
  				datafield: 'clientName',
  				width: '8%',
  				createfilterwidget: function (column, columnElement, widget) {
-			        widget.jqxInput({ width: '100%', height: 27, placeHolder: "Enter Code" });
+			        widget.jqxInput({ width: '100%', height: 27, placeHolder: "Enter Client name" });
 				  }
  			},
 		    {
@@ -263,7 +256,7 @@ var source = {
  				datafield: 'notes',
  				width: '8%',
  				createfilterwidget: function (column, columnElement, widget) {
-			        widget.jqxInput({ width: '100%', height: 27, placeHolder: "Enter Code" });
+			        widget.jqxInput({ width: '100%', height: 27, placeHolder: "Enter Notes" });
 				  }
  			},
  			{
@@ -277,7 +270,7 @@ var source = {
  				datafield: 'paymentMethod',
  				width: '8%',
  				createfilterwidget: function (column, columnElement, widget) {
-			        widget.jqxInput({ width: '100%', height: 27, placeHolder: "Enter Code" });
+			        widget.jqxInput({ width: '100%', height: 27, placeHolder: "Enter Payment Method" });
 				  }
  			},
  			{
@@ -286,7 +279,7 @@ var source = {
  				datafield: 'downPayment',
  				width: '8%',
  				createfilterwidget: function (column, columnElement, widget) {
-			        widget.jqxInput({ width: '100%', height: 27, placeHolder: "Enter Code" });
+			        widget.jqxInput({ width: '100%', height: 27, placeHolder: "Enter Down Payment" });
 				  }
  			},
  			{
@@ -295,16 +288,16 @@ var source = {
  				datafield: 'downPaymentCard',
  				width: '8%',
  				createfilterwidget: function (column, columnElement, widget) {
-			        widget.jqxInput({ width: '100%', height: 27, placeHolder: "Enter Code" });
+			        widget.jqxInput({ width: '100%', height: 27, placeHolder: "Enter Down Payment Card" });
 				  }
  			},
  				{
- 				text: 'deferred Payment',
+ 				text: 'Deferred Payment',
 				hidden: config.deferredPayment,
  				datafield: 'deferredPayment',
  				width: '8%',
  				createfilterwidget: function (column, columnElement, widget) {
-			        widget.jqxInput({ width: '100%', height: 27, placeHolder: "Enter Code" });
+			        widget.jqxInput({ width: '100%', height: 27, placeHolder: "Enter Deferred Payment" });
 				  }
  			},
  			{
@@ -313,7 +306,7 @@ var source = {
  				datafield: 'totalPrice',
  				width: '8%',
  				createfilterwidget: function (column, columnElement, widget) {
-			        widget.jqxInput({ width: '100%', height: 27, placeHolder: "Enter Code" });
+			        widget.jqxInput({ width: '100%', height: 27, placeHolder: "Enter Total Price" });
 				  }
  			},
  			{
@@ -322,7 +315,7 @@ var source = {
  				datafield: 'paymentStatus',
  				width: '8%',
  				createfilterwidget: function (column, columnElement, widget) {
-			        widget.jqxInput({ width: '100%', height: 27, placeHolder: "Enter Code" });
+			        widget.jqxInput({ width: '100%', height: 27, placeHolder: "Enter Payment Status" });
 				  }
  			},
 			 {
@@ -398,14 +391,14 @@ var source = {
       });
 
  $("#Save").on('click', function() {
-	if ($('#SelectedItemId').val().length === 0 ) {
+	if ($('#SelectedClientNameId').val().length === 0 ) {
  			$("#notificationText").empty();
  			$("#messageNotification").jqxNotification({
  				template: "info"
  			});
  			$("#notificationText").append("Client is required");
  			$("#messageNotification").jqxNotification("open");
- 		}else if ($('#SelectedClientNameId').val().length === 0) {
+ 		}else if ($('#SelectedItemId').val().length === 0) {
  			$("#notificationText").empty();
  			$("#messageNotification").jqxNotification({
  				template: "info"

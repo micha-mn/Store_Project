@@ -551,13 +551,13 @@ var source = {
 
 	 	$('#window').jqxWindow({
 	 		position: {
-	 			x: offset.left + 200,
-	 			y: offset.top + 30
+	 			x: offset.left + 50,
+	 			y: offset.top - 10
 	 		},
 	 		showCollapseButton: true,
 	 		autoOpen: false,
-	 		height: 605,
-	 		width: 750,
+	 		height: 700,
+	 		width: 950,
 	 		theme: 'material-purple'
 	
 	 	});

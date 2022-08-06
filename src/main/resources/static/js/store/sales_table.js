@@ -20,7 +20,7 @@
 		 async: true
 	 };
  var dataAdapter = new $.jqx.dataAdapter(source);
-  $("#dropdownPaymentMethod").jqxDropDownList({ dropDownHeight:200 , selectedIndex: -1,source: dataAdapter,displayMember: "name" , valueMember: "id", theme: 'material-purple', width: '100%',itemHeight: 35, height: '38'});         
+  $("#dropdownPaymentMethod").jqxDropDownList({ dropDownHeight:220 , selectedIndex: -1,source: dataAdapter,displayMember: "name" , valueMember: "id", theme: 'material-purple', width: '90%',itemHeight: 35, height: '38'});         
   $('#dropdownPaymentMethod').on('change', function (event)
 		 {  var args = event.args;
 		    if (args) {
@@ -382,14 +382,14 @@ var source = {
  			$("#messageNotification").jqxNotification({
  				template: "info"
  			});
- 			$("#notificationText").append("Item is required");
+ 			$("#notificationText").append("Client is required");
  			$("#messageNotification").jqxNotification("open");
  		}else if ($('#SelectedClientNameId').val().length === 0) {
  			$("#notificationText").empty();
  			$("#messageNotification").jqxNotification({
  				template: "info"
  			});
- 			$("#notificationText").append("Client is required");
+ 			$("#notificationText").append("Item is required");
  			$("#messageNotification").jqxNotification("open");
  		} else {
 	    var json;

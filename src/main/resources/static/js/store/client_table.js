@@ -175,7 +175,9 @@
 	             deleteRow = row;
                  var dataRecord = $("#grid").jqxGrid('getrowdata', deleteRow);
                  $("#deletedClient").empty();
-                 $('#deletedClient').append('client : '+dataRecord.name1+' '+dataRecord.name2)
+                 $('#deletedClient').append('client : '+dataRecord.name1+' '+dataRecord.name2);
+				 $("#deleteMessage").empty();
+                 $("#deleteMessage").addClass("d-none");   
                  $('#ConfirmationModal').modal('show'); 
  				}
  			 }
@@ -189,11 +191,17 @@
             type: "DELETE",
             url: "/client/delete/" + clientId,
             success: function(result) {
-                $('#ConfirmationModal').modal('hide');
-                if (selectedrowindex >= 0 && selectedrowindex < rowscount) {
-                    var id = $("#grid").jqxGrid('getrowid', selectedrowindex);
-                    var commit = $("#grid").jqxGrid('deleterow', id);
-                }
+	          if (result == "success")
+                { $('#ConfirmationModal').modal('hide');
+	                if (selectedrowindex >= 0 && selectedrowindex < rowscount) {
+	                    var id = $("#grid").jqxGrid('getrowid', selectedrowindex);
+	                    var commit = $("#grid").jqxGrid('deleterow', id);
+	                }
+				}else {
+				 $("#deleteMessage").removeClass("d-none");
+			     $("#deleteMessage").empty();
+                 $('#deleteMessage').append(result);
+				}
             },
             error: function(e) {
                 console.log(e);

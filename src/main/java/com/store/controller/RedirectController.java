@@ -13,6 +13,10 @@ public class RedirectController {
 	public ModelAndView loginPage(ModelMap model) {
 		return new ModelAndView("html/login");
 	}
+	@RequestMapping(value="/welcome")
+	public ModelAndView changePasswordPage(ModelMap model) {
+		return new ModelAndView("html/change_password");
+	}
 	@RequestMapping(value="/supplier")
 	public ModelAndView supplierTablesPage(ModelMap model) {
 		return new ModelAndView("html/supplier_tables");
@@ -28,5 +32,9 @@ public class RedirectController {
 	@RequestMapping(value="/sales")
 	public ModelAndView salesTablesPage(ModelMap model) {
 		return new ModelAndView("html/sales_tables");
+	}
+	@RequestMapping(value="/reports")
+	public ModelAndView reportsTablesPage(ModelMap model) {
+		return new ModelAndView("html/reports_tables");
 	}
 }

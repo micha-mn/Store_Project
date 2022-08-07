@@ -12,5 +12,7 @@ public interface ItemViewRepository  extends JpaRepository<ItemsView, Long> {
 	
 	  public List<ItemsView> findAllByOrderByIdDesc();
 	  public Optional<ItemsView> findById(Long id);
+	  public List<ItemsView> findByIsSoldFalseOrderByIdDesc();
+	  
 	  
 }

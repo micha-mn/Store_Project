@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.store.domain.User;
 import com.store.dto.LoginRequestDTO;
+import com.store.dto.UserDTO;
 import com.store.dto.UserInfoResponseDTO;
 import com.store.repositories.UserRepository;
 import com.store.security.jwt.JwtUtils;
@@ -28,12 +29,6 @@ public class AuthController {
     @Autowired
     private AuthenticationManager authenticationManager;
 
-    @Autowired
-    private UserRepository userRepository;
-
-    @Autowired
-    private PasswordEncoder passwordEncoder;
-    
     @Autowired
 	private final UserService userService;
     
@@ -62,7 +57,14 @@ public class AuthController {
         				 					   user.getUserName(),
         				 					   user.getFirstName(),
         				 					   user.getLastName(),
+        				 					   user.getIsFirstLogin(),
         		 							   jwt));
      }
+    @PostMapping("/changepassword")
+	public ResponseEntity<?> changeUserPassword(@RequestBody @Valid UserDTO userDTO) {
+    	return ResponseEntity.ok()
+       		 .body(userService.saveChangedPassword(userDTO));
+    }
+    
    
 }

@@ -162,7 +162,7 @@ ALTER COLUMN selling_price TYPE DOUBLE PRECISION USING selling_price::double pre
 
 CREATE OR REPLACE VIEW public.items_view
  AS
- SELECT i.id,
+SELECT i.id,
     i.created_by,
     i.created_date,
     i.last_modified_by,
@@ -176,10 +176,98 @@ CREATE OR REPLACE VIEW public.items_view
     i.item_code,
     i.selling_price,
     i.supp_code,
-    i.condition
+    i.condition,
+    i.is_sold
    FROM items i,
     brand b
   WHERE i.brand_id::integer = b.id;
   
    alter table if exists supplier 
        add column is_active boolean DEFAULT true;
+
+drop VIEW sales_view;
+CREATE OR REPLACE VIEW public.sales_view
+ AS
+ SELECT s.id,
+        s.item_id,
+        i.item_code,
+        b.name_en as brand_name,
+        i.description,
+        replace(TO_CHAR(i.selling_price, '999,999,999.99'), ' ', '') as selling_price,
+        concat(c.name1,' ',c.name2) as client_name,
+        s.client_id,
+        S.selling_date,
+        s.notes,
+        pm.name as payment_method,
+        s.payment_method_id, 
+        s.down_payment,
+        s.down_payment_card,
+        s.deferred_payment,
+        s.payment_status,
+        ps.name as payment_status_desc,
+        i.selling_price as total_price,
+        s.created_date,
+        s.last_modified_date
+   FROM sales s,
+    items i,
+    client c,
+    brand b,
+    payment_method pm,
+    payment_status ps
+  WHERE s.item_id::integer = i.id
+      and s.client_id::integer = c.id
+      and i.brand_id::integer = b.id
+      and s.payment_method_id::integer = pm.id
+      and s.payment_status::integer = ps.id;
+
+  
+INSERT INTO configuration_table(id,column_name,table_name,is_hidden) VALUES ('16','id','salesView','TRUE');
+INSERT INTO configuration_table(id,column_name,table_name,is_hidden) VALUES ('17','itemCode','salesView','FALSE');
+INSERT INTO configuration_table(id,column_name,table_name,is_hidden) VALUES ('18','clientName','salesView','FALSE');
+INSERT INTO configuration_table(id,column_name,table_name,is_hidden) VALUES ('19','itemId','salesView','TRUE');
+INSERT INTO configuration_table(id,column_name,table_name,is_hidden) VALUES ('20','clientId','salesView','TRUE'); 
+INSERT INTO configuration_table(id,column_name,table_name,is_hidden) VALUES ('21','sellingDate','salesView','FALSE'); 
+INSERT INTO configuration_table(id,column_name,table_name,is_hidden) VALUES ('22','createdDate','salesView','FALSE');
+INSERT INTO configuration_table(id,column_name,table_name,is_hidden) VALUES ('23','lastModifiedDate','salesView','FALSE');
+INSERT INTO configuration_table(id,column_name,table_name,is_hidden) VALUES ('24','notes','salesView','TRUE'); 
+INSERT INTO configuration_table(id,column_name,table_name,is_hidden) VALUES ('25','brandName','salesView','TRUE'); 
+INSERT INTO configuration_table(id,column_name,table_name,is_hidden) VALUES ('26','description','salesView','TRUE');
+INSERT INTO configuration_table(id,column_name,table_name,is_hidden) VALUES ('27','sellingPrice','salesView','TRUE');
+INSERT INTO configuration_table(id,column_name,table_name,is_hidden) VALUES ('29','paymentMethod','salesView','FALSE');
+INSERT INTO configuration_table(id,column_name,table_name,is_hidden) VALUES ('30','downPayment','salesView','FALSE');
+INSERT INTO configuration_table(id,column_name,table_name,is_hidden) VALUES ('31','downPaymentCard','salesView','FALSE');
+INSERT INTO configuration_table(id,column_name,table_name,is_hidden) VALUES ('32','deferredPayment','salesView','FALSE');
+INSERT INTO configuration_table(id,column_name,table_name,is_hidden) VALUES ('33','totalPrice','salesView','TRUE');
+INSERT INTO configuration_table(id,column_name,table_name,is_hidden) VALUES ('34','paymentStatus','salesView','TRUE');
+INSERT INTO configuration_table(id,column_name,table_name,is_hidden) VALUES ('35','paymentMethodId','salesView','TRUE');
+INSERT INTO configuration_table(id,column_name,table_name,is_hidden) VALUES ('36','paymentStatusDesc','salesView','FALSE');
+
+
+   alter table if exists items 
+       add column is_sold boolean not null default false;
+ 
+INSERT INTO configuration_table(id,column_name,table_name,is_hidden) VALUES ('28','isSold','itemsView','TRUE');
+
+CREATE TABLE IF NOT EXISTS public.payment_method
+(
+    id bigint NOT NULL,
+    name character varying(40) COLLATE pg_catalog."default",
+    CONSTRAINT payment_method_pkey PRIMARY KEY (id)
+);
+ 
+INSERT INTO public.payment_method(id, name)VALUES (1, 'Cash');
+INSERT INTO public.payment_method(id, name)VALUES (2, 'Card');
+INSERT INTO public.payment_method(id, name)VALUES (3, 'Cash and Card'); 
+INSERT INTO public.payment_method(id, name)VALUES (4, 'Transfer');  
+INSERT INTO public.payment_method(id, name)VALUES (5, 'Cheques');  
+INSERT INTO public.payment_method(id, name)VALUES (6, 'Other');   
+
+CREATE TABLE public.payment_status
+(
+    id bigint NOT NULL,
+    name character(45) NOT NULL,
+    PRIMARY KEY (id)
+);
+
+INSERT INTO public.payment_status(id, name)VALUES (1, 'Sold and partial payment done');
+INSERT INTO public.payment_status(id, name)VALUES (2, 'Sold and full payment done');

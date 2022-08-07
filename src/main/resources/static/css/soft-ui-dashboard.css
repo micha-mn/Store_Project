@@ -8,6 +8,37 @@
   font-family: Titillium;
   src: url(/css/styles/font/TitilliumWeb-Regular.ttf);
 }
+.parentForm {
+    border: 1px solid #e4e4e4;
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+label.title-section {
+    font-size: .9rem;
+}
+.notifyDefered{
+	    color: red;
+    background: #ff00002b;
+    padding: 0.5rem;
+    font-size: 1rem;
+    border-radius: 0.5rem;
+}
+.noDefered{
+	color: #04a304;
+    background: #2cbd2c4a;
+    padding: 0.5rem;
+    font-size: 1rem;
+    border-radius: 0.5rem;
+}
+.red {
+    color: red!important;
+    background: rgb(255 0 0 / 5%);
+}
+.green {
+    color: #04a304!important;
+    background: rgb(44 189 44 / 5%);
+}
 :root {
   --bs-blue: #63B3ED;
   --bs-indigo: #596CFF;

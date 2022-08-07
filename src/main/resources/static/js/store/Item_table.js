@@ -16,7 +16,7 @@
 		        ];
 
                 // Create a jqxDropDownList
-                $("#conditionDropDown").jqxDropDownList({ dropDownHeight:200 , selectedIndex: -1,source: source,theme: 'material-purple', width: '100%',itemHeight: 35, height: '38'});
+    $("#conditionDropDown").jqxDropDownList({ dropDownHeight:200 , selectedIndex: -1,source: source,theme: 'material-purple', width: '100%',itemHeight: 35, height: '38'});
     $("#conditionDropDown_u").jqxDropDownList({ dropDownHeight:200, selectedIndex: -1,source: source,theme: 'material-purple', width: '100%',itemHeight: 35, height: '38'});
 	 var url = "/supplier/getallsorted";
 	 var sourceSupp =
@@ -130,6 +130,10 @@ $("#messageNotification_b").jqxNotification({
  			},
  			{
  				name: 'description',
+ 				type: 'string'
+ 			},
+		   {
+ 		   		name: 'isSold',
  				type: 'string'
  			},
  			{
@@ -270,6 +274,12 @@ $("#messageNotification_b").jqxNotification({
 			        widget.jqxInput({ width: '100%', height: 27, placeHolder: "Enter condition" });
 			}
 			 },
+			  {
+	 				text: 'isSold',
+					hidden: config.isSold,
+	 				datafield: 'isSold',
+	 				width: '10%'
+			 },
 			 {
  				text: 'selling Price(EUR)',
 				hidden: config.sellingPrice,
@@ -352,6 +362,7 @@ $("#messageNotification_b").jqxNotification({
  					var dataRecord = $("#grid").jqxGrid('getrowdata', editrow);
 				  
  					$("#id_item").val(dataRecord.id);
+				    $("#isSold").val(dataRecord.isSold);
 					$("#itemCode").val(dataRecord.itemCode);
 				
  					$("#dropdownlistSupp_u").jqxDropDownList('selectItem', dataRecord.suppCode ); 
@@ -384,7 +395,9 @@ $("#messageNotification_b").jqxNotification({
 	             deleteRow = row;
                  var dataRecord = $("#grid").jqxGrid('getrowdata', deleteRow);
                  $("#deletedSupplier").empty();
-                 $('#deletedSupplier').append('Supplier : '+dataRecord.firstName+' '+dataRecord.lastName)
+                 $('#deletedSupplier').append('Supplier : '+dataRecord.firstName+' '+dataRecord.lastName);
+                 $("#deletedItemMessage").empty();
+                 $("#deletedItemMessage").addClass("d-none");
                  $('#ConfirmationModal').modal('show'); 
  				}
  			}
@@ -509,12 +522,18 @@ $("#messageNotification_b").jqxNotification({
         $.ajax({
             type: "DELETE",
             url: "/item/delete/" + ItemId,
-            success: function(result) {
-                $('#ConfirmationModal').modal('hide');
-                if (selectedrowindex >= 0 && selectedrowindex < rowscount) {
-                    var id = $("#grid").jqxGrid('getrowid', selectedrowindex);
-                    var commit = $("#grid").jqxGrid('deleterow', id);
-                }
+            success: function(result)  {
+	          if (result == "success")
+                { $('#ConfirmationModal').modal('hide');
+	                if (selectedrowindex >= 0 && selectedrowindex < rowscount) {
+	                    var id = $("#grid").jqxGrid('getrowid', selectedrowindex);
+	                    var commit = $("#grid").jqxGrid('deleterow', id);
+	                }
+				}else {
+				 $("#deletedItemMessage").removeClass("d-none");
+			     $("#deletedItemMessage").empty();
+                 $('#deletedItemMessage').append(result);
+				}
             },
             error: function(e) {
                 console.log(e);
@@ -646,7 +665,7 @@ $("#messageNotification_b").jqxNotification({
  				});
  				$("#notificationText").append(response.responseText);
  				$("#messageNotification").jqxNotification("open");
-});
+			});
 
  		}
      });
@@ -718,6 +737,7 @@ $("#messageNotification_b").jqxNotification({
  			"data": JSON.stringify({
 		            "action":"update",
  					"id":$("#id_item").val(),
+				     "isSold":$("#isSold").val(),
 				    "itemCode": $("#itemCode").val(),
  				    "suppCode": $("#dropdownlistSupp_u").val(),
  					"brandId": $("#SelectedBrandId_u").val(),
@@ -726,7 +746,8 @@ $("#messageNotification_b").jqxNotification({
  					"consignmentPrice": $("#Consignmentprice_u").val(),
  					"consignmentDate": $("#consignmentDate_u").jqxDateTimeInput("getDate"),
  					"sellingPrice": $("#Sellingprice_u").val(),
-				    "condition": $("#conditionDropDown_u").val()
+				    "condition": $("#conditionDropDown_u").val(),
+					"isSold":false
  			}),
  		};
 

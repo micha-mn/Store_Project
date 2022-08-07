@@ -184,7 +184,11 @@
 				<div id="ClientWindowGrid">
 				<div id="windowHeader"> <span>  </span> </div>
 				<form class="p-5" id="client_form_update" onSubmit="return false;">
-
+					<div class="col-2 p-0">
+										<button type="button" id="go to client"
+											class="btn bg-gradient-primary" onclick="location.href = '/retail/client';">go to
+											client</button>
+									</div>
 						<div class="form-row">
 							<div class="form-group col-md-12">
 								<div id="ClientGrid"></div>
@@ -199,11 +203,7 @@
 									</div>
 
 									<div class="col-6"></div>
-									<div class="col-2">
-										<button type="button" id="go to client"
-											class="btn bg-gradient-primary" onclick="location.href = '/retail/client';">go to
-											client</button>
-									</div>
+									
 								</div>
 							
 					</div>
@@ -218,8 +218,9 @@
 				</form>
 			</div>
 			<div id="window">
-				<div id="windowHeader"> <span> Item </span> </div>
+				<div id="windowHeader"> <span>  </span> </div>
 				<form class="p-5" id="sale_form">
+				<input type="hidden" class="form-control" id="saleId" disabled> 
 					<div class="form-row">
 							<div class="form-group col-md-6">
 								<label for="brand">Client Name</label>
@@ -320,10 +321,20 @@
 						</div>
 						</div>
 						<div class="form-row">
+						<div class="form-group col-md-3">
+							<div id="TotalPaymentForm" class="d-none">
+								<label for="brand">Total Payments</label>
+										<div class="d-flex">
+												<div class="col-10 p-0">
+												  <input type="hidden" class="form-control" id="totalPrice" disabled>
+												  <input type="number" class="form-control" id="TotalPayment" placeholder="Total Payment" disabled>
+												</div>
+										</div>
+							</div>
+						</div>
 						<div class="form-group col-md-3"></div>
 						<div class="form-group col-md-3"></div>
-						<div class="form-group col-md-3"></div>
-							<div class="form-group col-md-3">
+							<div class="form-group col-md-3 mb-0">
 									<label for="brand">Deferred Payment Status</label>
 									<div class="d-flex">
 											<div class="col-10 p-0">

@@ -7,6 +7,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.store.domain.PaymentHistory;
 import com.store.domain.Sales;
 import com.store.domain.SalesView;
 import com.store.dto.SalesDTO;
@@ -26,6 +27,9 @@ public class SalesService {
 	SalesViewRepository salesViewRepository;
 	@Autowired
 	ItemRepository itemRepository;
+	@Autowired
+	PaymentHistoryService paymentHistoryService;
+	
 	public SalesResponceDTO SaveSale(@Valid SalesDTO salesDTO) {
 		Sales sales = null;
 		 Optional<SalesView> salesView =null;
@@ -37,6 +41,12 @@ public class SalesService {
 					    .itemId(salesDTO.getItemId())
 					    .notes(salesDTO.getNotes())
 					    .sellingDate(new Date())
+					    .paymentMethodId(salesDTO.getPaymentMethodId())
+					    .downPayment(salesDTO.getDownPayment())
+					    .downPaymentCard(salesDTO.getDownPaymentCard())
+					    .deferredPayment(salesDTO.getDeferredPayment())
+					    .paymentStatus(salesDTO.getPaymentStatus())
+					    .totalPrice(salesDTO.getTotalPrice())
 	    		        .build();
 	      status= StatusEnum.SALES_SAVED.value;
 	      itemRepository.updateSoldItem(salesDTO.getItemId());
@@ -51,11 +61,26 @@ public class SalesService {
 				    .itemId(salesDTO.getItemId())
 				    .notes(salesDTO.getNotes())
 				    .sellingDate(salesDTO.getSellingDate())
+				    .paymentMethodId(salesDTO.getPaymentMethodId())
+				    .downPayment(salesDTO.getDownPayment())
+				    .downPaymentCard(salesDTO.getDownPaymentCard())
+				    .deferredPayment(salesDTO.getDeferredPayment())
+				    .paymentStatus(salesDTO.getPaymentStatus())
+				    .totalPrice(salesDTO.getTotalPrice())
     		        .build();
 			  status= StatusEnum.SALES_UPDATED.value;
 			  salesView = findByID(salesRepository.save(sales).getId());
 			}
-		
+		PaymentHistory paymentHistory = PaymentHistory.builder().saleId(String.valueOf(salesView.get().getId()))
+				                                                .deferredPayment(salesView.get().getDeferredPayment())
+				                                                .downPayment(salesView.get().getDownPayment())
+				                                                .downPaymentCard(salesView.get().getDownPaymentCard())
+				                                                .paymentDate(new Date())
+				                                                .paymentMethodId(salesView.get().getPaymentMethodId())
+				                                                .totalPrice(salesView.get().getTotalPrice())
+				                                                .paymentStatus(salesView.get().getPaymentStatus())
+				                                                .build();
+		paymentHistoryService.SavePaymentHistory(paymentHistory);
 		SalesResponceDTO salesResponceDTO = SalesResponceDTO.builder().salesView(salesView).Message(status).build();
 		return salesResponceDTO;
 			

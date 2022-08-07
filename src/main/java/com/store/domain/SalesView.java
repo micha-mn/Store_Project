@@ -24,7 +24,7 @@ public class SalesView {
 	private String itemCode;
 	private String brandName;
 	private String description;
-	private Double sellingPrice;
+	private String sellingPrice;
 	private String clientName;
 	private String clientId;
 	private Date sellingDate;
@@ -36,6 +36,7 @@ public class SalesView {
 	private Double deferredPayment;
 	private Double totalPrice;
 	private String paymentStatus;
+	private String paymentStatusDesc;
 	private Date createdDate;
 	private Date lastModifiedDate;
 }

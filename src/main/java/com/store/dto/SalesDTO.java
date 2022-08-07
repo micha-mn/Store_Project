@@ -4,6 +4,7 @@ import java.util.Date;
 
 import com.store.constant.ErrorConstants;
 
+import jakarta.persistence.Column;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -23,4 +24,15 @@ public class SalesDTO {
 	  private String clientId;
 	  private Date sellingDate;
 	  private String notes;
+	  @NotNull(message = ErrorConstants.SALES_PAYMENTMETHODID_NOT_NULL)
+	  private String paymentMethodId;
+	  @NotNull(message = ErrorConstants.SALES_DOWNPAYTMENT_NOT_NULL)
+	  private Double downPayment;
+	  private Double downPaymentCard;
+	  @NotNull(message = ErrorConstants.SALES_TOTALPRICE_NOT_NULL)
+	  private Double totalPrice;
+	  @NotNull(message = ErrorConstants.SALES_DEFERREDPAYMENT_NOT_NULL)
+	  private Double deferredPayment;
+	  @NotNull(message = ErrorConstants.SALES_PAYTMENTSTATUS_NOT_NULL)
+	  private String paymentStatus;
 } 

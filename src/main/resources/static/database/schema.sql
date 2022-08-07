@@ -204,6 +204,7 @@ CREATE OR REPLACE VIEW public.sales_view
         s.down_payment_card,
         s.deferred_payment,
         s.payment_status,
+        ps.name as payment_status_desc,
         i.selling_price as total_price,
         s.created_date,
         s.last_modified_date
@@ -211,11 +212,13 @@ CREATE OR REPLACE VIEW public.sales_view
     items i,
     client c,
     brand b,
-    payment_method pm
+    payment_method pm,
+    payment_status ps
   WHERE s.item_id::integer = i.id
       and s.client_id::integer = c.id
       and i.brand_id::integer = b.id
-      and s.payment_method_id::integer = pm.id;
+      and s.payment_method_id::integer = pm.id
+      and s.payment_status::integer = ps.id;
 
   
 INSERT INTO configuration_table(id,column_name,table_name,is_hidden) VALUES ('16','id','salesView','TRUE');
@@ -237,6 +240,7 @@ INSERT INTO configuration_table(id,column_name,table_name,is_hidden) VALUES ('32
 INSERT INTO configuration_table(id,column_name,table_name,is_hidden) VALUES ('33','totalPrice','salesView','TRUE');
 INSERT INTO configuration_table(id,column_name,table_name,is_hidden) VALUES ('34','paymentStatus','salesView','TRUE');
 INSERT INTO configuration_table(id,column_name,table_name,is_hidden) VALUES ('35','paymentMethodId','salesView','TRUE');
+INSERT INTO configuration_table(id,column_name,table_name,is_hidden) VALUES ('36','paymentStatusDesc','salesView','TRUE');
 
 
    alter table if exists items 
@@ -257,3 +261,13 @@ INSERT INTO public.payment_method(id, name)VALUES (3, 'Cash and Card');
 INSERT INTO public.payment_method(id, name)VALUES (4, 'Transfer');  
 INSERT INTO public.payment_method(id, name)VALUES (5, 'Cheques');  
 INSERT INTO public.payment_method(id, name)VALUES (6, 'Other');   
+
+CREATE TABLE public.payment_status
+(
+    id bigint NOT NULL,
+    name character(45) NOT NULL,
+    PRIMARY KEY (id)
+);
+
+INSERT INTO public.payment_status(id, name)VALUES (1, 'Sold and partial payment done');
+INSERT INTO public.payment_status(id, name)VALUES (2, 'Sold and full payment done');

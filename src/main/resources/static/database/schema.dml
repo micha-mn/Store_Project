@@ -1,0 +1,69 @@
+
+INSERT INTO public.users(
+	 user_name, password, first_name, last_name, is_first_login, created_on)
+	VALUES ('Jean', '$2a$12$GFOd7M2iYWcgvUIY7sRki.Ytz.aG3qC/2u2MyxWA72l8T.jMMt0MO', 'Jean', 'Saade', false, NOW() );
+	
+INSERT INTO public.roles( name )
+	VALUES ('ADMIN');
+
+   
+INSERT INTO public.user_roles(
+	user_id, role_id)
+	VALUES (1, 1);
+	
+INSERT INTO public.naming_sequence(
+	supp_sequence, item_sequence)
+	VALUES (nextval('supp_sequence'), nextval('item_sequence'));
+
+INSERT INTO public.report_management(
+	id ,param1, parameter_counter, report_code,  report_jrxml_path, report_name, static_path)
+	VALUES ('1','itemId', '1', 'ITEMBARCODE',  '\\classes\\static\\report\\ItemBarcode.jrxml','ItemBarcode','\\classes\\static\\report\\');
+
+
+INSERT INTO configuration_table(id,column_name,table_name,is_hidden) VALUES ('1','id','itemsView','TRUE');
+INSERT INTO configuration_table(id,column_name,table_name,is_hidden) VALUES ('2','createdBy','itemsView','TRUE');
+INSERT INTO configuration_table(id,column_name,table_name,is_hidden) VALUES ('3','createdDate','itemsView','FALSE');
+INSERT INTO configuration_table(id,column_name,table_name,is_hidden) VALUES ('4','lastModifiedBy','itemsView','TRUE');
+INSERT INTO configuration_table(id,column_name,table_name,is_hidden) VALUES ('5','lastModifiedDate','itemsView','FALSE');
+INSERT INTO configuration_table(id,column_name,table_name,is_hidden) VALUES ('6','brandName','itemsView','TRUE');
+INSERT INTO configuration_table(id,column_name,table_name,is_hidden) VALUES ('7','brandId','itemsView','TRUE');
+INSERT INTO configuration_table(id,column_name,table_name,is_hidden) VALUES ('8','consignmentDate','itemsView','FALSE');
+INSERT INTO configuration_table(id,column_name,table_name,is_hidden) VALUES ('9','consignmentPrice','itemsView','FALSE');
+INSERT INTO configuration_table(id,column_name,table_name,is_hidden) VALUES ('10','description','itemsView','FALSE');
+INSERT INTO configuration_table(id,column_name,table_name,is_hidden) VALUES ('11','inclusions','itemsView','TRUE');
+INSERT INTO configuration_table(id,column_name,table_name,is_hidden) VALUES ('12','itemCode','itemsView','FALSE');
+INSERT INTO configuration_table(id,column_name,table_name,is_hidden) VALUES ('13','sellingPrice','itemsView','FALSE');
+INSERT INTO configuration_table(id,column_name,table_name,is_hidden) VALUES ('14','suppCode','itemsView','TRUE');
+INSERT INTO configuration_table(id,column_name,table_name,is_hidden) VALUES ('15','condition','itemsView','FALSE');
+INSERT INTO configuration_table(id,column_name,table_name,is_hidden) VALUES ('16','id','salesView','TRUE');
+INSERT INTO configuration_table(id,column_name,table_name,is_hidden) VALUES ('17','itemCode','salesView','FALSE');
+INSERT INTO configuration_table(id,column_name,table_name,is_hidden) VALUES ('18','clientName','salesView','FALSE');
+INSERT INTO configuration_table(id,column_name,table_name,is_hidden) VALUES ('19','itemId','salesView','TRUE');
+INSERT INTO configuration_table(id,column_name,table_name,is_hidden) VALUES ('20','clientId','salesView','TRUE'); 
+INSERT INTO configuration_table(id,column_name,table_name,is_hidden) VALUES ('21','sellingDate','salesView','FALSE'); 
+INSERT INTO configuration_table(id,column_name,table_name,is_hidden) VALUES ('22','createdDate','salesView','FALSE');
+INSERT INTO configuration_table(id,column_name,table_name,is_hidden) VALUES ('23','lastModifiedDate','salesView','FALSE');
+INSERT INTO configuration_table(id,column_name,table_name,is_hidden) VALUES ('24','notes','salesView','TRUE'); 
+INSERT INTO configuration_table(id,column_name,table_name,is_hidden) VALUES ('25','brandName','salesView','TRUE'); 
+INSERT INTO configuration_table(id,column_name,table_name,is_hidden) VALUES ('26','description','salesView','TRUE');
+INSERT INTO configuration_table(id,column_name,table_name,is_hidden) VALUES ('27','sellingPrice','salesView','TRUE');
+INSERT INTO configuration_table(id,column_name,table_name,is_hidden) VALUES ('29','paymentMethod','salesView','FALSE');
+INSERT INTO configuration_table(id,column_name,table_name,is_hidden) VALUES ('30','downPayment','salesView','FALSE');
+INSERT INTO configuration_table(id,column_name,table_name,is_hidden) VALUES ('31','downPaymentCard','salesView','FALSE');
+INSERT INTO configuration_table(id,column_name,table_name,is_hidden) VALUES ('32','deferredPayment','salesView','FALSE');
+INSERT INTO configuration_table(id,column_name,table_name,is_hidden) VALUES ('33','totalPrice','salesView','TRUE');
+INSERT INTO configuration_table(id,column_name,table_name,is_hidden) VALUES ('34','paymentStatus','salesView','TRUE');
+INSERT INTO configuration_table(id,column_name,table_name,is_hidden) VALUES ('35','paymentMethodId','salesView','TRUE');
+INSERT INTO configuration_table(id,column_name,table_name,is_hidden) VALUES ('36','paymentStatusDesc','salesView','FALSE');
+INSERT INTO configuration_table(id,column_name,table_name,is_hidden) VALUES ('28','isSold','itemsView','TRUE');
+
+INSERT INTO public.payment_method(id, name)VALUES (1, 'Cash');
+INSERT INTO public.payment_method(id, name)VALUES (2, 'Card');
+INSERT INTO public.payment_method(id, name)VALUES (3, 'Cash and Card'); 
+INSERT INTO public.payment_method(id, name)VALUES (4, 'Transfer');  
+INSERT INTO public.payment_method(id, name)VALUES (5, 'Cheques');  
+INSERT INTO public.payment_method(id, name)VALUES (6, 'Other');   
+
+INSERT INTO public.payment_status(id, name)VALUES (1, 'Sold and partial payment done');
+INSERT INTO public.payment_status(id, name)VALUES (2, 'Sold and full payment done');
+	

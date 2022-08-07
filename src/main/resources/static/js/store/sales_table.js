@@ -389,37 +389,13 @@ var source = {
  				text: '',
  				datafield: 'Edit',
  				width: '5%',
-                columntype: 'button',
                 filterable: false,
- 				cellsrenderer: function() {
- 					return "Edit";
- 				},
- 				buttonclick: function(row) {
- 					// open the popup window when the user clicks a button.
- 					editrow = row;
- 					var offset = $("#grid").offset();
-
- 					// get the clicked row's data and initialize the input fields.
- 					var dataRecord = $("#grid").jqxGrid('getrowdata', editrow);
-				
-						$("#saleId").val(dataRecord.id);
-						$("#SelectedItemId").val(dataRecord.itemId);
-						$("#SelectedItemCode").val(dataRecord.itemCode);
-						$("#SelectedBrandName").val(dataRecord.brandName);
-						$("#SelectedItemDescription").val(dataRecord.description);
-						$("#SelectedSellingPrice").val(dataRecord.sellingPrice);
-						$("#SelectedClientName").val(dataRecord.clientName);
-						$("#SelectedClientNameId").val(dataRecord.clientId);
-						$("#notes").val(dataRecord.notes);
-						// $("#dropdownPaymentMethod").jqxDropDownList('selectItem', dataRecord.paymentMethodId ); 
- 					    // $("#downPayment").val(dataRecord.downPayment);
-						// $("#downPaymentCard").val(dataRecord.downPaymentCard);
-						 $("#deferredPayment").val(dataRecord.deferredPayment);
-					     $("#totalPrice").val(dataRecord.totalPrice);
-					     $("#TotalPayment").val(eval((isNaN(dataRecord.downPayment)?dataRecord.downPayment.replaceAll(",",""):dataRecord.downPayment))+eval(dataRecord.downPaymentCard));
-					     $("#TotalPaymentForm").removeClass("d-none");
-				     // show the popup window.
- 					 openWindow('Update - sale','update');
+ 				cellsrenderer: function(row) {
+		          editrow = row;
+ 				var dataRecord = $("#grid").jqxGrid('getrowdata', editrow);
+	                debugger;
+					if(dataRecord.paymentStatus=='1')
+ 					return '<input type="button" value="Edit" id="jqxButton" onclick="editRow('+row+')" style="height: 100%; width: 100%;" class="jqx-rc-all jqx-rc-all-material-purple jqx-button jqx-button-material-purple jqx-widget jqx-widget-material-purple buttonRipple jqx-fill-state-normal jqx-fill-state-normal-material-purple" />';
  				}
  			},
  			/*{
@@ -903,3 +879,29 @@ $("#deferredPayment").change(function(){
 				$("#isDefered").append('<div class="noDefered"><i class="fa-solid fa-circle-check"></i>&nbsp;NO</div>');
 			}
 });
+
+function editRow(row)
+{
+		editrow = row;
+ 					var dataRecord = $("#grid").jqxGrid('getrowdata', editrow);
+				
+				
+						$("#saleId").val(dataRecord.id);
+						$("#SelectedItemId").val(dataRecord.itemId);
+						$("#SelectedItemCode").val(dataRecord.itemCode);
+						$("#SelectedBrandName").val(dataRecord.brandName);
+						$("#SelectedItemDescription").val(dataRecord.description);
+						$("#SelectedSellingPrice").val(dataRecord.sellingPrice);
+						$("#SelectedClientName").val(dataRecord.clientName);
+						$("#SelectedClientNameId").val(dataRecord.clientId);
+						$("#notes").val(dataRecord.notes);
+						// $("#dropdownPaymentMethod").jqxDropDownList('selectItem', dataRecord.paymentMethodId ); 
+ 					    // $("#downPayment").val(dataRecord.downPayment);
+						// $("#downPaymentCard").val(dataRecord.downPaymentCard);
+						 $("#deferredPayment").val(dataRecord.deferredPayment);
+					     $("#totalPrice").val(dataRecord.totalPrice);
+					     $("#TotalPayment").val(eval((isNaN(dataRecord.downPayment)?dataRecord.downPayment.replaceAll(",",""):dataRecord.downPayment))+eval(dataRecord.downPaymentCard));
+					     $("#TotalPaymentForm").removeClass("d-none");
+				     // show the popup window.
+ 					 openWindow('Update - sale','update');
+}

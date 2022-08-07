@@ -17,6 +17,14 @@ public class ErrorConstants {
 	  public static final String ITEM_CONSIGNMENTDATE_NOT_NULL = "I6";
 	  public static final String ITEM_SELLINGPRICE_NOT_NULL = "I7";
 	  public static final String REPORT_CODE_NOT_NULL = "R1";
+	  public static final String SALES_ITEMID_NOT_NULL = "SA1";
+	  public static final String SALES_CLIENTID_NOT_NULL = "SA2";
+	  public static final String SALES_PAYMENTMETHODID_NOT_NULL = "SA3";
+	  public static final String SALES_DOWNPAYTMENT_NOT_NULL = "SA4";
+	  public static final String SALES_PAYTMENTSTATUS_NOT_NULL = "SA5";
+	  public static final String SALES_TOTALPRICE_NOT_NULL = "SA6";
+	  public static final String SALES_DEFERREDPAYMENT_NOT_NULL = "SA7";
+	  
 	  private ErrorConstants() {
 		}
 }

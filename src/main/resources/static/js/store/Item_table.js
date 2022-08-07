@@ -261,7 +261,7 @@ $("#messageNotification_b").jqxNotification({
  				text: 'consignment Date',
 				hidden: config.consignmentDate,
  				datafield: 'consignmentDate',
- 				width: '10%',
+ 				width: '7%',
 				filtertype: 'date',
 				cellsformat: 'dd-MMM-yy' 
 			 },
@@ -269,7 +269,7 @@ $("#messageNotification_b").jqxNotification({
  				text: 'Condition',
 				hidden: config.condition,
  				datafield: 'condition',
- 				width: '10%',
+ 				width: '7%',
  				createfilterwidget: function (column, columnElement, widget) {
 			        widget.jqxInput({ width: '100%', height: 27, placeHolder: "Enter condition" });
 			}
@@ -285,7 +285,7 @@ $("#messageNotification_b").jqxNotification({
 				hidden: config.sellingPrice,
  				datafield: 'sellingPrice',
 			    cellsformat: 'D2',
- 				width: '10%',
+ 				width: '9%',
  				createfilterwidget: function (column, columnElement, widget) {
 			        widget.jqxInput({ width: '100%', height: 27, placeHolder: "Enter sellingPrice" });
 			}
@@ -309,11 +309,11 @@ $("#messageNotification_b").jqxNotification({
 		{
  				text: '',
  				datafield: 'Barcode',
- 				width: '6%',
+ 				width: '5%',
                 columntype: 'button',
                 filterable: false,
  				cellsrenderer: function() {
- 					return "Barcode";
+ 					return 'barcode';
  				},
  				buttonclick: function(row) {
  					// open the popup window when the user clicks a button.
@@ -347,7 +347,7 @@ $("#messageNotification_b").jqxNotification({
  			{
  				text: '',
  				datafield: 'Edit',
- 				width: '5%',
+ 				width: '3%',
                 columntype: 'button',
                 filterable: false,
  				cellsrenderer: function() {

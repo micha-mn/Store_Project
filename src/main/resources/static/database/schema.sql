@@ -228,19 +228,19 @@ INSERT INTO configuration_table(id,column_name,table_name,is_hidden) VALUES ('19
 INSERT INTO configuration_table(id,column_name,table_name,is_hidden) VALUES ('20','clientId','salesView','TRUE'); 
 INSERT INTO configuration_table(id,column_name,table_name,is_hidden) VALUES ('21','sellingDate','salesView','FALSE'); 
 INSERT INTO configuration_table(id,column_name,table_name,is_hidden) VALUES ('22','createdDate','salesView','FALSE');
-INSERT INTO configuration_table(id,column_name,table_name,is_hidden) VALUES ('23','lastModifiedDate','salesView','TRUE');
-INSERT INTO configuration_table(id,column_name,table_name,is_hidden) VALUES ('24','notes','salesView','FALSE'); 
+INSERT INTO configuration_table(id,column_name,table_name,is_hidden) VALUES ('23','lastModifiedDate','salesView','FALSE');
+INSERT INTO configuration_table(id,column_name,table_name,is_hidden) VALUES ('24','notes','salesView','TRUE'); 
 INSERT INTO configuration_table(id,column_name,table_name,is_hidden) VALUES ('25','brandName','salesView','TRUE'); 
 INSERT INTO configuration_table(id,column_name,table_name,is_hidden) VALUES ('26','description','salesView','TRUE');
 INSERT INTO configuration_table(id,column_name,table_name,is_hidden) VALUES ('27','sellingPrice','salesView','TRUE');
-INSERT INTO configuration_table(id,column_name,table_name,is_hidden) VALUES ('29','paymentMethod','salesView','TRUE');
-INSERT INTO configuration_table(id,column_name,table_name,is_hidden) VALUES ('30','downPayment','salesView','TRUE');
-INSERT INTO configuration_table(id,column_name,table_name,is_hidden) VALUES ('31','downPaymentCard','salesView','TRUE');
-INSERT INTO configuration_table(id,column_name,table_name,is_hidden) VALUES ('32','deferredPayment','salesView','TRUE');
+INSERT INTO configuration_table(id,column_name,table_name,is_hidden) VALUES ('29','paymentMethod','salesView','FALSE');
+INSERT INTO configuration_table(id,column_name,table_name,is_hidden) VALUES ('30','downPayment','salesView','FALSE');
+INSERT INTO configuration_table(id,column_name,table_name,is_hidden) VALUES ('31','downPaymentCard','salesView','FALSE');
+INSERT INTO configuration_table(id,column_name,table_name,is_hidden) VALUES ('32','deferredPayment','salesView','FALSE');
 INSERT INTO configuration_table(id,column_name,table_name,is_hidden) VALUES ('33','totalPrice','salesView','TRUE');
 INSERT INTO configuration_table(id,column_name,table_name,is_hidden) VALUES ('34','paymentStatus','salesView','TRUE');
 INSERT INTO configuration_table(id,column_name,table_name,is_hidden) VALUES ('35','paymentMethodId','salesView','TRUE');
-INSERT INTO configuration_table(id,column_name,table_name,is_hidden) VALUES ('36','paymentStatusDesc','salesView','TRUE');
+INSERT INTO configuration_table(id,column_name,table_name,is_hidden) VALUES ('36','paymentStatusDesc','salesView','FALSE');
 
 
    alter table if exists items 

@@ -688,6 +688,7 @@ var source = {
                      if($("#downPayment").val().length != 0)
                         $("#deferredPayment").val($("#SelectedSellingPrice").val()-$("#downPayment").val());
 	                }
+	                 $('#ItemWindowGrid').jqxWindow('close');
 			  } 
 		   
 	});

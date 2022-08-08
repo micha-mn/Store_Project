@@ -451,7 +451,7 @@ var source = {
  			$("#notificationText").append("Payment method is required");
  			$("#messageNotification").jqxNotification("open");
  		}
-	    if ($("#downPayment").val().length === 0) {
+	   else if ($("#downPayment").val().length === 0) {
  			$("#notificationText").empty();
  			$("#messageNotification").jqxNotification({
  				template: "info"
@@ -474,10 +474,10 @@ var source = {
 		if (title.includes("Save"))
 			{
 				json = {
-				     "itemId": $("#SelectedItemId").val(),
- 					 "clientId": $("#SelectedClientNameId").val(),
+				     "itemId": $("#SelectedItemId").val()==''?null:$("#SelectedItemId").val(),
+ 					 "clientId": $("#SelectedClientNameId").val()==''?null:$("#SelectedClientNameId").val(),
 			         "notes": $("#notes").val(),
-					 "paymentMethodId":$("#dropdownPaymentMethod").val(),
+					 "paymentMethodId":$("#dropdownPaymentMethod").val()==''?null:$("#dropdownPaymentMethod").val(),
 				     "downPayment":$("#downPayment").val(),
 					 "downPaymentCard":$("#downPaymentCard").val()==''?null:$("#downPaymentCard").val(),
 				     "totalPrice":$("#SelectedSellingPrice").val(),
@@ -892,7 +892,7 @@ $("#deferredPayment").change(function(){
 });
 
 function editRow(row)
-{
+{      resetFields();
 		editrow = row;
  					var dataRecord = $("#grid").jqxGrid('getrowdata', editrow);
 				

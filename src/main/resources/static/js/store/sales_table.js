@@ -393,7 +393,7 @@ var source = {
  				cellsrenderer: function(row) {
 		          editrow = row;
  				var dataRecord = $("#grid").jqxGrid('getrowdata', editrow);
-	                debugger;
+	               
 					if(dataRecord.paymentStatus=='1')
  					return '<input type="button" value="Edit" id="jqxButton" onclick="editRow('+row+')" style="height: 100%; width: 100%;" class="jqx-rc-all jqx-rc-all-material-purple jqx-button jqx-button-material-purple jqx-widget jqx-widget-material-purple buttonRipple jqx-fill-state-normal jqx-fill-state-normal-material-purple" />';
  				}
@@ -425,7 +425,6 @@ var source = {
       });
 
  $("#Save").on('click', function() {
-	debugger;
 	 var selectedrowindex;
      var rowid;
      var rowdata;
@@ -870,14 +869,25 @@ var source = {
 	}
    
 $("#deferredPayment").change(function(){
- if($("#deferredPayment").val()!=0)
+ if($("#deferredPayment").val()>0)
 			{
 				$("#isDefered").empty();
 				$("#isDefered").append('<div class="notifyDefered"><i class="fa-solid fa-circle-exclamation"></i>&nbsp;YES</div>');
+			    $("#isGreater").empty();
+				$('#Save'). prop('disabled', false);
+			}
+			else if($("#deferredPayment").val()<0){
+				$("#isGreater").empty();
+				$("#isGreater").append('<div class="notifyDefered"><i class="fa-solid fa-circle-exclamation"></i>&nbsp;Down Payment is greater than price</div>');
+			    $("#isDefered").empty();
+				$("#deferredPayment").val(null);
+				$('#Save'). prop('disabled', true);
 			}
 			else {
 				$("#isDefered").empty();
 				$("#isDefered").append('<div class="noDefered"><i class="fa-solid fa-circle-check"></i>&nbsp;NO</div>');
+			    $("#isGreater").empty();
+				$('#Save'). prop('disabled', false);
 			}
 });
 

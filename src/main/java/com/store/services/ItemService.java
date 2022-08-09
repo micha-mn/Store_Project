@@ -66,7 +66,7 @@ public class ItemService {
 	    		        .build();
 	     status= StatusEnum.ITEM_SAVED.value;
 	     ItemsView = findByID(itemRepository.save(item).getId());
-	     namingSequenceservice.updateItemSupplierSequence(itemDTO.getSuppCode());
+	     namingSequenceservice.updateItemSupplierSequence(itemDTO.getSuppCode(),namingSequenceservice.getSupplierCode(itemDTO.getSuppCode()).getItemSequence());
 		}
 		else 
 			{ 

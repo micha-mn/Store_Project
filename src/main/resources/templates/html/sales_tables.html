@@ -17,7 +17,75 @@
 	<link id="pagestyle" href="/css/soft-ui-dashboard.css" rel="stylesheet" />
 	<link id="pagestyle" href="/css/modal.css" rel="stylesheet" />
 	<link id="pagestyle" href="/css/bootstrap.min.css" rel="stylesheet" /> </head>
+<style>
+.blinking {
+    -webkit-animation: 1s blink ease infinite;
+    -moz-animation: 1s blink ease infinite;
+    -ms-animation: 1s blink ease infinite;
+    -o-animation: 1s blink ease infinite;
+    animation: 1s blink ease infinite;
+  }
 
+  @keyframes "blink" {
+
+    from,
+    to {
+      opacity: 0.5;
+    }
+
+    50% {
+      opacity: 1;
+    }
+  }
+
+  @-moz-keyframes blink {
+
+    from,
+    to {
+      opacity: 0.5;
+    }
+
+    50% {
+      opacity: 1;
+    }
+  }
+
+  @-webkit-keyframes "blink" {
+
+    from,
+    to {
+      opacity: 0.5;
+    }
+
+    50% {
+      opacity: 1;
+    }
+  }
+
+  @-ms-keyframes "blink" {
+
+    from,
+    to {
+      opacity: 0.5;
+    }
+
+    50% {
+      opacity: 1;
+    }
+  }
+
+  @-o-keyframes "blink" {
+
+    from,
+    to {
+      opacity: 0.5;
+    }
+
+    50% {
+      opacity: 1;
+    }
+  }
+</style>
 <body class="g-sidenav-show  bg-gray-100">
 	<aside class="sidenav navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-3 " id="sidenav-main">
 		<div class="sidenav-header"> <i class="fas fa-times p-3 cursor-pointer text-secondary opacity-5 position-absolute end-0 top-0 d-none d-xl-none" aria-hidden="true" id="iconSidenav"></i>
@@ -98,7 +166,7 @@
 							</svg>
 						</div> <span class="nav-link-text ms-1">Sale</span> </a>
 				</li>
-				<li class="nav-item">
+				<li class="nav-item d-none">
 					<a class="nav-link " href="/retail/reports">
 						<div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
 							<svg width="12px" height="12px" viewBox="0 0 42 42" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -219,7 +287,7 @@
 			</div>
 			<div id="window">
 				<div id="windowHeader"> <span>  </span> </div>
-				<form class="p-5" id="sale_form">
+				<form class="pl-5 pr-5 pb-6 overflow-hidden " id="sale_form">
 				<input type="hidden" class="form-control" id="saleId" disabled> 
 					<div class="form-row">
 							<div class="form-group col-md-6">
@@ -348,7 +416,11 @@
 						<div class="form-group col-md-6">
 							<label for="inputDescription">Notes</label>
 							<input type="text" class="form-control" id="notes" placeholder="Notes" required> </div>
-						
+						<div class="form-group col-md-6">
+						<label for="inputDescription">&nbsp;</label>
+						     <div id="isGreater" class="blinking" ></div>
+						</div>
+					</div>
 					
 						<div class="form-row">
 							<div class="form-group col-md-6">
@@ -363,7 +435,6 @@
 								</div>
 							</div>
 						</div>
-					</div>
 					
 				</form>
 			</div>

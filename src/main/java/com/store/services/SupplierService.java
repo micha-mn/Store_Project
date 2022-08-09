@@ -57,7 +57,8 @@ public class SupplierService {
 									.instagram(supplierDTO.getInstagram()).build();
 		
 		    supplierRepository.save(supplier);
-		    namingSequenceservice.updateSupplierSequence();	
+		    
+		    namingSequenceservice.SaveNewSupplierSequence(supplierCode);
 		    supplierStatus = StatusEnum.SUPPLIER_SAVED.value;
 			 }
 			 else {
@@ -87,6 +88,7 @@ public class SupplierService {
 		boolean isInItem = itemService.checkifSuppCodeExistsInItem(supplier.get().getSuppCode());
 		if(!isInItem)
 		{supplierRepository.deleteById(id);
+		namingSequenceservice.deleteItemSuppSequence(supplier.get().getSuppCode());
 		return StatusEnum.SUPPLIER_DELETED.value;
 		}
 	else 

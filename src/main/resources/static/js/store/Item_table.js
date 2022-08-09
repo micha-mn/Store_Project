@@ -366,6 +366,7 @@ $("#messageNotification_b").jqxNotification({
 					$("#itemCode").val(dataRecord.itemCode);
 				
  					$("#dropdownlistSupp_u").jqxDropDownList('selectItem', dataRecord.suppCode ); 
+				    $("#dropdownlistSupp_u").jqxDropDownList({disabled: true});
 				    $("#conditionDropDown_u").jqxDropDownList('selectItem', dataRecord.condition ); 
 
 		 			$("#SelectedBrandId_u").val(dataRecord.brandId);

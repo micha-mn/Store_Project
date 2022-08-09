@@ -66,13 +66,13 @@ public class ItemService {
 	    		        .build();
 	     status= StatusEnum.ITEM_SAVED.value;
 	     ItemsView = findByID(itemRepository.save(item).getId());
-	     namingSequenceservice.updateItemSequence();
+	     namingSequenceservice.updateItemSupplierSequence(itemDTO.getSuppCode());
 		}
 		else 
 			{ 
-			Item OldItem = getItem(itemDTO.getId());
-			if(!OldItem.getSuppCode().equalsIgnoreCase(itemDTO.getSuppCode()))
-				 itemDTO.setItemCode(commonUtils.updateItemCode(itemDTO.getItemCode(),itemDTO.getSuppCode()));
+			//Item OldItem = getItem(itemDTO.getId());
+			//if(!OldItem.getSuppCode().equalsIgnoreCase(itemDTO.getSuppCode()))
+			//	 itemDTO.setItemCode(commonUtils.updateItemCode(itemDTO.getItemCode(),itemDTO.getSuppCode()));
 			item = Item.builder()
 				        .id(itemDTO.getId())
 				        .suppCode(itemDTO.getSuppCode())

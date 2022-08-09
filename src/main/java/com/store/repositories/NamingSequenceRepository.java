@@ -21,9 +21,9 @@ public interface NamingSequenceRepository extends JpaRepository<NamingSequence, 
      
      @Transactional
      @Modifying
-     @Query(value = "update naming_sequence set item_sequence = (select count(1)+1 from items where supp_code = :suppCode) where supp_code= :suppCode",
+     @Query(value = "update naming_sequence set item_sequence = :itemSequence where supp_code= :suppCode",
        nativeQuery = true)
-       void updateItemSupplierSequence(@Param("suppCode") String suppCode);
+       void updateItemSupplierSequence(@Param("suppCode") String suppCode,@Param("itemSequence") String itemSequence);
      
 	public NamingSequence findBySuppCode(String supplierCode);
 	

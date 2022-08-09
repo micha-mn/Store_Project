@@ -37,9 +37,9 @@ public class NamingSequenceService {
 	{      
         return namingSequenceRepository.findBySuppCode(supplierCode);
 	}
-	public void updateItemSupplierSequence(String suppCode) {
-		
-		namingSequenceRepository.updateItemSupplierSequence(suppCode);	
+	public void updateItemSupplierSequence(String suppCode, String itemSequence ) {
+		int value = Integer.parseInt(itemSequence)+1;
+		namingSequenceRepository.updateItemSupplierSequence(suppCode,String.valueOf(value));	
 		
 	}
 	public void deleteItemSuppSequence(String suppCode) {

@@ -320,28 +320,10 @@ $("#messageNotification_b").jqxNotification({
  					editrow = row;
  					var offset = $("#grid").offset();
  					var dataRecord = $("#grid").jqxGrid('getrowdata', editrow);
+			
 				
-				window.open("/report/generatereport/ITEMBARCODE/"+dataRecord.id);
-				/*var settings = {
-					  "url": "/report/generatereport",
-					  "method": "POST",
-					  "headers": {
-					    "Authorization": "Bearer " + getJwt(),
-					    "Content-Type": "application/json"
-					  },
-			 		   // xhrFields: { responseType: 'arraybuffer'},
-					  "data": JSON.stringify({
-					    "reportCode": "ITEMBARCODE",
-					    "param1": dataRecord.id
-					  }),
-					};
-					
-					$.ajax(settings).done(function (response) {
-					  var blob = new Blob([response], {type: 'application/pdf'});
-					  var blobURL = URL.createObjectURL(blob);
-					  window.open(blobURL);
-					});
-					*/
+				window.open("/report/generatereport?reportManagementDTO="+encodeURIComponent(JSON.stringify({"reportCode": "ITEMBARCODE","param1": dataRecord.id})));
+				
  				}
  			},
  			{

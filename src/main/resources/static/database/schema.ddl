@@ -50,12 +50,6 @@ CREATE TABLE IF NOT EXISTS public.supplier
 );
 
 CREATE SEQUENCE supp_sequence START 1;
-CREATE SEQUENCE item_sequence START 1;
-
-CREATE TABLE IF NOT EXISTS naming_sequence (
-    supp_sequence VARCHAR ( 255 ) NOT NULL,
-    item_sequence VARCHAR ( 255 ) NOT NULL
-);
 
 CREATE TABLE IF NOT EXISTS public.brand
 (
@@ -231,4 +225,11 @@ CREATE TABLE IF NOT EXISTS public.payment_history
     CONSTRAINT payment_history_pkey PRIMARY KEY (id)
 );
 
- 
+CREATE TABLE IF NOT EXISTS public.naming_sequence
+(
+    id bigint NOT NULL,
+    item_sequence character varying(255) COLLATE pg_catalog."default",
+    supp_code character varying(255) COLLATE pg_catalog."default",
+    supp_sequence character varying(255) COLLATE pg_catalog."default",
+    CONSTRAINT naming_sequence_pkey PRIMARY KEY (id)
+) 

@@ -145,7 +145,84 @@
 		</nav>
 		<!-- End Navbar -->
 		<div class="container-fluid py-4" id="jqxWidget">
-
+			<div class="col-3">
+				<label for="reportdropdown">Select a Report</label>
+				<div id="reportdropdown"></div>
+			</div>
+		<div class="col-6 d-none" id="SalesStatementsDate">
+		<div class="d-flex">
+			<div class="form-group col-md-6 pl-0">
+							<label for="From Date ">From Date</label>
+								<div id='fromDate'></div>
+							 </div>
+							 	<div class="form-group col-md-6">
+							<label for="To Date ">To Date</label>
+								<div id='toDate'></div>
+							 </div>
+							  </div>
+			</div>
+			<label >&nbsp;</label>
+			<div class="col-6 d-none" id="SalesStatementsClient">
+					<div class="d-flex">
+											<div class="col-10 p-0">
+												<input type="hidden" class="form-control" id="SelectedClientNameId"
+													placeholder=" Client Name" disabled> <input type="text"
+													class="form-control" id="SelectedClientName"
+													placeholder=" Client Name" disabled> 
+													</div>
+											<button type="button" class="btn bg-outline-primary ml-3"
+												onclick="openGridWindow('#ClientWindowGrid','Client')">
+												<i class="fa-solid fa-search"></i>
+											</button>
+											
+					</div>
+		</div>
+		<div class="col-12 d-flex"> 
+		
+		<div> 
+			<button type="button" id="pdfreport" class="btn bg-gradient-primary mt-4 mb-0">SHOW PDF REPORT</button>
+		</div><div class="col-4"> 
+			<button type="button" id="excelreport" class="btn bg-outline-primary mt-4 mb-0">DOWNLOAD EXCEL REPORT</button>
+		</div>
+		</div>
+		<div id="windowContainer" class="d-none">
+					<div id="ClientWindowGrid">
+						<div id="windowHeader"> <span>  </span> </div>
+						<form class="p-5" id="client_form_update" onSubmit="return false;">
+							<div class="col-2 p-0">
+												<button type="button" id="go to client"
+													class="btn bg-gradient-primary" onclick="location.href = '/retail/client';">go to
+													client</button>
+											</div>
+								<div class="form-row">
+									<div class="form-group col-md-12">
+										<div id="ClientGrid"></div>
+									</div>
+								</div>
+								<div class="form-row">
+								<div class="form-group col-md-12 ">
+										<div class="form-group d-flex">
+											<div>
+												<button type="button" id="jqxSelectClient"
+													class="btn bg-outline-primary ">select</button>
+											</div>
+		
+											<div class="col-6"></div>
+											
+										</div>
+									
+							</div>
+								<div class="form-group col-md-12">
+									<div id="container_C" style="width: '100%'; height: 30px;">
+										<div id="messageNotification_C">
+											<div id="notificationText_C"></div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</form>
+					</div>
+			</div>
 		</div>
 		<!-- Modal HTML -->
 		<div id="ConfirmationModal" class="modal fade">

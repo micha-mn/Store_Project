@@ -3,8 +3,8 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="sales_statements _date_report" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" isFloatColumnFooter="true" uuid="e63fcbca-b0f4-497d-b841-9e60979c1aa2">
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="New Data Adapter"/>
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
-	<parameter name="fromDate" class="java.util.Date"/>
-	<parameter name="toDate" class="java.util.Date"/>
+	<parameter name="fromDate" class="java.lang.String"/>
+	<parameter name="toDate" class="java.lang.String"/>
 	<queryString>
 		<![CDATA[SELECT s.id,
     s.item_id,
@@ -18,7 +18,7 @@
     brand b
   WHERE s.item_id::integer = i.id 
   AND i.brand_id::integer = b.id 
-  and s.selling_date between  $P{fromDate}  and  $P{toDate} ;]]>
+  and s.selling_date between  to_timestamp($P{fromDate},'yyyy-MM-dd hh24:mi')  and  to_timestamp($P{toDate},'yyyy-MM-dd hh24:mi')  ;]]>
 	</queryString>
 	<field name="id" class="java.lang.Long">
 		<property name="com.jaspersoft.studio.field.name" value="id"/>
@@ -82,7 +82,7 @@
 				<textElement>
 					<font size="10"/>
 				</textElement>
-				<textFieldExpression><![CDATA["From Date "+  new SimpleDateFormat("yyyy-MM-dd").format($P{fromDate})+" To Date "+   new SimpleDateFormat("yyyy-MM-dd").format($P{toDate})]]></textFieldExpression>
+				<textFieldExpression><![CDATA["From Date "+  $P{fromDate}+" To Date "+   $P{toDate}]]></textFieldExpression>
 			</textField>
 		</band>
 	</pageHeader>

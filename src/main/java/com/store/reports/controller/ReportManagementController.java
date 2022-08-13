@@ -57,7 +57,7 @@ public class ReportManagementController extends ValidationUtils{
 	 @GetMapping("/generatereport")
 		public ResponseEntity<?> generateReports(@RequestParam ReportManagementDTO reportManagementDTO,HttpServletResponse response)throws JsonMappingException, JsonProcessingException {
 			try {
-				reportManagementUtil.exportToPdf(reportManagementDTO,response);
+				reportManagementUtil.exportReport(reportManagementDTO,response);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}

@@ -96,7 +96,7 @@
 		<band height="59" splitType="Stretch">
 			<image>
 				<reportElement x="0" y="8" width="50" height="50" uuid="b665c944-52a6-4dee-92c9-c9a1055edc9a"/>
-				<imageExpression><![CDATA["http://localhost:8080/img/PP%20Logo.png"]]></imageExpression>
+				<imageExpression><![CDATA["/img/PP%20Logo.png"]]></imageExpression>
 			</image>
 			<staticText>
 				<reportElement x="153" y="0" width="272" height="30" uuid="f5890797-2eb0-404c-8836-5d914745c0d6"/>

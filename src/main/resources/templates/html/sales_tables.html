@@ -299,7 +299,7 @@
 											class="form-control" id="SelectedClientName"
 											placeholder=" Client Name" disabled> 
 											</div>
-									<button type="button" class="btn bg-outline-primary ml-3"
+									<button type="button" class="btn bg-outline-primary ml-3" id="clientGrid"
 										onclick="openGridWindow('#ClientWindowGrid','Client')">
 										<i class="fa-solid fa-search"></i>
 									</button>
@@ -347,7 +347,7 @@
 									</div>
 								</div>
 								 <div class="col-1">
-								 <button type="button" class="btn bg-outline-primary mt-4"
+								 <button type="button" class="btn bg-outline-primary mt-4" id="itemGrid"
 										onclick="openGridWindow('#ItemWindowGrid','Item')">
 										<i class="fa-solid fa-search"></i>
 									</button>
@@ -363,24 +363,24 @@
 										<div id="dropdownPaymentMethod"> </div> 
 								</div>
 						</div>
-						 <div class="form-group col-md-4" id="downPaymentForm">
-								<label for="brand">Down Payment</label>
+						 <div class="form-group col-md-4" id="cashPaymentForm">
+								<label for="brand">Cash Payment (EUR)</label>
 								<div class="d-flex">
 										<div class="col-10 p-0">
-											<input type="number" class="form-control" id="downPayment" placeholder="Down Payment" disabled>
+											<input type="number" class="form-control" id="cashPayment" placeholder="Cash Payment" disabled>
 									</div>
 								</div>
 						</div>
-						 <div class="form-group col-md-3  d-none" id="downPaymentCardInput">
-								<label for="brand">Down Payment card</label>
+						 <div class="form-group col-md-3  d-none" id="otherPaymentForm">
+								<label for="brand">Other Payment (EUR)</label>
 								<div class="d-flex">
 										<div class="col-10 p-0">
-											<input type="number" class="form-control" id="downPaymentCard" placeholder="Down Payment Card">
+											<input type="number" class="form-control" id="otherPayment" placeholder="Other Payment">
 										</div>
 								</div>
 						</div>
 						 <div class="form-group col-md-4" id="deferredPaymentForm">
-								<label for="brand">Deferred Payment Amount</label>
+								<label for="brand">Deferred Payment Amount (EUR)</label>
 									<div class="d-flex">
 											<div class="col-10 p-0">
 												<input type="number" class="form-control" id="deferredPayment" placeholder="Deferred Payment Amount" disabled>
@@ -391,7 +391,7 @@
 						<div class="form-row">
 						<div class="form-group col-md-3">
 							<div id="TotalPaymentForm" class="d-none">
-								<label for="brand">Total Payments</label>
+								<label for="brand">Total Payments (EUR)</label>
 										<div class="d-flex">
 												<div class="col-10 p-0">
 												  <input type="hidden" class="form-control" id="totalPrice" disabled>

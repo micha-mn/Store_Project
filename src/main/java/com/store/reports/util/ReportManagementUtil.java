@@ -15,12 +15,21 @@ import com.store.reports.dto.ReportManagementDTO;
 import com.store.reports.service.ReportManagementService;
 
 import jakarta.servlet.http.HttpServletResponse;
+import net.sf.jasperreports.engine.JRExporter;
+import net.sf.jasperreports.engine.JRExporterParameter;
 import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.export.JRPdfExporter;
+import net.sf.jasperreports.engine.export.JRXlsExporter;
+import net.sf.jasperreports.engine.export.JRXlsExporterParameter;
+import net.sf.jasperreports.engine.export.ooxml.JRXlsxExporter;
 import net.sf.jasperreports.engine.util.JRSaver;
+import net.sf.jasperreports.export.SimpleExporterInput;
+import net.sf.jasperreports.export.SimpleOutputStreamExporterOutput;
+import net.sf.jasperreports.export.SimpleXlsxReportConfiguration;
 
 @Service
 public class ReportManagementUtil {
@@ -94,6 +103,40 @@ public class ReportManagementUtil {
             outputStream.write("Exception Reading Report".getBytes());
         } finally {
             outputStream.flush();
+            outputStream.close();
+        }
+    }
+	public void exportReport(ReportManagementDTO reportManagementDTO, HttpServletResponse response) throws Exception {
+        OutputStream outputStream = response.getOutputStream();
+       
+        try {
+        	 
+        	 JasperPrint jasperPrint = getJasperRepoortPrint(reportManagementDTO);
+        	  if (reportManagementDTO.getIsExcel().equalsIgnoreCase("true")) {
+        		  JRXlsxExporter exporter = new JRXlsxExporter();
+	    	        SimpleXlsxReportConfiguration reportConfigXLS = new SimpleXlsxReportConfiguration();
+	    	        reportConfigXLS.setSheetNames(new String[] { "sheet1" });
+	    	        exporter.setConfiguration(reportConfigXLS);
+	    	        exporter.setExporterInput(new SimpleExporterInput(jasperPrint));
+	    	        exporter.setExporterOutput(new SimpleOutputStreamExporterOutput(response.getOutputStream()));
+	    	        response.setHeader("Content-Disposition", "attachment;filename="+reportManagementDTO.getReportFileName()+".xlsx");
+	    	        response.setContentType("application/octet-stream");
+	    	        exporter.exportReport();
+	    	        
+        	        outputStream.flush();
+        	        
+        	  } else {
+        	    response.setContentType("application/pdf");
+        	    JasperExportManager.exportReportToPdfStream(jasperPrint, outputStream);
+
+                outputStream.flush();
+        	  }
+           
+         
+        } catch (Exception e) {
+            e.printStackTrace();
+            outputStream.write("Exception Reading Report".getBytes());
+        } finally {
             outputStream.close();
         }
     }

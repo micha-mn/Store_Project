@@ -67,3 +67,19 @@ INSERT INTO public.payment_method(id, name)VALUES (6, 'Other');
 INSERT INTO public.payment_status(id, name)VALUES (1, 'Sold and partial payment done');
 INSERT INTO public.payment_status(id, name)VALUES (2, 'Sold and full payment done');
 	
+INSERT INTO public.report_management(
+	id, param1, param2, parameter_counter, report_code,  report_jrxml_path, report_name, static_path)
+	VALUES (2, 'fromDate', 'toDate', '2', 'SALESTATEMENT', '/src/main/resources/static/report/salesStatements.jrxml', 'salesStatements', '/src/main/resources/static/report/');
+
+INSERT INTO public.report_management(
+id, param1, parameter_counter, report_code,  report_jrxml_path, report_name, static_path)
+VALUES (3, 'client',  '1', 'SSCLIENT', '/src/main/resources/static/report/SSClient.jrxml', 'SSClient', '/src/main/resources/static/report/');
+
+INSERT INTO public.report_management(
+id, param1, parameter_counter, report_code,  report_jrxml_path, report_name, static_path)
+VALUES (4, 'supp_code',  '1', 'SSSUPPLIER', '/src/main/resources/static/report/SSSupplier.jrxml', 'SSSupplier', '/src/main/resources/static/report/');
+
+
+INSERT INTO public.report_management(
+id, param1, parameter_counter, report_code,  report_jrxml_path, report_name, static_path)
+VALUES (5, 'payment_method',  '1', 'PAYMENTREPORT', '/src/main/resources/static/report/paymentReport.jrxml', 'paymentReport', '/src/main/resources/static/report/');

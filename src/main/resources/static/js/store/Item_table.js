@@ -322,7 +322,7 @@ $("#messageNotification_b").jqxNotification({
  					var dataRecord = $("#grid").jqxGrid('getrowdata', editrow);
 			
 				
-				window.open("/report/generatereport?reportManagementDTO="+encodeURIComponent(JSON.stringify({"reportCode": "ITEMBARCODE","param1": dataRecord.id})));
+				window.open("/report/generatereport?reportManagementDTO="+encodeURIComponent(JSON.stringify({"reportCode": "ITEMBARCODE","param1": dataRecord.id,"isExcel":"false"})));
 				
  				}
  			},

@@ -32,7 +32,7 @@ var dataAdapter ;
  		}else {
 	 $("#dropdownPaymentMethod").jqxDropDownList({disabled: false});
 	 $("#dropdownPaymentMethod").jqxDropDownList('open' ); 
-     $("#downPayment").prop( "disabled", false );
+     $("#cashPayment").prop( "disabled", false );
 
 	   }
      });
@@ -54,29 +54,45 @@ var dataAdapter ;
 		
 		    var value = (item!=null)?item.value:null;
 		    if(value!=null)
-				if (value==3)
+				if (value==1)
+				{
+					$("#paymentMethodForm").removeClass("col-md-3").addClass("col-md-4");
+					$("#cashPaymentForm").removeClass("col-md-3").addClass("col-md-4");
+					$("#deferredPaymentForm").removeClass("col-md-3").addClass("col-md-4");
+					$("#cashPaymentForm").removeClass("d-none");
+					$("#otherPaymentForm").addClass("d-none");
+					if($("#cashPayment").val().length!=0)
+			            {
+				        $("#deferredPayment").trigger("change");
+						$("#deferredPayment").val(price-$("#cashPayment").val());
+						}  
+				}
+				else if (value==3)
 				   {
 					$("#paymentMethodForm").removeClass("col-md-4").addClass("col-md-3");
-					$("#downPaymentForm").removeClass("col-md-4").addClass("col-md-3");
+					$("#cashPaymentForm").removeClass("col-md-4").addClass("col-md-3");
+					$("#otherPaymentForm").removeClass("col-md-4").addClass("col-md-3");
 					$("#deferredPaymentForm").removeClass("col-md-4").addClass("col-md-3");
-					$("#downPaymentCardInput").removeClass("d-none");
-		            $("#downPaymentCard").val(null);
-						if($("#downPayment").val().length!=0)
+					$("#otherPaymentForm").removeClass("d-none");
+					$("#cashPaymentForm").removeClass("d-none");
+		            $("#otherPayment").val(null);
+						if($("#cashPayment").val().length!=0)
 			            {	
-							$("#deferredPayment").val(price-($("#downPayment").val()+$("#downPaymentCard").val()));
+							$("#deferredPayment").val(price-($("#cashPayment").val()+$("#cashPaymentCard").val()));
 						    $("#deferredPayment").trigger("change");
 						}     
 					}
 				else
 					{
 					$("#paymentMethodForm").removeClass("col-md-3").addClass("col-md-4");
-					$("#downPaymentForm").removeClass("col-md-3").addClass("col-md-4");
+					$("#otherPaymentForm").removeClass("col-md-3").addClass("col-md-4");
 					$("#deferredPaymentForm").removeClass("col-md-3").addClass("col-md-4");
-					$("#downPaymentCardInput").addClass("d-none");
-					if($("#downPayment").val().length!=0)
+					$("#otherPaymentForm").removeClass("d-none");
+					$("#cashPaymentForm").addClass("d-none");
+					if($("#otherPayment").val().length!=0)
 			            {
 				        $("#deferredPayment").trigger("change");
-						$("#deferredPayment").val(price-$("#downPayment").val());
+						$("#deferredPayment").val(price-$("#otherPayment").val());
 						}  
 					}
 			
@@ -168,11 +184,11 @@ var source = {
  				type: 'string'
  			},
  			{
- 				name: 'downPayment',
+ 				name: 'cashPayment',
  				type: 'float'
  			},
  			{
- 				name: 'downPaymentCard',
+ 				name: 'otherPayment',
  				type: 'float'
  			},
  			{
@@ -270,7 +286,7 @@ var source = {
  				text: 'Item code',
 			    hidden: config.itemCode,
  				datafield: 'itemCode',
- 				width: '10%',
+ 				width: '8%',
  				createfilterwidget: function (column, columnElement, widget) {
 			        widget.jqxInput({ width: '100%', height: 27, placeHolder: "Enter Code" });
 				  }
@@ -279,7 +295,7 @@ var source = {
  				text: 'Client name',
 				hidden: config.clientName,
  				datafield: 'clientName',
- 				width: '13%',
+ 				width: '9%',
  				createfilterwidget: function (column, columnElement, widget) {
 			        widget.jqxInput({ width: '100%', height: 27, placeHolder: "Enter Client name" });
 				  }
@@ -308,23 +324,23 @@ var source = {
 				  }
  			},
  			{
- 				text: 'Down Payment',
-				hidden: config.downPayment,
- 				datafield: 'downPayment',
- 				width: '8%',
+ 				text: 'Cash Payment(EUR)',
+				hidden: config.cashPayment,
+ 				datafield: 'cashPayment',
+ 				width: '11%',
 			  cellsformat: 'D2',
  				createfilterwidget: function (column, columnElement, widget) {
-			        widget.jqxInput({ width: '100%', height: 27, placeHolder: "Enter Down Payment" });
+			        widget.jqxInput({ width: '100%', height: 27, placeHolder: "Enter Cash Payment" });
 				  }
  			},
  			{
- 				text: 'Down Payment Card',
-				hidden: config.downPaymentCard,
- 				datafield: 'downPaymentCard',
- 				width: '8%',
+ 				text: 'Other Payment(EUR)',
+				hidden: config.otherPayment,
+ 				datafield: 'otherPayment',
+ 				width: '11%',
 			  cellsformat: 'D2',
  				createfilterwidget: function (column, columnElement, widget) {
-			        widget.jqxInput({ width: '100%', height: 27, placeHolder: "Enter Down Payment Card" });
+			        widget.jqxInput({ width: '100%', height: 27, placeHolder: "Enter Other Payment" });
 				  }
  			},
  				{
@@ -451,15 +467,15 @@ var source = {
  			$("#notificationText").append("Payment method is required");
  			$("#messageNotification").jqxNotification("open");
  		}
-	   else if ($("#downPayment").val().length === 0) {
+	   else if ($("#cashPayment").val().length === 0 && $("#otherPayment").val().length === 0) {
  			$("#notificationText").empty();
  			$("#messageNotification").jqxNotification({
  				template: "info"
  			});
- 			$("#notificationText").append("Down payment is required");
+ 			$("#notificationText").append("Payment amount is required");
  			$("#messageNotification").jqxNotification("open");
  		}
-	   else if ($("#dropdownPaymentMethod").val() == 3 && $("#downPaymentCard").val().length === 0) {
+	   else if ($("#dropdownPaymentMethod").val() == 3 && $("#otherPayment").val().length === 0) {
 
  			$("#notificationText").empty();
  			$("#messageNotification").jqxNotification({
@@ -478,8 +494,8 @@ var source = {
  					 "clientId": $("#SelectedClientNameId").val()==''?null:$("#SelectedClientNameId").val(),
 			         "notes": $("#notes").val(),
 					 "paymentMethodId":$("#dropdownPaymentMethod").val()==''?null:$("#dropdownPaymentMethod").val(),
-				     "downPayment":$("#downPayment").val(),
-					 "downPaymentCard":$("#downPaymentCard").val()==''?null:$("#downPaymentCard").val(),
+				     "cashPayment":$("#cashPayment").val()==''?null:$("#cashPayment").val(),
+					 "otherPayment":$("#otherPayment").val()==''?null:$("#otherPayment").val(),
 				     "totalPrice":$("#SelectedSellingPrice").val(),
  					 "deferredPayment":$("#deferredPayment").val(),
 			         "paymentStatus":$("#deferredPayment").val()>0?'1':'2',
@@ -491,7 +507,8 @@ var source = {
 				    selectedrowindex = $('#grid').jqxGrid('getselectedrowindexes');
 				    rowid = $('#grid').jqxGrid('getrowid', selectedrowindex);
   				    rowdata=$('#grid').jqxGrid('getrowdata', selectedrowindex);
-                    downPaymentCard=eval(isNaN(rowdata.downPaymentCard)?rowdata.downPaymentCard.replaceAll(",",""):rowdata.downPaymentCard)
+					var cashPayment=eval(isNaN(rowdata.cashPayment)?rowdata.cashPayment.replaceAll(",",""):rowdata.cashPayment);
+                    var otherPayment=eval(isNaN(rowdata.otherPayment)?rowdata.otherPayment.replaceAll(",",""):rowdata.otherPayment);
 				json = {
 					"id":$("#saleId").val(),
 					"action" :'update',
@@ -499,8 +516,8 @@ var source = {
  				     "clientId": $("#SelectedClientNameId").val(),
 			         "notes": $("#notes").val(),
 	                 "paymentMethodId":$("#dropdownPaymentMethod").val(),
-				     "downPayment":eval(isNaN(rowdata.downPayment)?rowdata.downPayment.replaceAll(",",""):rowdata.downPayment)+eval($("#downPayment").val()),
-					 "downPaymentCard":$("#downPaymentCard").val()==''?downPaymentCard:(downPaymentCard!=null?downPaymentCard+eval($("#downPaymentCard").val()):$("#downPaymentCard").val()),
+				     "cashPayment":$("#cashPayment").val()==''?cashPayment:(cashPayment!=null?cashPayment+eval($("#cashPayment").val()):$("#cashPayment").val()),
+					 "otherPayment":$("#otherPayment").val()==''?otherPayment:(otherPayment!=null?otherPayment+eval($("#otherPayment").val()):$("#otherPayment").val()),
 				     "totalPrice":$("#totalPrice").val(),
  					 "deferredPayment":$("#deferredPayment").val(),
 			         "paymentStatus":$("#deferredPayment").val()>0?'1':'2',
@@ -541,8 +558,8 @@ var source = {
 						var dataAdapter = new $.jqx.dataAdapter(source);
 					           data.sellingDate =  dataAdapter.formatDate(new Date(data.sellingDate), 'dd-MMM-yy HH:mm' );
 							   data.lastModifiedDate =  dataAdapter.formatDate(new Date(data.lastModifiedDate),'dd-MMM-yy HH:mm' );
-					           data.downPayment = dataAdapter.formatNumber( data.downPayment,'D2');
-							   data.downPaymentCard = dataAdapter.formatNumber(data.downPaymentCard,'D2');
+					           data.cashPayment = dataAdapter.formatNumber( data.cashPayment,'D2');
+							   data.otherPayment = dataAdapter.formatNumber(data.otherPayment,'D2');
 				               data.deferredPayment = dataAdapter.formatNumber(data.deferredPayment,'D2');
 					         $('#grid').jqxGrid('updaterow', rowid, data );
 
@@ -684,8 +701,8 @@ var source = {
 					 $("#SelectedItemDescription").val(data.description);
 					 $("#SelectedSellingPrice").val(data.sellingPrice);
 				     $('#ItemWindowGrid').jqxWindow('close');
-                     if($("#downPayment").val().length != 0)
-                        $("#deferredPayment").val($("#SelectedSellingPrice").val()-$("#downPayment").val());
+                     if($("#cashPayment").val().length != 0)
+                        $("#deferredPayment").val($("#SelectedSellingPrice").val()-$("#cashPayment").val());
 	                }
 	                 $('#ItemWindowGrid').jqxWindow('close');
 			  } 
@@ -806,6 +823,8 @@ var source = {
  function openWindow(title,action) {
 	if(action=="save")
 	{
+	$('#clientGrid').prop('disabled', false);
+ 	$('#itemGrid').prop('disabled', false);
 	resetFields()
     // reset all input values
 	}
@@ -831,20 +850,21 @@ var source = {
 		$("#SelectedClientName").val(null);
 		$("#SelectedClientNameId").val(null);
 		$("#notes").val(null);
-	    $("#downPayment").prop( "disabled", true );
+	    $("#cashPayment").prop( "disabled", true );
 		$("#dropdownPaymentMethod").jqxDropDownList({disabled: true ,selectedIndex: -1});
 		$("#paymentMethodForm").removeClass("col-md-3").addClass("col-md-4");
-		$("#downPaymentForm").removeClass("col-md-3").addClass("col-md-4");
+		$("#cashPaymentForm").removeClass("col-md-3").addClass("col-md-4");
 		$("#deferredPaymentForm").removeClass("col-md-3").addClass("col-md-4");
-	    $("#downPayment").val(null);
-        $("#downPaymentCard").val(null);
-        $("#downPaymentCardInput").addClass("d-none");
+		$("#cashPaymentForm").removeClass("d-none");
+	    $("#cashPayment").val(null);
+        $("#otherPayment").val(null);
+        $("#otherPaymentForm").addClass("d-none");
         $("#TotalPaymentForm").addClass("d-none");
         $("#deferredPayment").val(null);
         $("#isDefered").empty();
      }
-	$("#downPayment")[0].addEventListener('input', updateValue);
-    $("#downPaymentCard")[0].addEventListener('input', updateValue);
+	$("#cashPayment")[0].addEventListener('input', updateValue);
+    $("#otherPayment")[0].addEventListener('input', updateValue);
    function updateValue(e) {
 	var title = $('#window').jqxWindow('title');
 	var price; 
@@ -859,10 +879,10 @@ var source = {
            }      
 
 		if ($("#dropdownPaymentMethod").val()==3)
-		{  if(e.currentTarget.id == "downPaymentCard")
-		    $("#deferredPayment").val(price-$("#downPayment").val()-e.target.value);
-          else if(e.currentTarget.id == "downPayment")
-		    $("#deferredPayment").val(price-$("#downPaymentCard").val()-e.target.value);
+		{  if(e.currentTarget.id == "otherPayment")
+		    $("#deferredPayment").val(price-$("#cashPayment").val()-e.target.value);
+          else if(e.currentTarget.id == "cashPayment")
+		    $("#deferredPayment").val(price-$("#otherPayment").val()-e.target.value);
 		}else
 	   $("#deferredPayment").val(price-e.target.value);
        $("#deferredPayment").trigger("change");
@@ -874,25 +894,27 @@ $("#deferredPayment").change(function(){
 				$("#isDefered").empty();
 				$("#isDefered").append('<div class="notifyDefered"><i class="fa-solid fa-circle-exclamation"></i>&nbsp;YES</div>');
 			    $("#isGreater").empty();
-				$('#Save'). prop('disabled', false);
+				$('#Save').prop('disabled', false);
 			}
 			else if($("#deferredPayment").val()<0){
 				$("#isGreater").empty();
 				$("#isGreater").append('<div class="notifyDefered"><i class="fa-solid fa-circle-exclamation"></i>&nbsp;Down Payment is greater than price</div>');
 			    $("#isDefered").empty();
 				$("#deferredPayment").val(null);
-				$('#Save'). prop('disabled', true);
+				$('#Save').prop('disabled', true);
 			}
 			else {
 				$("#isDefered").empty();
 				$("#isDefered").append('<div class="noDefered"><i class="fa-solid fa-circle-check"></i>&nbsp;NO</div>');
 			    $("#isGreater").empty();
-				$('#Save'). prop('disabled', false);
+				$('#Save').prop('disabled', false);
 			}
 });
 
 function editRow(row)
 {      resetFields();
+    $('#clientGrid').prop('disabled', true);
+ 	$('#itemGrid').prop('disabled', true);
 		editrow = row;
  					var dataRecord = $("#grid").jqxGrid('getrowdata', editrow);
 				
@@ -907,11 +929,11 @@ function editRow(row)
 						$("#SelectedClientNameId").val(dataRecord.clientId);
 						$("#notes").val(dataRecord.notes);
 						// $("#dropdownPaymentMethod").jqxDropDownList('selectItem', dataRecord.paymentMethodId ); 
- 					    // $("#downPayment").val(dataRecord.downPayment);
-						// $("#downPaymentCard").val(dataRecord.downPaymentCard);
+ 					    // $("#cashPayment").val(dataRecord.downPayment);
+						// $("#otherPayment").val(dataRecord.otherPayment);
 						 $("#deferredPayment").val(dataRecord.deferredPayment);
 					     $("#totalPrice").val(dataRecord.totalPrice);
-					     $("#TotalPayment").val(eval((isNaN(dataRecord.downPayment)?dataRecord.downPayment.replaceAll(",",""):dataRecord.downPayment))+eval(dataRecord.downPaymentCard));
+					     $("#TotalPayment").val(eval((isNaN(dataRecord.cashPayment)?dataRecord.cashPayment.replaceAll(",",""):dataRecord.cashPayment))+eval(dataRecord.otherPayment));
 					     $("#TotalPaymentForm").removeClass("d-none");
 				     // show the popup window.
  					 openWindow('Update - sale','update');

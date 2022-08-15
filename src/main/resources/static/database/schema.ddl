@@ -175,37 +175,6 @@ CREATE OR REPLACE VIEW public.items_view
     name character varying(40) COLLATE pg_catalog."default",
     CONSTRAINT payment_method_pkey PRIMARY KEY (id)
 );
- 
-CREATE OR REPLACE VIEW public.sales_view
- AS
- SELECT s.id,
-    s.item_id,
-    i.item_code,
-    b.name_en AS brand_name,
-    i.description,
-    replace(to_char(i.selling_price, '999,999,999.99'::text), ' '::text, ''::text) AS selling_price,
-    concat(c.name1, ' ', c.name2) AS client_name,
-    s.client_id,
-    s.selling_date,
-    s.notes,
-    pm.name AS payment_method,
-    s.payment_method_id,
-    s.down_payment,
-    s.down_payment_card,
-    s.deferred_payment,
-    s.payment_status,
-    ps.name AS payment_status_desc,
-    i.selling_price AS total_price,
-    s.created_date,
-    s.last_modified_date
-   FROM sales s,
-    items i,
-    client c,
-    brand b,
-    payment_method pm,
-    payment_status ps
-  WHERE s.item_id::integer = i.id AND s.client_id::integer = c.id AND i.brand_id::integer = b.id AND s.payment_method_id::integer = pm.id AND s.payment_status::integer = ps.id;
-
 
 CREATE TABLE IF NOT EXISTS public.payment_history
 (
@@ -232,4 +201,42 @@ CREATE TABLE IF NOT EXISTS public.naming_sequence
     supp_code character varying(255) COLLATE pg_catalog."default",
     supp_sequence character varying(255) COLLATE pg_catalog."default",
     CONSTRAINT naming_sequence_pkey PRIMARY KEY (id)
-) 
+);
+
+ALTER TABLE Sales
+  RENAME COLUMN down_Payment TO cash_Payment;
+  
+ALTER TABLE Sales
+  RENAME COLUMN down_Payment_Card TO other_Payment;
+  
+  drop view sales_view;
+CREATE OR REPLACE VIEW public.sales_view
+ AS
+ SELECT s.id,
+    s.item_id,
+    i.item_code,
+    b.name_en AS brand_name,
+    i.description,
+    replace(to_char(i.selling_price, '999,999,999.99'::text), ' '::text, ''::text) AS selling_price,
+    concat(c.name1, ' ', c.name2) AS client_name,
+    s.client_id,
+    s.selling_date,
+    s.notes,
+    pm.name AS payment_method,
+    s.payment_method_id,
+    s.cash_Payment,
+    s.other_Payment,
+    s.deferred_payment,
+    s.payment_status,
+    ps.name AS payment_status_desc,
+    i.selling_price AS total_price,
+    s.created_date,
+    s.last_modified_date
+   FROM sales s,
+    items i,
+    client c,
+    brand b,
+    payment_method pm,
+    payment_status ps
+  WHERE s.item_id::integer = i.id AND s.client_id::integer = c.id AND i.brand_id::integer = b.id AND s.payment_method_id::integer = pm.id AND s.payment_status::integer = ps.id;
+  

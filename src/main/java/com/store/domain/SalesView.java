@@ -31,8 +31,8 @@ public class SalesView {
 	private String notes;
 	private String paymentMethodId;
 	private String paymentMethod;
-	private Double downPayment;
-	private Double downPaymentCard;
+	private Double cashPayment;
+	private Double otherPayment;
 	private Double deferredPayment;
 	private Double totalPrice;
 	private String paymentStatus;

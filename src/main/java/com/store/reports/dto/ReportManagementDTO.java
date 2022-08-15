@@ -15,9 +15,11 @@ import lombok.NoArgsConstructor;
 public class ReportManagementDTO {
 	@NotNull(message = ErrorConstants.REPORT_CODE_NOT_NULL)
     private String reportCode;
+    private String reportFileName;
     private String param1;
     private String param2;
     private String param3;
     private String param4;
     private String param5;
+    private String isExcel;
 }

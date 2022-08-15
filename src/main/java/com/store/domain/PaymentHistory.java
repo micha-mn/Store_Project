@@ -40,8 +40,8 @@ public class PaymentHistory extends Auditable<String> {
     private Long id;	
 	private String saleId;
 	private String paymentMethodId;
-	private Double downPayment;
-	private Double downPaymentCard;
+	private Double cashPayment;
+	private Double otherPayment;
 	private Double totalPrice;
 	private Double deferredPayment;
 	@Column(length=70)

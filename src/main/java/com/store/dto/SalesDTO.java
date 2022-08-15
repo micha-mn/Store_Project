@@ -26,9 +26,8 @@ public class SalesDTO {
 	  private String notes;
 	  @NotNull(message = ErrorConstants.SALES_PAYMENTMETHODID_NOT_NULL)
 	  private String paymentMethodId;
-	  @NotNull(message = ErrorConstants.SALES_DOWNPAYTMENT_NOT_NULL)
-	  private Double downPayment;
-	  private Double downPaymentCard;
+	  private Double cashPayment;
+	  private Double otherPayment;
 	  @NotNull(message = ErrorConstants.SALES_TOTALPRICE_NOT_NULL)
 	  private Double totalPrice;
 	  @NotNull(message = ErrorConstants.SALES_DEFERREDPAYMENT_NOT_NULL)

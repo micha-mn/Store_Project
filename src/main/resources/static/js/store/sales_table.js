@@ -507,7 +507,8 @@ var source = {
 				    selectedrowindex = $('#grid').jqxGrid('getselectedrowindexes');
 				    rowid = $('#grid').jqxGrid('getrowid', selectedrowindex);
   				    rowdata=$('#grid').jqxGrid('getrowdata', selectedrowindex);
-                    otherPayment=eval(isNaN(rowdata.otherPayment)?rowdata.otherPayment.replaceAll(",",""):rowdata.otherPayment)
+					var cashPayment=eval(isNaN(rowdata.cashPayment)?rowdata.cashPayment.replaceAll(",",""):rowdata.cashPayment);
+                    var otherPayment=eval(isNaN(rowdata.otherPayment)?rowdata.otherPayment.replaceAll(",",""):rowdata.otherPayment);
 				json = {
 					"id":$("#saleId").val(),
 					"action" :'update',
@@ -515,7 +516,7 @@ var source = {
  				     "clientId": $("#SelectedClientNameId").val(),
 			         "notes": $("#notes").val(),
 	                 "paymentMethodId":$("#dropdownPaymentMethod").val(),
-				     "cashPayment":eval(isNaN(rowdata.cashPayment)?rowdata.cashPayment.replaceAll(",",""):rowdata.cashPayment)+eval($("#cashPayment").val()),
+				     "cashPayment":$("#cashPayment").val()==''?cashPayment:(cashPayment!=null?cashPayment+eval($("#cashPayment").val()):$("#cashPayment").val()),
 					 "otherPayment":$("#otherPayment").val()==''?otherPayment:(otherPayment!=null?otherPayment+eval($("#otherPayment").val()):$("#otherPayment").val()),
 				     "totalPrice":$("#totalPrice").val(),
  					 "deferredPayment":$("#deferredPayment").val(),

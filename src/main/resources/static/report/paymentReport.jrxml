@@ -35,8 +35,8 @@
 		<![CDATA[SELECT s.id,
     s.selling_date,
     pm.name AS payment_method,
-    s.down_payment,
-    s.down_payment_card,
+    s.cash_payment,
+    s.other_payment,
     s.deferred_payment,
     ps.name AS payment_status_desc,
     i.selling_price AS total_price
@@ -66,14 +66,14 @@
 		<property name="com.jaspersoft.studio.field.label" value="payment_method"/>
 		<property name="com.jaspersoft.studio.field.tree.path" value="payment_method"/>
 	</field>
-	<field name="down_payment" class="java.lang.Double">
-		<property name="com.jaspersoft.studio.field.name" value="down_payment"/>
-		<property name="com.jaspersoft.studio.field.label" value="down_payment"/>
+	<field name="cash_payment" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.name" value="cash_payment"/>
+		<property name="com.jaspersoft.studio.field.label" value="cash_payment"/>
 		<property name="com.jaspersoft.studio.field.tree.path" value="sales"/>
 	</field>
-	<field name="down_payment_card" class="java.lang.Double">
-		<property name="com.jaspersoft.studio.field.name" value="down_payment_card"/>
-		<property name="com.jaspersoft.studio.field.label" value="down_payment_card"/>
+	<field name="other_payment" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.name" value="other_payment"/>
+		<property name="com.jaspersoft.studio.field.label" value="other_payment"/>
 		<property name="com.jaspersoft.studio.field.tree.path" value="sales"/>
 	</field>
 	<field name="deferred_payment" class="java.lang.Double">
@@ -92,10 +92,10 @@
 		<property name="com.jaspersoft.studio.field.tree.path" value="items"/>
 	</field>
 	<variable name="Variable_1" class="java.lang.Double" calculation="Sum">
-		<variableExpression><![CDATA[$F{down_payment}]]></variableExpression>
+		<variableExpression><![CDATA[$F{cash_payment}]]></variableExpression>
 	</variable>
 	<variable name="Variable_1_1" class="java.lang.Double" calculation="Sum">
-		<variableExpression><![CDATA[$F{down_payment_card}]]></variableExpression>
+		<variableExpression><![CDATA[$F{other_payment}]]></variableExpression>
 	</variable>
 	<background>
 		<band splitType="Stretch"/>
@@ -213,7 +213,7 @@
 					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
-				<textFieldExpression><![CDATA[$F{down_payment}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{cash_payment}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="490" y="0" width="65" height="30" uuid="0d62bc6d-0ec6-4478-9b6d-0adaa3e51d46">
@@ -225,7 +225,7 @@
 					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
-				<textFieldExpression><![CDATA[$P{payment_method}.equals("Cash and Card")?$F{down_payment_card}:"" ]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{payment_method}.equals("Cash and Card")?$F{other_payment}:"" ]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="340" y="0" width="70" height="30" uuid="937e5258-7d00-4f23-bda7-532eaa400d02">

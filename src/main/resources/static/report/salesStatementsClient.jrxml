@@ -13,7 +13,7 @@
     replace(to_char(i.selling_price, '999,999,999.99'::text), ' '::text, ''::text) AS selling_price,
     concat(c.name1, ' ', c.name2) AS client_name,
     s.selling_date,
-    s.down_payment,s.down_payment_card,     
+    s.cash_payment,s.other_payment,     
     s.deferred_payment,
     s.payment_status
    FROM sales s,
@@ -63,14 +63,14 @@
 		<property name="com.jaspersoft.studio.field.label" value="selling_date"/>
 		<property name="com.jaspersoft.studio.field.tree.path" value="sales"/>
 	</field>
-	<field name="down_payment" class="java.lang.Double">
-		<property name="com.jaspersoft.studio.field.name" value="down_payment"/>
-		<property name="com.jaspersoft.studio.field.label" value="down_payment"/>
+	<field name="cash_payment" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.name" value="cash_payment"/>
+		<property name="com.jaspersoft.studio.field.label" value="cash_payment"/>
 		<property name="com.jaspersoft.studio.field.tree.path" value="sales"/>
 	</field>
-	<field name="down_payment_card" class="java.lang.Double">
-		<property name="com.jaspersoft.studio.field.name" value="down_payment_card"/>
-		<property name="com.jaspersoft.studio.field.label" value="down_payment_card"/>
+	<field name="other_payment" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.name" value="other_payment"/>
+		<property name="com.jaspersoft.studio.field.label" value="other_payment"/>
 		<property name="com.jaspersoft.studio.field.tree.path" value="sales"/>
 	</field>
 	<field name="deferred_payment" class="java.lang.Double">
@@ -87,7 +87,7 @@
 		<variableExpression><![CDATA[$F{deferred_payment}]]></variableExpression>
 	</variable>
 	<variable name="total_payment" class="java.lang.Double" calculation="Sum">
-		<variableExpression><![CDATA[$F{down_payment}+($F{down_payment_card}!=null?$F{down_payment_card}:0)]]></variableExpression>
+		<variableExpression><![CDATA[$F{cash_payment}+($F{other_payment}!=null?$F{other_payment}:0)]]></variableExpression>
 	</variable>
 	<background>
 		<band splitType="Stretch"/>
@@ -289,7 +289,7 @@
 					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$F{down_payment}+($F{down_payment_card}!=null?$F{down_payment_card}:0)]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{cash_payment}+($F{other_payment}!=null?$F{other_payment}:0)]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="500" y="0" width="55" height="20" uuid="cc1de2f2-4925-484d-a135-5672944a5eb3">

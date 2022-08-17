@@ -132,56 +132,85 @@
 		</band>
 	</pageHeader>
 	<columnHeader>
-		<band height="30" splitType="Stretch">
+		<band height="31" splitType="Stretch">
 			<property name="com.jaspersoft.studio.unit.height" value="px"/>
 			<staticText>
-				<reportElement x="70" y="0" width="90" height="30" uuid="58e352f6-03fd-4159-bd4c-ed0e0105e420">
+				<reportElement x="70" y="11" width="90" height="20" uuid="58e352f6-03fd-4159-bd4c-ed0e0105e420">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="2d716e13-6306-43bd-ae33-74299ca3be5b"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
+				<textElement>
+					<font size="9"/>
+				</textElement>
 				<text><![CDATA[Selling Date]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="0" y="0" width="70" height="30" uuid="8ca7722a-cbfd-4854-8dbc-7095a625e343">
+				<reportElement x="0" y="11" width="70" height="20" uuid="8ca7722a-cbfd-4854-8dbc-7095a625e343">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="ffd9c943-082f-4822-88fb-b1e385e8be1a"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
+				<textElement>
+					<font size="9"/>
+				</textElement>
 				<text><![CDATA[Payment Method]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="410" y="0" width="80" height="30" uuid="9f4f508c-7fa9-49da-ab2d-e5d6fc0f0392">
-					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="1c664c48-7446-49cf-9775-76f88580bb28"/>
-				</reportElement>
-				<text><![CDATA[Down Payment]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="340" y="0" width="70" height="30" uuid="fc7b45e5-6751-4dbe-9fa8-bacc2f748a33">
+				<reportElement x="340" y="11" width="80" height="20" uuid="fc7b45e5-6751-4dbe-9fa8-bacc2f748a33">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="01525015-106a-41ea-add6-3da8bc2896f7"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
+				<textElement>
+					<font size="9"/>
+				</textElement>
 				<text><![CDATA[Deferred Payment]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="160" y="0" width="110" height="30" uuid="0dc23508-0d90-4d0d-926d-2c0ebc8c0a1d">
+				<reportElement x="160" y="11" width="120" height="20" uuid="0dc23508-0d90-4d0d-926d-2c0ebc8c0a1d">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="86dd1533-74d3-452d-b0e6-282eeb96555c"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
+				<textElement>
+					<font size="9"/>
+				</textElement>
 				<text><![CDATA[Status]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="270" y="0" width="70" height="30" uuid="7ccb2bba-4777-45b1-a3fc-18ffd1702b79">
+				<reportElement x="280" y="11" width="60" height="20" uuid="7ccb2bba-4777-45b1-a3fc-18ffd1702b79">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="2bd6236e-bdcf-4296-8f32-fa02daea328f"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
+				<textElement>
+					<font size="9"/>
+				</textElement>
 				<text><![CDATA[Total Price]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="490" y="0" width="65" height="30" uuid="adbf89d4-2914-41d7-8f3f-ae36863b3a1d"/>
-				<textFieldExpression><![CDATA[$P{payment_method}.equals("Cash and Card")?"Down Payment Card":""]]></textFieldExpression>
+				<reportElement x="490" y="11" width="65" height="20" uuid="adbf89d4-2914-41d7-8f3f-ae36863b3a1d">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{payment_method}.equals("Cash and Card")?"Other Payment":""]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="420" y="11" width="70" height="20" uuid="6a8dd388-28ef-4b2c-afc8-b40e7a66c8d4">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[($P{payment_method}.equals("Cash")||$P{payment_method}.equals("Cash and Card"))?"Cash Payment":"Other Payment"]]></textFieldExpression>
 			</textField>
 		</band>
 	</columnHeader>
 	<detail>
-		<band height="30" splitType="Stretch">
+		<band height="20" splitType="Stretch">
 			<property name="com.jaspersoft.studio.unit.height" value="px"/>
 			<textField>
-				<reportElement x="70" y="0" width="90" height="30" uuid="65a65c0c-4db8-4093-a91b-8395daf27c79">
+				<reportElement x="70" y="0" width="90" height="20" uuid="65a65c0c-4db8-4093-a91b-8395daf27c79">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="2d716e13-6306-43bd-ae33-74299ca3be5b"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
 				<box>
 					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
@@ -189,11 +218,15 @@
 					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{selling_date}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="0" y="0" width="70" height="30" uuid="b5b26974-d7da-4d5e-8bcc-14ed389c9ef6">
+				<reportElement x="0" y="0" width="70" height="20" uuid="b5b26974-d7da-4d5e-8bcc-14ed389c9ef6">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="ffd9c943-082f-4822-88fb-b1e385e8be1a"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
 				<box>
 					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
@@ -201,11 +234,15 @@
 					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{payment_method}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="410" y="0" width="80" height="30" uuid="e1b7beb6-ccf4-4384-8a5e-4ea5eb68bb6b">
+				<reportElement x="420" y="0" width="70" height="20" uuid="e1b7beb6-ccf4-4384-8a5e-4ea5eb68bb6b">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="1c664c48-7446-49cf-9775-76f88580bb28"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
 				<box>
 					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
@@ -213,11 +250,15 @@
 					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
-				<textFieldExpression><![CDATA[$F{cash_payment}]]></textFieldExpression>
+				<textElement verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[($P{payment_method}.equals("Cash")||$P{payment_method}.equals("Cash and Card"))?$F{cash_payment}:$F{other_payment}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="490" y="0" width="65" height="30" uuid="0d62bc6d-0ec6-4478-9b6d-0adaa3e51d46">
+				<reportElement x="490" y="0" width="65" height="20" uuid="0d62bc6d-0ec6-4478-9b6d-0adaa3e51d46">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="7c212719-9e0a-4e39-beef-b92733e5a3cc"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
 				<box>
 					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
@@ -225,11 +266,15 @@
 					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
-				<textFieldExpression><![CDATA[$P{payment_method}.equals("Cash and Card")?$F{other_payment}:"" ]]></textFieldExpression>
+				<textElement verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{payment_method}.equals("Cash and Card")?$F{other_payment}:""]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="340" y="0" width="70" height="30" uuid="937e5258-7d00-4f23-bda7-532eaa400d02">
+				<reportElement x="340" y="0" width="80" height="20" uuid="937e5258-7d00-4f23-bda7-532eaa400d02">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="01525015-106a-41ea-add6-3da8bc2896f7"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
 				<box>
 					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
@@ -237,11 +282,15 @@
 					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{deferred_payment}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="160" y="0" width="110" height="30" uuid="963529a8-1483-4021-a40c-c2f88adfdaf0">
+				<reportElement x="160" y="0" width="120" height="20" uuid="963529a8-1483-4021-a40c-c2f88adfdaf0">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="86dd1533-74d3-452d-b0e6-282eeb96555c"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
 				<box>
 					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
@@ -249,11 +298,15 @@
 					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{payment_status_desc}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="270" y="0" width="70" height="30" uuid="075dd465-d9af-44af-a6fb-c99774518ba9">
+				<reportElement x="280" y="0" width="60" height="20" uuid="075dd465-d9af-44af-a6fb-c99774518ba9">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="2bd6236e-bdcf-4296-8f32-fa02daea328f"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
 				<box>
 					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
@@ -261,6 +314,9 @@
 					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{total_price}]]></textFieldExpression>
 			</textField>
 		</band>
@@ -283,7 +339,7 @@
 			<textField>
 				<reportElement x="90" y="10" width="100" height="20" uuid="7064bcd5-2092-4794-9b9d-e97e2c1577fa"/>
 				<textElement verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$V{Variable_1}+($V{Variable_1_1}!=null?$V{Variable_1_1}:0)]]></textFieldExpression>
+				<textFieldExpression><![CDATA[($V{Variable_1}!=null?$V{Variable_1}:0)+($V{Variable_1_1}!=null?$V{Variable_1_1}:0)]]></textFieldExpression>
 			</textField>
 		</band>
 	</columnFooter>

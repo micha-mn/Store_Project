@@ -3,6 +3,7 @@ package com.store.reports.util;
 import java.io.File;
 import java.io.OutputStream;
 import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -40,10 +41,11 @@ public class ReportManagementUtil {
 	@Autowired
 	ReportManagementService reportManagementService;  
 	
-	public JasperPrint getJasperRepoortPrint(ReportManagementDTO reportManagementDTO) {
+	public JasperPrint getJasperRepoortPrint(ReportManagementDTO reportManagementDTO) throws SQLException {
 		  JasperPrint jasperPrint = null;
+		  Connection connection = null;
 		try {
-      	Connection connection = jdbcTemplate.getDataSource().getConnection();
+      	 connection = jdbcTemplate.getDataSource().getConnection();
       	ReportManagement reportInfo = reportManagementService.getReportByCode(reportManagementDTO.getReportCode());
       	
       	JasperReport jasperReport;
@@ -85,6 +87,7 @@ public class ReportManagementUtil {
          
       } catch (Exception e) {
           e.printStackTrace();
+          connection.close();
       
       }
 		

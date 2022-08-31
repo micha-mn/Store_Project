@@ -33,5 +33,5 @@ public class ItemDTO {
 		@NotNull(message = ErrorConstants.ITEM_SELLINGPRICE_NOT_NULL)
 	    private Double sellingPrice;
 		private String condition;
-		private boolean isSold;
+		private String isSold;
 }

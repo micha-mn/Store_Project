@@ -133,7 +133,7 @@ $("#messageNotification_b").jqxNotification({
  				type: 'string'
  			},
 		   {
- 		   		name: 'isSold',
+ 		   		name: 'sold',
  				type: 'string'
  			},
  			{
@@ -275,9 +275,9 @@ $("#messageNotification_b").jqxNotification({
 			}
 			 },
 			  {
-	 				text: 'isSold',
-					hidden: config.isSold,
-	 				datafield: 'isSold',
+	 				text: 'sold',
+					hidden: config.sold,
+	 				datafield: 'sold',
 	 				width: '10%'
 			 },
 			 {
@@ -344,7 +344,7 @@ $("#messageNotification_b").jqxNotification({
  					var dataRecord = $("#grid").jqxGrid('getrowdata', editrow);
 				  
  					$("#id_item").val(dataRecord.id);
-				    $("#isSold").val(dataRecord.isSold);
+				    $("#isSold").val(dataRecord.sold);
 					$("#itemCode").val(dataRecord.itemCode);
 				
  					$("#dropdownlistSupp_u").jqxDropDownList('selectItem', dataRecord.suppCode ); 
@@ -360,7 +360,7 @@ $("#messageNotification_b").jqxNotification({
  					$("#Consignmentprice_u").val(isNaN(dataRecord.consignmentPrice)?dataRecord.consignmentPrice.replaceAll(",",""):dataRecord.consignmentPrice);
 				    $("#consignmentDate_u").jqxDateTimeInput('setDate',dataRecord.consignmentDate);
  					$("#Sellingprice_u").val(isNaN(dataRecord.sellingPrice)?dataRecord.sellingPrice.replaceAll(",",""):dataRecord.sellingPrice);
-
+                   
  					// show the popup window.
  					$('#updatewindow').jqxWindow('open');
  				}
@@ -623,7 +623,8 @@ $("#messageNotification_b").jqxNotification({
  					"consignmentPrice": $("#Consignmentprice").val(),
  					"consignmentDate": $("#consignmentDate").jqxDateTimeInput("getDate"),
  					"sellingPrice": $("#Sellingprice").val(),
- 					"condition": $("#conditionDropDown").val()
+ 					"condition": $("#conditionDropDown").val(),
+				    "isSold":"false",
  				}),
  			};
 
@@ -720,7 +721,7 @@ $("#messageNotification_b").jqxNotification({
  			"data": JSON.stringify({
 		            "action":"update",
  					"id":$("#id_item").val(),
-				     "isSold":$("#isSold").val(),
+				    "isSold":$("#isSold").val(),
 				    "itemCode": $("#itemCode").val(),
  				    "suppCode": $("#dropdownlistSupp_u").val(),
  					"brandId": $("#SelectedBrandId_u").val(),
@@ -729,8 +730,7 @@ $("#messageNotification_b").jqxNotification({
  					"consignmentPrice": $("#Consignmentprice_u").val(),
  					"consignmentDate": $("#consignmentDate_u").jqxDateTimeInput("getDate"),
  					"sellingPrice": $("#Sellingprice_u").val(),
-				    "condition": $("#conditionDropDown_u").val(),
-					"isSold":false
+				    "condition": $("#conditionDropDown_u").val()
  			}),
  		};
 

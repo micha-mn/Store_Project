@@ -62,7 +62,7 @@ public class ItemService {
 	    		        .sellingPrice(itemDTO.getSellingPrice())
 	    		        .itemCode(itemCode)
 	    		        .condition(itemDTO.getCondition())
-	    		        .isSold(itemDTO.isSold())
+	    		        .isSold(itemDTO.getIsSold().equalsIgnoreCase("true")?true:false)
 	    		        .build();
 	     status= StatusEnum.ITEM_SAVED.value;
 	     ItemsView = findByID(itemRepository.save(item).getId());
@@ -70,9 +70,6 @@ public class ItemService {
 		}
 		else 
 			{ 
-			//Item OldItem = getItem(itemDTO.getId());
-			//if(!OldItem.getSuppCode().equalsIgnoreCase(itemDTO.getSuppCode()))
-			//	 itemDTO.setItemCode(commonUtils.updateItemCode(itemDTO.getItemCode(),itemDTO.getSuppCode()));
 			item = Item.builder()
 				        .id(itemDTO.getId())
 				        .suppCode(itemDTO.getSuppCode())
@@ -84,7 +81,7 @@ public class ItemService {
 				        .sellingPrice(itemDTO.getSellingPrice())
 				        .itemCode(itemDTO.getItemCode())
 				        .condition(itemDTO.getCondition())
-				        .isSold(itemDTO.isSold())
+				        .isSold(itemDTO.getIsSold().equalsIgnoreCase("true")?true:false)
 				        .build();
 			  status= StatusEnum.ITEM_UPDATED.value;
 			  ItemsView = findByID(itemRepository.save(item).getId());

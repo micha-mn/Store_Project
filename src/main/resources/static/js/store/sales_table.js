@@ -300,15 +300,6 @@ var source = {
 			        widget.jqxInput({ width: '100%', height: 27, placeHolder: "Enter Client name" });
 				  }
  			},
-			{
- 				text: 'Notes',
-				hidden: config.notes,
- 				datafield: 'notes',
- 				width: '8%',
- 				createfilterwidget: function (column, columnElement, widget) {
-			        widget.jqxInput({ width: '100%', height: 27, placeHolder: "Enter Notes" });
-				  }
- 			},
  			{
  				text: 'paymentMethodId',
 				hidden: config.paymentMethodId,
@@ -318,7 +309,7 @@ var source = {
  				text: 'Payment Method',
 				hidden: config.paymentMethod,
  			 	datafield: 'paymentMethod',
- 				width: '10%',
+ 				width: '8%',
  				createfilterwidget: function (column, columnElement, widget) {
 			        widget.jqxInput({ width: '100%', height: 27, placeHolder: "Enter Payment Method" });
 				  }
@@ -327,7 +318,7 @@ var source = {
  				text: 'Cash Payment(EUR)',
 				hidden: config.cashPayment,
  				datafield: 'cashPayment',
- 				width: '11%',
+ 				width: '8%',
 			  cellsformat: 'D2',
  				createfilterwidget: function (column, columnElement, widget) {
 			        widget.jqxInput({ width: '100%', height: 27, placeHolder: "Enter Cash Payment" });
@@ -337,7 +328,7 @@ var source = {
  				text: 'Other Payment(EUR)',
 				hidden: config.otherPayment,
  				datafield: 'otherPayment',
- 				width: '11%',
+ 				width: '8%',
 			  cellsformat: 'D2',
  				createfilterwidget: function (column, columnElement, widget) {
 			        widget.jqxInput({ width: '100%', height: 27, placeHolder: "Enter Other Payment" });
@@ -372,16 +363,25 @@ var source = {
 				hidden: config.paymentStatusDesc,
  				datafield: 'paymentStatusDesc',
 			   cellclassname: cellclass,
- 				width: '18%',
+ 				width: '17%',
  				createfilterwidget: function (column, columnElement, widget) {
 			        widget.jqxInput({ width: '100%', height: 27, placeHolder: "Enter Payment Status" });
+				  }
+ 			},
+	  	    {
+ 				text: 'Notes',
+				hidden: config.notes,
+ 				datafield: 'notes',
+ 				width: '9%',
+ 				createfilterwidget: function (column, columnElement, widget) {
+			        widget.jqxInput({ width: '100%', height: 27, placeHolder: "Enter Notes" });
 				  }
  			},
 			 {
  				text: 'Create Date',
 				hidden: config.createdDate,
 			    datafield: 'createdDate',
-				width: '10%',
+				width: '9%',
 				filtertype: 'date', 
 				cellsformat: 'dd-MMM-yy HH:mm' 
 			 },

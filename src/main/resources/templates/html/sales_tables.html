@@ -18,6 +18,23 @@
 	<link id="pagestyle" href="/css/modal.css" rel="stylesheet" />
 	<link id="pagestyle" href="/css/bootstrap.min.css" rel="stylesheet" /> </head>
 <style>
+
+.notes-style-hover {
+    content: attr(data-text);
+    overflow: visible!important;
+    text-overflow: clip!important;
+    background: #fff;
+    position: absolute!important;
+    left: auto;
+    top: auto;
+    width: auto!important;
+    max-width: 20rem;
+    border: 1px solid #eaebec;
+    padding: 0 0.5rem;
+    box-shadow: 0 2px 4px 0 rgb(0 0 0 / 12%);
+    word-wrap: break-word;
+    display: block;
+}
 .blinking {
     -webkit-animation: 1s blink ease infinite;
     -moz-animation: 1s blink ease infinite;
@@ -483,6 +500,7 @@
 	<script src="/js/jqwidgets/jqxtabs.js"></script>
 	<script src="/js/jqwidgets/jqxlistbox.js"></script>
 	<script src="/js/jqwidgets/jqxdropdownlist.js"></script>
+	<script src="/js/jqwidgets/jqxtooltip.js"></script>
 	<script src="/js/jqwidgets/jqxinput.js"></script>
 	<script src="/js/jqwidgets/jqxcheckbox.js"></script>
 	<script src="/js/jqwidgets/jqxnotification.js"></script>
@@ -491,6 +509,7 @@
 	<script src="/js/jquery-idle-hands.min.js"></script>
 	<script src="/js/basil.min.js"></script>
 	<script src="/js/store/session_dialog.js"></script>
+	
 	<!-- Control Center for Soft Dashboard: parallax effects, scripts for the example pages etc -->
 	<script src="/js/soft-ui-dashboard.min.js"></script>
 </body>

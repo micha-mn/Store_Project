@@ -8,7 +8,7 @@ var dataAdapter ;
 
  });
  $(document).ready(function() {
-	
+
 	 var url = "/sales/getpaymentmethods";
 	 var source =
 	 {
@@ -252,6 +252,23 @@ var source = {
         showfilterrow: true,
         filterable: true,
  		theme: 'material-purple',
+	   // selectionmode: 'singlecell',
+		/*cellhover: function (element, pageX, pageY,) {
+				debugger;
+				console.log(element.innerHTML);
+                 var index = $("#grid").jqxGrid('hoveredrow');           
+                 var data = $('#grid').jqxGrid('getrowdata', index); 
+
+				 var hoverData=element.textContent;
+			
+                if (hoverData!='')
+				{
+                    $("#grid").jqxTooltip({ content: hoverData });
+                    $("#grid").jqxTooltip('open', pageX + 15, pageY + 15);
+                }else
+                   $("#grid").jqxTooltip('close'); 
+                 
+		}, */
  		columns: [{
  				text: '',
  				datafield: 'id',
@@ -372,6 +389,7 @@ var source = {
  				text: 'Notes',
 				hidden: config.notes,
  				datafield: 'notes',
+			    cellclassname: 'notes-style',
  				width: '9%',
  				createfilterwidget: function (column, columnElement, widget) {
 			        widget.jqxInput({ width: '100%', height: 27, placeHolder: "Enter Notes" });
@@ -773,8 +791,6 @@ var source = {
 				
 		    
 	});
-	
-
  });
 
 
@@ -938,3 +954,13 @@ function editRow(row)
 				     // show the popup window.
  					 openWindow('Update - sale','update');
 }
+function test()
+{  
+	$(".notes-style").hover(function(){
+    if($(this)[0].outerText.length>10)
+	$(this).addClass( "notes-style-hover" );
+    }, function(){
+    $(this).removeClass( "notes-style-hover" );
+  });
+};
+setTimeout(test, 1000);

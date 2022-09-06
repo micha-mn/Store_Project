@@ -55,7 +55,7 @@ INSERT INTO configuration_table(id,column_name,table_name,is_hidden) VALUES ('33
 INSERT INTO configuration_table(id,column_name,table_name,is_hidden) VALUES ('34','paymentStatus','salesView','TRUE');
 INSERT INTO configuration_table(id,column_name,table_name,is_hidden) VALUES ('35','paymentMethodId','salesView','TRUE');
 INSERT INTO configuration_table(id,column_name,table_name,is_hidden) VALUES ('36','paymentStatusDesc','salesView','FALSE');
-INSERT INTO configuration_table(id,column_name,table_name,is_hidden) VALUES ('28','isSold','itemsView','TRUE');
+INSERT INTO configuration_table(id,column_name,table_name,is_hidden) VALUES ('28','sold','itemsView','TRUE');
 
 INSERT INTO public.payment_method(id, name)VALUES (1, 'Cash');
 INSERT INTO public.payment_method(id, name)VALUES (2, 'Card');
@@ -83,3 +83,5 @@ VALUES (4, 'supp_code',  '1', 'SSSUPPLIER', '/src/main/resources/static/report/S
 INSERT INTO public.report_management(
 id, param1, parameter_counter, report_code,  report_jrxml_path, report_name, static_path)
 VALUES (5, 'payment_method',  '1', 'PAYMENTREPORT', '/src/main/resources/static/report/paymentReport.jrxml', 'paymentReport', '/src/main/resources/static/report/');
+
+INSERT INTO configuration_table(id,column_name,table_name,is_hidden) VALUES ('37','returnedStatus','itemsView','TRUE');

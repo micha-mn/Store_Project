@@ -48,4 +48,6 @@ public class Item extends Auditable<String> {
     @Column(length=60)
     private Double sellingPrice;
     private boolean isSold;
+    @Column(columnDefinition = "varchar(1) default '0'")
+    private String returnedStatus;
 }

@@ -932,7 +932,7 @@ function editRow(row)
     $('#clientGrid').prop('disabled', true);
  	$('#itemGrid').prop('disabled', true);
 		editrow = row;
- 					var dataRecord = $("#grid").jqxGrid('getrowdata', editrow);
+ 		var dataRecord = $("#grid").jqxGrid('getrowdata', editrow);
 				
 				
 						$("#saleId").val(dataRecord.id);

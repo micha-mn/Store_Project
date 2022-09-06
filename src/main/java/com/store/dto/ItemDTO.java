@@ -34,4 +34,5 @@ public class ItemDTO {
 	    private Double sellingPrice;
 		private String condition;
 		private String isSold;
+		private String returnedStatus;
 }

@@ -1,6 +1,74 @@
  let action = '';
  var config='';
-
+ var gridSource = {
+		url: '/item/getall',
+		datatype: "json",
+ 		datafields: [{
+ 				name: 'id',
+ 				type: 'string'
+ 			},
+ 			{
+ 				name: 'itemCode',
+ 				type: 'string'
+ 			},
+			{
+ 				name: 'suppCode',
+ 				type: 'string'
+ 			},
+ 			{
+ 				name: 'brandId',
+ 				type: 'string'
+ 			},
+		    {
+ 				name: 'brandName',
+ 				type: 'string'
+ 			},
+ 			{
+ 				name: 'description',
+ 				type: 'string'
+ 			},
+		   {
+ 		   		name: 'sold',
+ 				type: 'string'
+ 			},
+ 			{
+ 				name: 'inclusions',
+ 				type: 'string'
+ 			},
+ 			{
+ 				name: 'consignmentPrice',
+ 				type: 'float'
+ 			},
+ 			{
+ 				name: 'consignmentDate',
+ 				type: 'date'
+			 },
+			 {
+ 				name: 'sellingPrice',
+ 				type: 'float'
+			 },
+			 {
+ 				name: 'creationDate',
+ 				type: 'date'
+			 },
+			 {
+ 				name: 'lastModifiedDate',
+ 				type: 'date'
+ 			},
+		    {
+ 				name: 'condition',
+ 				type: 'string'
+ 			},
+		    {
+ 				name: 'returnedStatus',
+ 				type: 'string'
+ 			}
+		
+ 		],
+ 		updaterow: function(rowid, rowdata, commit) {
+ 			commit(true);
+ 		}
+ 	};
  $(window).on('load', function() {
   $("#buttonContainer").addClass("d-flex");
   $("#windowContainer").removeClass("d-none");
@@ -105,72 +173,8 @@ $("#messageNotification_b").jqxNotification({
            $("#grid").jqxGrid('clearfilters');
        });
  	// initialize jqxGrid
- 	var source = {
-		url: '/item/getall',
-		datatype: "json",
- 		datafields: [{
- 				name: 'id',
- 				type: 'string'
- 			},
- 			{
- 				name: 'itemCode',
- 				type: 'string'
- 			},
-			{
- 				name: 'suppCode',
- 				type: 'string'
- 			},
- 			{
- 				name: 'brandId',
- 				type: 'string'
- 			},
-		    {
- 				name: 'brandName',
- 				type: 'string'
- 			},
- 			{
- 				name: 'description',
- 				type: 'string'
- 			},
-		   {
- 		   		name: 'sold',
- 				type: 'string'
- 			},
- 			{
- 				name: 'inclusions',
- 				type: 'string'
- 			},
- 			{
- 				name: 'consignmentPrice',
- 				type: 'float'
- 			},
- 			{
- 				name: 'consignmentDate',
- 				type: 'date'
-			 },
-			 {
- 				name: 'sellingPrice',
- 				type: 'float'
-			 },
-			 {
- 				name: 'creationDate',
- 				type: 'date'
-			 },
-			 {
- 				name: 'lastModifiedDate',
- 				type: 'date'
- 			},
-		    {
- 				name: 'condition',
- 				type: 'string'
- 			},
-		
- 		],
- 		updaterow: function(rowid, rowdata, commit) {
- 			commit(true);
- 		}
- 	};
- 	var dataAdapter = new $.jqx.dataAdapter(source);
+
+ 	var dataAdapter = new $.jqx.dataAdapter(gridSource);
  var settings = {
 	  "url": "/config/table/"+"itemsView",
 	  "method": "GET",
@@ -224,7 +228,7 @@ $("#messageNotification_b").jqxNotification({
  				text: 'description',
 				hidden: config.description,
  				datafield: 'description',
- 				width: '10%',
+ 				width: '9%',
  				 createfilterwidget: function (column, columnElement, widget) {
 			        widget.jqxInput({ width: '100%', height: 27, placeHolder: "Enter Description" });
 				  }
@@ -233,7 +237,7 @@ $("#messageNotification_b").jqxNotification({
  				text: 'brand',
 				hidden: config.brandName,
  				datafield: 'brandName',
- 				width: '14%',
+ 				width: '9%',
  				  createfilterwidget: function (column, columnElement, widget) {
 			        widget.jqxInput({ width: '100%', height: 27, placeHolder: "Enter Brand" });
 				  }
@@ -278,6 +282,12 @@ $("#messageNotification_b").jqxNotification({
 	 				text: 'sold',
 					hidden: config.sold,
 	 				datafield: 'sold',
+	 				width: '10%'
+			 },
+			 {
+	 				text: 'returnedStatus',
+					hidden: config.returnedStatus,
+	 				datafield: 'returnedStatus',
 	 				width: '10%'
 			 },
 			 {
@@ -345,6 +355,7 @@ $("#messageNotification_b").jqxNotification({
 				  
  					$("#id_item").val(dataRecord.id);
 				    $("#isSold").val(dataRecord.sold);
+					$("#returnedStatus").val(dataRecord.returnedStatus),
 					$("#itemCode").val(dataRecord.itemCode);
 				
  					$("#dropdownlistSupp_u").jqxDropDownList('selectItem', dataRecord.suppCode ); 
@@ -383,7 +394,23 @@ $("#messageNotification_b").jqxNotification({
                  $("#deletedItemMessage").addClass("d-none");
                  $('#ConfirmationModal').modal('show'); 
  				}
- 			}
+ 			},
+		{
+ 				text: '',
+ 				datafield: 'return',
+ 				width: '6%',
+                filterable: false,
+ 				cellsrenderer: function(row) {
+		          editrow = row;
+ 				var dataRecord = $("#grid").jqxGrid('getrowdata', editrow);
+	               
+					if(dataRecord.returnedStatus=='0')
+ 					return '<input type="button" value="Return" onclick="confirmReturn('+row+')" style="opacity: 0.99; position: absolute; top: 0%; left: 0%; padding: 0px; margin-top: 2px; margin-left: 2px; height: 32px; width: 63.1px;"  class="jqx-rc-all jqx-rc-all-material-purple jqx-button jqx-button-material-purple jqx-widget jqx-widget-material-purple buttonRipple jqx-fill-state-normal jqx-fill-state-normal-material-purple" />';
+ 				else if(dataRecord.returnedStatus=='1')
+ 					return '<input type="button" value="Returned"  style="opacity: 0.99; position: absolute; top: 0%; left: 0%; padding: 0px; margin-top: 2px; margin-left: 2px; height: 32px; width: 63.1px;    background: #7b5ca7;  border-color: #7b5ca7;"  class="jqx-rc-all jqx-rc-all-material-purple jqx-button jqx-button-material-purple jqx-widget jqx-widget-material-purple buttonRipple jqx-fill-state-normal jqx-fill-state-normal-material-purple" />';
+ 				
+			    }
+ 			},
  		]
  	});
 		});
@@ -625,6 +652,7 @@ $("#messageNotification_b").jqxNotification({
  					"sellingPrice": $("#Sellingprice").val(),
  					"condition": $("#conditionDropDown").val(),
 				    "isSold":"false",
+					"returnedStatus":"0",
  				}),
  			};
 
@@ -635,7 +663,7 @@ $("#messageNotification_b").jqxNotification({
  				});
  				$("#notificationText").append(response.message);
  				$("#messageNotification").jqxNotification("open");
- 				var dataAdapter = new $.jqx.dataAdapter(source);
+ 				 var dataAdapter = new $.jqx.dataAdapter(gridSource);
  				 $('#dropdownlistSupp').jqxDropDownList({ selectedIndex: -1});
 		         $('#conditionDropDown').jqxDropDownList({ selectedIndex: -1});
  				$('#grid').jqxGrid({
@@ -722,6 +750,7 @@ $("#messageNotification_b").jqxNotification({
 		            "action":"update",
  					"id":$("#id_item").val(),
 				    "isSold":$("#isSold").val(),
+					"returnedStatus":$("#returnedStatus").val(),
 				    "itemCode": $("#itemCode").val(),
  				    "suppCode": $("#dropdownlistSupp_u").val(),
  					"brandId": $("#SelectedBrandId_u").val(),
@@ -925,4 +954,71 @@ async function saveBrand(name)
 				}
 				
 			});
+}
+function confirmReturn(row)
+{
+         var dataRecord = $("#grid").jqxGrid('getrowdata', row);
+         $("#returnedItem").empty();
+         $('#returnedItem').append('Item : '+dataRecord.description+' - '+dataRecord.brandName);
+         $("#returnedItemMessage").empty();
+         $("#returnedItemMessage").addClass("d-none");
+         $("#returnedItemBtn").attr("onclick","returnItem("+row+")");
+         $('#returnConfirmationModal').modal('show'); 
+}
+function returnItem(row)
+{
+    var dataRecord = $("#grid").jqxGrid('getrowdata', row);
+	var settings = {
+ 			"url": "/item/save",
+ 			"method": "POST",
+ 			"timeout": 0,
+ 			"headers": {
+ 				"Authorization": "Bearer " + getJwt(),
+ 				"Content-Type": "application/json"
+ 			},
+ 			"data": JSON.stringify({
+		            "action":"return",
+ 					"id":dataRecord.id,
+				    "isSold":dataRecord.sold,
+					"returnedStatus":'1',
+				    "itemCode": dataRecord.itemCode,
+ 				    "suppCode":dataRecord.suppCode,
+ 					"brandId": dataRecord.brandId,
+ 					"description":dataRecord.description,
+ 					"inclusions": dataRecord.inclusions,
+ 					"consignmentPrice": dataRecord.consignmentPrice,
+ 					"consignmentDate": dataRecord.consignmentDate,
+ 					"sellingPrice": dataRecord.sellingPrice,
+				    "condition": dataRecord.condition
+ 			}),
+ 		};
+
+ 		$.ajax(settings).done(function(response) {
+	debugger
+	if (response.message != "failed")
+	  {         $('#returnConfirmationModal').modal('hide');
+ 		        $("#notificationText_u").empty();
+ 				$("#messageNotification_u").jqxNotification({
+ 					template: "info"
+ 				});
+ 				$("#notificationText_u").append(response.message);
+ 				$("#messageNotification_u").jqxNotification("open");
+             
+        var selectedrowindex = $('#grid').jqxGrid('getselectedrowindexes');
+        var rowid = $('#grid').jqxGrid('getrowid', selectedrowindex);
+        var data= response.itemsView;
+ 	    var dataAdapter = new $.jqx.dataAdapter(gridSource);
+           data.consignmentDate =  dataAdapter.formatDate(new Date(data.consignmentDate), 'dd-MMM-yy');
+		   data.creationDate =  dataAdapter.formatDate(new Date(data.creationDate), 'dd-MMM-yy HH:mm' );
+		   data.lastModifiedDate =  dataAdapter.formatDate(new Date(data.lastModifiedDate),'dd-MMM-yy HH:mm' );
+           data.consignmentPrice = dataAdapter.formatNumber( data.consignmentPrice,'D2');
+		   data.sellingPrice = dataAdapter.formatNumber(data.sellingPrice,'D2');
+         $('#grid').jqxGrid('updaterow', rowid, data );
+         }else {
+				 $("#returnedItemMessage").removeClass("d-none");
+			     $("#returnedItemMessage").empty();
+                 $('#returnedItemMessage').append("The selected item cannot be returned since it is connected to a sale.");
+				}
+ 			//$(':input', '#supplier_form_update').val('')
+ 		});
 }

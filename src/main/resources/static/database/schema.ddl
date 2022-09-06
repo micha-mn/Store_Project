@@ -120,28 +120,6 @@ CREATE TABLE IF NOT EXISTS public.configuration_table
     CONSTRAINT configuration_table_pkey PRIMARY KEY (id)
 );
 
-CREATE OR REPLACE VIEW public.items_view
- AS
- SELECT i.id,
-    i.created_by,
-    i.created_date,
-    i.last_modified_by,
-    i.last_modified_date,
-    b.name_en AS brand_name,
-    i.brand_id,
-    i.consignment_date,
-    i.consignment_price,
-    i.description,
-    i.inclusions,
-    i.item_code,
-    i.selling_price,
-    i.supp_code,
-    i.condition,
-    i.is_sold
-   FROM items i,
-    brand b
-  WHERE i.brand_id::integer = b.id;
-
   CREATE TABLE IF NOT EXISTS public.sales
 (
     id bigint NOT NULL,
@@ -240,3 +218,26 @@ CREATE OR REPLACE VIEW public.sales_view
     payment_status ps
   WHERE s.item_id::integer = i.id AND s.client_id::integer = c.id AND i.brand_id::integer = b.id AND s.payment_method_id::integer = pm.id AND s.payment_status::integer = ps.id;
   
+  
+CREATE OR REPLACE VIEW public.items_view
+ AS
+ SELECT i.id,
+    i.created_by,
+    i.created_date,
+    i.last_modified_by,
+    i.last_modified_date,
+    b.name_en AS brand_name,
+    i.brand_id,
+    i.consignment_date,
+    i.consignment_price,
+    i.description,
+    i.inclusions,
+    i.item_code,
+    i.selling_price,
+    i.supp_code,
+    i.condition,
+    i.is_sold,
+    i.returned_status
+   FROM items i,
+    brand b
+  WHERE i.brand_id::integer = b.id;

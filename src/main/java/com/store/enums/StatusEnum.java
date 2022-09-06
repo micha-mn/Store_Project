@@ -14,6 +14,7 @@ public enum StatusEnum {
     CLIENT_EXIST_IN_SALES("The selected client cannot be deleted since it is connected to a sale."),
     ITEM_SAVED("New Item has been added"),
     ITEM_UPDATED("Item has been updated"),
+    ITEM_RETURN_FAILED("failed"),
     ITEM_DELETED("success"),
     ITEM_EXIST_IN_SALES("The selected item cannot be deleted since it is connected to a sale."),
     BRAND_SAVED("New Brand has been added"),

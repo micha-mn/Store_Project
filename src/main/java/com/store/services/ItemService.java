@@ -41,6 +41,10 @@ public class ItemService {
 		boolean exists = itemRepository.existsBySuppCode(suppCode);
 			return exists;
 	}
+	public boolean checkifItemIsSold(long itemId) {
+		boolean isSold = itemRepository.findById(itemId).isSold();
+			return isSold;
+	}
 	public Item getItem(long id) {
 		Item item= itemRepository.findById(id);
 			return item;
@@ -63,14 +67,39 @@ public class ItemService {
 	    		        .itemCode(itemCode)
 	    		        .condition(itemDTO.getCondition())
 	    		        .isSold(itemDTO.getIsSold().equalsIgnoreCase("true")?true:false)
+	    		        .returnedStatus(itemDTO.getReturnedStatus())
 	    		        .build();
 	     status= StatusEnum.ITEM_SAVED.value;
 	     ItemsView = findByID(itemRepository.save(item).getId());
 	     namingSequenceservice.updateItemSupplierSequence(itemDTO.getSuppCode(),namingSequenceservice.getSupplierCode(itemDTO.getSuppCode()).getItemSequence());
 		}
+		else if(itemDTO.getAction().equalsIgnoreCase("return"))
+		{ 
+			boolean isSold = checkifItemIsSold(itemDTO.getId());
+			if(!isSold)
+			{ item = Item.builder()
+			        .id(itemDTO.getId())
+			        .suppCode(itemDTO.getSuppCode())
+			        .brandId(itemDTO.getBrandId())
+			        .description(itemDTO.getDescription())
+			        .inclusions(itemDTO.getInclusions())
+			        .consignmentDate(itemDTO.getConsignmentDate())
+			        .consignmentPrice(itemDTO.getConsignmentPrice())
+			        .sellingPrice(itemDTO.getSellingPrice())
+			        .itemCode(itemDTO.getItemCode())
+			        .condition(itemDTO.getCondition())
+			        .isSold(itemDTO.getIsSold().equalsIgnoreCase("true")?true:false)
+			        .returnedStatus(itemDTO.getReturnedStatus())
+			        .build();
+		    status= StatusEnum.ITEM_UPDATED.value;
+		    ItemsView = findByID(itemRepository.save(item).getId());
+		  }
+			else
+			status= StatusEnum.ITEM_RETURN_FAILED.value;
+		}
 		else 
 			{ 
-			item = Item.builder()
+			      item = Item.builder()
 				        .id(itemDTO.getId())
 				        .suppCode(itemDTO.getSuppCode())
 				        .brandId(itemDTO.getBrandId())
@@ -82,6 +111,7 @@ public class ItemService {
 				        .itemCode(itemDTO.getItemCode())
 				        .condition(itemDTO.getCondition())
 				        .isSold(itemDTO.getIsSold().equalsIgnoreCase("true")?true:false)
+				        .returnedStatus(itemDTO.getReturnedStatus())
 				        .build();
 			  status= StatusEnum.ITEM_UPDATED.value;
 			  ItemsView = findByID(itemRepository.save(item).getId());
@@ -97,7 +127,7 @@ public class ItemService {
 		return itemViewRepository.findAllByOrderByIdDesc();
 	}
    public List<ItemsView> getUnsoldItems() {
-		return itemViewRepository.findByIsSoldFalseOrderByIdDesc();
+		return itemViewRepository.findByIsSoldAndReturnedStatusOrderByIdDesc(false,"0");
 	}
 	public Optional<ItemsView> findByID(Long id) {
 		return itemViewRepository.findById(id);

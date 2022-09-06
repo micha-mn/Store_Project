@@ -37,5 +37,6 @@ public class ItemsView extends Auditable<String> {
     private String condition;
     private boolean isSold;
     private String returnedStatus;
+    private boolean isPaid;
 }
 

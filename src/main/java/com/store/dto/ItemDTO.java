@@ -35,4 +35,5 @@ public class ItemDTO {
 		private String condition;
 		private String isSold;
 		private String returnedStatus;
+		private String isPaid;
 }

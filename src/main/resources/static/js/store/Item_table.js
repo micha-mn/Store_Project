@@ -31,6 +31,10 @@
  		   		name: 'sold',
  				type: 'string'
  			},
+		   {
+ 		   		name: 'paid',
+ 				type: 'bool'
+ 			},
  			{
  				name: 'inclusions',
  				type: 'string'
@@ -210,7 +214,7 @@ $("#messageNotification_b").jqxNotification({
  				text: 'Item code',
 			    hidden: config.itemCode,
  				datafield: 'itemCode',
- 				width: '10%',
+ 				width: '9%',
  				createfilterwidget: function (column, columnElement, widget) {
 			        widget.jqxInput({ width: '100%', height: 27, placeHolder: "Enter Code" });
 				  }
@@ -255,7 +259,7 @@ $("#messageNotification_b").jqxNotification({
  				text: 'consignment Price (EUR)',
 				hidden: config.consignmentPrice,
  				datafield: 'consignmentPrice',
- 				width: '10%',
+ 				width: '9%',
 			    cellsformat: 'D2',
  			    createfilterwidget: function (column, columnElement, widget) {
 			    widget.jqxInput({ width: '100%', height: 27, placeHolder: "Enter consignmentPrice " });
@@ -284,6 +288,15 @@ $("#messageNotification_b").jqxNotification({
 	 				datafield: 'sold',
 	 				width: '10%'
 			 },
+		     {
+	 				text: 'Paid',
+					hidden: config.paid,
+					columntype: 'checkbox',
+	 				datafield: 'paid',
+	 				width: '3%',
+				    cellclassname: 'check',
+				    filtertype: 'bool'
+			 },
 			 {
 	 				text: 'returnedStatus',
 					hidden: config.returnedStatus,
@@ -295,7 +308,7 @@ $("#messageNotification_b").jqxNotification({
 				hidden: config.sellingPrice,
  				datafield: 'sellingPrice',
 			    cellsformat: 'D2',
- 				width: '9%',
+ 				width: '8%',
  				createfilterwidget: function (column, columnElement, widget) {
 			        widget.jqxInput({ width: '100%', height: 27, placeHolder: "Enter sellingPrice" });
 			}
@@ -371,7 +384,7 @@ $("#messageNotification_b").jqxNotification({
  					$("#Consignmentprice_u").val(isNaN(dataRecord.consignmentPrice)?dataRecord.consignmentPrice.replaceAll(",",""):dataRecord.consignmentPrice);
 				    $("#consignmentDate_u").jqxDateTimeInput('setDate',dataRecord.consignmentDate);
  					$("#Sellingprice_u").val(isNaN(dataRecord.sellingPrice)?dataRecord.sellingPrice.replaceAll(",",""):dataRecord.sellingPrice);
-                   
+                    $("#isPaid_u").prop( "checked", dataRecord.paid );
  					// show the popup window.
  					$('#updatewindow').jqxWindow('open');
  				}
@@ -652,6 +665,7 @@ $("#messageNotification_b").jqxNotification({
  					"sellingPrice": $("#Sellingprice").val(),
  					"condition": $("#conditionDropDown").val(),
 				    "isSold":"false",
+					"isPaid":$("#isPaid").is(':checked'),
 					"returnedStatus":"0",
  				}),
  			};
@@ -759,6 +773,7 @@ $("#messageNotification_b").jqxNotification({
  					"consignmentPrice": $("#Consignmentprice_u").val(),
  					"consignmentDate": $("#consignmentDate_u").jqxDateTimeInput("getDate"),
  					"sellingPrice": $("#Sellingprice_u").val(),
+				    "isPaid":$("#isPaid_u").is(':checked'),
 				    "condition": $("#conditionDropDown_u").val()
  			}),
  		};
@@ -989,6 +1004,7 @@ function returnItem(row)
  					"consignmentPrice": dataRecord.consignmentPrice,
  					"consignmentDate": dataRecord.consignmentDate,
  					"sellingPrice": dataRecord.sellingPrice,
+				    "isPaid":dataRecord.paid,
 				    "condition": dataRecord.condition
  			}),
  		};

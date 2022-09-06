@@ -218,7 +218,7 @@ CREATE OR REPLACE VIEW public.sales_view
     payment_status ps
   WHERE s.item_id::integer = i.id AND s.client_id::integer = c.id AND i.brand_id::integer = b.id AND s.payment_method_id::integer = pm.id AND s.payment_status::integer = ps.id;
   
-  
+ 
 CREATE OR REPLACE VIEW public.items_view
  AS
  SELECT i.id,
@@ -237,7 +237,8 @@ CREATE OR REPLACE VIEW public.items_view
     i.supp_code,
     i.condition,
     i.is_sold,
-    i.returned_status
+    i.returned_status,
+    i.is_paid
    FROM items i,
     brand b
   WHERE i.brand_id::integer = b.id;

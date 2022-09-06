@@ -68,6 +68,7 @@ public class ItemService {
 	    		        .condition(itemDTO.getCondition())
 	    		        .isSold(itemDTO.getIsSold().equalsIgnoreCase("true")?true:false)
 	    		        .returnedStatus(itemDTO.getReturnedStatus())
+	    		        .isPaid(itemDTO.getIsPaid().equalsIgnoreCase("true")?true:false)
 	    		        .build();
 	     status= StatusEnum.ITEM_SAVED.value;
 	     ItemsView = findByID(itemRepository.save(item).getId());
@@ -90,6 +91,7 @@ public class ItemService {
 			        .condition(itemDTO.getCondition())
 			        .isSold(itemDTO.getIsSold().equalsIgnoreCase("true")?true:false)
 			        .returnedStatus(itemDTO.getReturnedStatus())
+			        .isPaid(itemDTO.getIsPaid().equalsIgnoreCase("true")?true:false)
 			        .build();
 		    status= StatusEnum.ITEM_UPDATED.value;
 		    ItemsView = findByID(itemRepository.save(item).getId());
@@ -112,6 +114,7 @@ public class ItemService {
 				        .condition(itemDTO.getCondition())
 				        .isSold(itemDTO.getIsSold().equalsIgnoreCase("true")?true:false)
 				        .returnedStatus(itemDTO.getReturnedStatus())
+				        .isPaid(itemDTO.getIsPaid().equalsIgnoreCase("true")?true:false)
 				        .build();
 			  status= StatusEnum.ITEM_UPDATED.value;
 			  ItemsView = findByID(itemRepository.save(item).getId());

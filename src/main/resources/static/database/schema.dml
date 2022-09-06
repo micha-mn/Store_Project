@@ -85,3 +85,4 @@ id, param1, parameter_counter, report_code,  report_jrxml_path, report_name, sta
 VALUES (5, 'payment_method',  '1', 'PAYMENTREPORT', '/src/main/resources/static/report/paymentReport.jrxml', 'paymentReport', '/src/main/resources/static/report/');
 
 INSERT INTO configuration_table(id,column_name,table_name,is_hidden) VALUES ('37','returnedStatus','itemsView','TRUE');
+INSERT INTO configuration_table(id,column_name,table_name,is_hidden) VALUES ('38','paid','itemsView','FALSE');

@@ -17,7 +17,11 @@
 	<link id="pagestyle" href="/css/soft-ui-dashboard.css" rel="stylesheet" />
 	<link id="pagestyle" href="/css/modal.css" rel="stylesheet" />
 	<link id="pagestyle" href="/css/bootstrap.min.css" rel="stylesheet" /> </head>
-
+<style>
+div.jqx-grid-cell.jqx-grid-cell-material-purple.jqx-item.jqx-item-material-purple.check > div {
+    margin-left: 0px!important;
+}
+</style>
 <body class="g-sidenav-show  bg-gray-100">
 	<aside class="sidenav navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-3 " id="sidenav-main">
 		<div class="sidenav-header"> <i class="fas fa-times p-3 cursor-pointer text-secondary opacity-5 position-absolute end-0 top-0 d-none d-xl-none" aria-hidden="true" id="iconSidenav"></i>
@@ -274,7 +278,7 @@
 							<div class="form-group col-md-6">
 							<label for="inputSelling price">Selling Price (EUR) </label>
 							<input type="number" class="form-control" id="Sellingprice" placeholder="Selling Price "> </div>
-							
+							<div class="form-group col-md-6">Paid: <input type="checkbox" id="isPaid"></div>
 						<div class="form-row">
 							<div class="form-group col-md-6">
 								<button type="button" id="jqxSaveItem" class="btn bg-gradient-primary mt-4 mb-0">SAVE</button>
@@ -339,8 +343,8 @@
 							<div class="form-group col-md-6">
 							<label for="inputSelling price">Selling Price (EUR) </label>
 							<input type="number" class="form-control" id="Sellingprice_u" placeholder="Selling Price ">
-							
 						 </div>
+						 	<div class="form-group col-md-6">Paid: <input type="checkbox" id="isPaid_u"></div>
 					 </div>	
 					<div class="form-row">
 						<div class="form-group col-md-4 justify-content-between">

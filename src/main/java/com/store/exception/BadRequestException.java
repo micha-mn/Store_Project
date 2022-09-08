@@ -5,6 +5,7 @@ import com.store.enums.FailureEnum;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
+@SuppressWarnings("serial")
 @Data
 @EqualsAndHashCode(callSuper = true)
 public class BadRequestException extends RuntimeException {

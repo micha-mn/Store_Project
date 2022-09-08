@@ -23,7 +23,8 @@ public enum StatusEnum {
     BRAND_EXIST_IN_ITEM("The selected brand cannot be deleted since it is connected to an item."),
     SALES_SAVED("New Sale has been added"),
     SALES_UPDATED("Sale has been updated"),
-    SALES_DELETED("success");
+    SALES_DELETED("success"),
+	SALES_PRICE_SMALLER("Selling price is smaller than payment amount");
 
     public final String value;
 

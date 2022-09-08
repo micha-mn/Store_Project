@@ -1,5 +1,7 @@
 package com.store.controller;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,8 +14,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.store.domain.SalesView;
 import com.store.dto.SalesDTO;
+import com.store.dto.SalesResponceDTO;
 import com.store.enums.FailureEnum;
+import com.store.enums.StatusEnum;
 import com.store.services.PaymentMethodService;
 import com.store.services.SalesService;
 import com.store.utils.ValidationUtils;
@@ -33,7 +38,14 @@ public class SalesController extends ValidationUtils{
 	@PostMapping(value = "save")
     public ResponseEntity<?>  SaveSale(@RequestBody @Valid SalesDTO salesDTO, BindingResult bindingResult ){
 		 validateBindingResults(bindingResult, salesDTO.getAction().equalsIgnoreCase("save")?FailureEnum.SAVE_SALES_FAILED:FailureEnum.UPDATE_SALES_FAILED, serviceName);		
-	  return new ResponseEntity<>(salesService.SaveSale(salesDTO),HttpStatus.OK);
+		 HttpStatus httpStatus;
+			SalesResponceDTO salesResponceDTO = salesService.SaveSale(salesDTO);
+		
+			if (salesResponceDTO.getSalesView() != null)
+				httpStatus = HttpStatus.OK;
+			else 
+				httpStatus = HttpStatus.BAD_REQUEST;
+		 return new ResponseEntity<>(salesResponceDTO,httpStatus);
     }
 	@GetMapping(value = "getall")
 	public ResponseEntity<?> getSales(){

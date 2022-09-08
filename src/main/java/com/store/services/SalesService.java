@@ -30,10 +30,21 @@ public class SalesService {
 	@Autowired
 	PaymentHistoryService paymentHistoryService;
 	
+	public boolean checkPaymentAmount(double price,double paymentAmount) {
+		boolean isGreater = (price>=paymentAmount)?false:true;
+			return isGreater;
+	}
 	public SalesResponceDTO SaveSale(@Valid SalesDTO salesDTO) {
 		Sales sales = null;
-		 Optional<SalesView> salesView =null;
+		Optional<SalesView> salesView =null;
 		String status="";
+		double paymentAmount=((salesDTO.getOtherPayment()!=null)?salesDTO.getOtherPayment():0)+((salesDTO.getCashPayment()!=null)?salesDTO.getCashPayment():0);
+		boolean isGreater=checkPaymentAmount(salesDTO.getTotalPrice(),paymentAmount);
+		if(isGreater)
+		{
+			SalesResponceDTO salesResponceDTO = SalesResponceDTO.builder().salesView(null).Message(StatusEnum.SALES_PRICE_SMALLER.value).build();
+			return salesResponceDTO;
+		}
 		if(salesDTO.getAction().equalsIgnoreCase("save"))
 		{
 			sales = Sales.builder()

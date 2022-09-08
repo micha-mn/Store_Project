@@ -949,7 +949,7 @@ function editRow(row)
 						// $("#otherPayment").val(dataRecord.otherPayment);
 						 $("#deferredPayment").val(dataRecord.deferredPayment);
 					     $("#totalPrice").val(dataRecord.totalPrice);
-					     $("#TotalPayment").val(eval((isNaN(dataRecord.cashPayment)?dataRecord.cashPayment.replaceAll(",",""):dataRecord.cashPayment))+eval(dataRecord.otherPayment));
+					     $("#TotalPayment").val(eval((isNaN(dataRecord.cashPayment)?dataRecord.cashPayment.replaceAll(",",""):dataRecord.cashPayment))+eval((isNaN(dataRecord.otherPayment)?dataRecord.otherPayment.replaceAll(",",""):dataRecord.otherPayment)));
 					     $("#TotalPaymentForm").removeClass("d-none");
 				     // show the popup window.
  					 openWindow('Update - sale','update');
